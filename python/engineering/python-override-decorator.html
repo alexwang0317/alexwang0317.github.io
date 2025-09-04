@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/svg+xml" sizes="any" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta http-equiv="content-security-policy" content="">
+		<link href="../../_app/immutable/assets/_layout.5e1bd186.css" rel="stylesheet">
+		<link href="../../_app/immutable/assets/_page.362d9e74.css" rel="stylesheet">
+		<link rel="modulepreload" href="../../_app/immutable/entry/start.805e736c.js">
+		<link rel="modulepreload" href="../../_app/immutable/chunks/index.5437a47d.js">
+		<link rel="modulepreload" href="../../_app/immutable/chunks/singletons.c5ba00a5.js">
+		<link rel="modulepreload" href="../../_app/immutable/entry/app.bf9d409b.js">
+		<link rel="modulepreload" href="../../_app/immutable/entry/_layout.svelte.595bd6b1.js">
+		<link rel="modulepreload" href="../../_app/immutable/chunks/index.8b5413c5.js">
+		<link rel="modulepreload" href="../../_app/immutable/chunks/stores.56e119d1.js">
+		<link rel="modulepreload" href="../../_app/immutable/entry/_layout.ts.b8f0fca0.js">
+		<link rel="modulepreload" href="../../_app/immutable/chunks/_layout.43150cb7.js">
+		<link rel="modulepreload" href="../../_app/immutable/entry/python-engineering-python-override-decorator-page.svelte.bc1b2374.js">
+		<link rel="modulepreload" href="../../_app/immutable/chunks/Seo.81a06601.js"><title>@override Decorator - Alex Wang</title><!-- HEAD_svelte-1xw0bo2_START --><script async src="https://www.googletagmanager.com/gtag/js?id=UA-156644599-1"></script>
+    <script>window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+      gtag("config", "UA-156644599-1");
+    </script><!-- HEAD_svelte-1xw0bo2_END --><!-- HEAD_svelte-1fbmuei_START --><meta name="description" content="@override decorator prevents inheritance bugs and makes your code more maintainable"><meta property="og:title" content="@override Decorator - Alex Wang"><meta property="og:description" content="@override decorator prevents inheritance bugs and makes your code more maintainable"><meta property="og:image" content="https://www.ekzhang.com/assets/images/hudson-landscape.jpg"><meta name="twitter:card" content="summary_large_image"><!-- HEAD_svelte-1fbmuei_END -->
+  </head>
+  <body>
+    <div>
+
+
+
+
+<header class="layout-md flex justify-between items-start" data-sveltekit-noscroll data-sveltekit-preload-code="eager"><h1 class="font-bold text-black text-2xl mb-6"><a href="/" class="flex flex-col"><span>Alex Lin Wang</span>
+      <span class="text-lg font-normal text-neutral-600">王帅</span></a>
+    </h1>
+  <nav class="svelte-bgdsr9"><a href="/python" class="hover:text-black transition-colors svelte-bgdsr9">python
+      </a><a href="/writing" class="hover:text-black transition-colors svelte-bgdsr9">writing
+      </a><a href="/resume" class="hover:text-black transition-colors svelte-bgdsr9">resume
+      </a></nav>
+</header>
+
+<main>
+
+<article class="layout-md py-12 mx-auto max-w-3xl px-6 svelte-1l0sx6b"><div class="mb-8"><a href="/python" class="text-blue-600 hover:underline text-sm">← Back to Python</a></div>
+
+  <h2 class="heading2">@override Decorator</h2>
+
+  <div class="text-sm text-neutral-500 mb-8">December 3, 2024 • 8 min read</div>
+
+  <div class="text-lg text-neutral-700 mb-8 leading-relaxed">Python&#39;s @override decorator is a simple yet powerful tool to catch
+    inheritance bugs before they cause problems in production. Let&#39;s explore how
+    this feature works and why you should start using it today.
+  </div>
+
+  <div class="prose prose-neutral max-w-none"><p>You&#39;re refactoring a logging system to add file-specific functionality.
+      You have a Logger base class and a FileLogger subclass. You need to
+      override the <code>log()</code> method to handle file-specific logging
+      logic. However, in your haste, you make a typo, naming the method
+      <code>log_to_file()</code>
+      instead of <code>log()</code>.
+    </p>
+
+    <p>Without any checks, your code will run, but the base class&#39;s <code>log()</code> method will be called, not your intended override. This can lead to subtle,
+      hard-to-debug bugs, as the parent method may not have the file-writing logic
+      you&#39;ve implemented.
+    </p>
+
+    <pre><code class="language-python">class Logger:
+    def log(self, message: str) -&gt; None:
+        print(f&quot;LOG: {message}&quot;)
+
+class FileLogger(Logger):
+    # OOPS! Typo here: method name doesn&#39;t match base class
+    def log_to_file(self, message: str, filename: str) -&gt; None:
+        with open(filename, &#39;a&#39;) as f:
+            f.write(f&quot;FILE LOG: {message}\\n&quot;)
+
+# The user&#39;s code expects FileLogger.log to be called, but it won&#39;t be!
+logger = FileLogger()
+logger.log(&quot;System started.&quot;)
+# This will print &quot;LOG: System started.&quot;
+# NOT write to a file as intended!</code></pre>
+
+    <p>The <code>@override</code> decorator from the <code>typing</code> module is
+      a simple yet powerful tool for preventing this exact problem. It explicitly
+      marks a method as an intended override of a parent class method.
+    </p>
+
+    <p>If you use <code>@override</code> and the method doesn&#39;t actually exist in
+      any of the parent classes, type checkers will raise an error. This turns a
+      silent, insidious bug into an error that you can fix right away. By flagging
+      any misspellings or non-existent overrides, it encourages safer object-oriented
+      programming (OOP) practices by reducing accidental bugs.
+    </p>
+
+    <p>Here is a fixed version of that same code:</p>
+
+    <pre><code class="language-python">from typing import override
+
+
+class Logger:
+    def log(self, message: str) -&gt; None:
+        print(f&quot;LOG: {message}&quot;)
+
+
+class FileLogger(Logger):
+    @override  # This will catch the typo!
+    def log_to_file(self, message: str, filename: str) -&gt; None:  # Error: no matching method in parent
+        with open(filename, &#39;a&#39;) as f:
+            f.write(f&quot;FILE LOG: {message}\\n&quot;)</code></pre>
+
+    <p>Any popular type checker would help notice this and tell you about the
+      error:
+    </p>
+    <ul><li><strong>mypy</strong> - Most widely used Python type checker</li>
+      <li><strong>pyright/Pylance</strong> - Microsoft&#39;s type checker (default in VS
+        Code)
+      </li>
+      <li><strong>Pyre</strong> - Meta&#39;s type checker</li>
+      <li><strong>pytype</strong> - Google&#39;s type checker</li></ul>
+
+    <p>The errors would look like this:</p>
+
+    <pre><code class="language-bash"># mypy error: Method &quot;log_to_file&quot; marked with @override does not override anything [misc] 
+# pyright/Pylance Method &quot;log_to_file&quot; overrides nothing 
+# Pyre Invalid override [40]: `log_to_file` is not defined in base classes of `FileLogger`</code></pre>
+
+    <p>Any modern Python development setup with type checking enabled will catch
+      these <code>@override</code> mistakes before your code ever runs, turning silent
+      bugs into immediate, fixable errors.
+    </p></div>
+
+  <div class="border-t pt-8 mt-12"><p class="text-sm text-neutral-500">Questions or feedback? Feel free to reach out!
+    </p></div>
+</article></main>
+
+<footer class="layout-md mt-20 text-lg flex flex-col"><div class="row svelte-1t3hv3r"><span class="svelte-1t3hv3r">Twitter</span>
+    <hr class="svelte-1t3hv3r">
+    <a class="link svelte-1t3hv3r" href="https://twitter.com/alexlinwang">@alexlinwang</a></div>
+  <div class="row svelte-1t3hv3r"><span class="svelte-1t3hv3r">GitHub</span>
+    <hr class="svelte-1t3hv3r">
+    <a class="link svelte-1t3hv3r" href="https://github.com/alexwang0317">@alexwang0317</a></div>
+  <div class="row svelte-1t3hv3r"><span class="svelte-1t3hv3r">Email</span>
+    <hr class="svelte-1t3hv3r">
+    <a class="link svelte-1t3hv3r" href="mailto:alexw17@stanford.edu">alexw17@stanford.edu</a></div>
+</footer>
+
+
+			
+			<script>
+				{
+					__sveltekit_17nyeym = {
+						env: {},
+						base: new URL("../..", location).pathname.slice(0, -1),
+						element: document.currentScript.parentElement
+					};
+
+					const data = [null,null];
+
+					Promise.all([
+						import("../../_app/immutable/entry/start.805e736c.js"),
+						import("../../_app/immutable/entry/app.bf9d409b.js")
+					]).then(([kit, app]) => {
+						kit.start(app, __sveltekit_17nyeym.element, {
+							node_ids: [0, 7],
+							data,
+							form: null,
+							error: null
+						});
+					});
+				}
+			</script>
+		</div>
+  </body>
+</html>

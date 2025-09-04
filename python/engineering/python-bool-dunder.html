@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/svg+xml" sizes="any" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta http-equiv="content-security-policy" content="">
+		<link href="../../_app/immutable/assets/_layout.5e1bd186.css" rel="stylesheet">
+		<link href="../../_app/immutable/assets/_page.362d9e74.css" rel="stylesheet">
+		<link rel="modulepreload" href="../../_app/immutable/entry/start.805e736c.js">
+		<link rel="modulepreload" href="../../_app/immutable/chunks/index.5437a47d.js">
+		<link rel="modulepreload" href="../../_app/immutable/chunks/singletons.c5ba00a5.js">
+		<link rel="modulepreload" href="../../_app/immutable/entry/app.bf9d409b.js">
+		<link rel="modulepreload" href="../../_app/immutable/entry/_layout.svelte.595bd6b1.js">
+		<link rel="modulepreload" href="../../_app/immutable/chunks/index.8b5413c5.js">
+		<link rel="modulepreload" href="../../_app/immutable/chunks/stores.56e119d1.js">
+		<link rel="modulepreload" href="../../_app/immutable/entry/_layout.ts.b8f0fca0.js">
+		<link rel="modulepreload" href="../../_app/immutable/chunks/_layout.43150cb7.js">
+		<link rel="modulepreload" href="../../_app/immutable/entry/python-engineering-python-bool-dunder-page.svelte.ab0dee6e.js">
+		<link rel="modulepreload" href="../../_app/immutable/chunks/Seo.81a06601.js"><title>__bool__ Dunder - Alex Wang</title><!-- HEAD_svelte-1xw0bo2_START --><script async src="https://www.googletagmanager.com/gtag/js?id=UA-156644599-1"></script>
+    <script>window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+      gtag("config", "UA-156644599-1");
+    </script><!-- HEAD_svelte-1xw0bo2_END --><!-- HEAD_svelte-1fbmuei_START --><meta name="description" content="Understanding Python's __bool__ dunder method for truthiness evaluation"><meta property="og:title" content="__bool__ Dunder - Alex Wang"><meta property="og:description" content="Understanding Python's __bool__ dunder method for truthiness evaluation"><meta property="og:image" content="https://www.ekzhang.com/assets/images/hudson-landscape.jpg"><meta name="twitter:card" content="summary_large_image"><!-- HEAD_svelte-1fbmuei_END -->
+  </head>
+  <body>
+    <div>
+
+
+
+
+<header class="layout-md flex justify-between items-start" data-sveltekit-noscroll data-sveltekit-preload-code="eager"><h1 class="font-bold text-black text-2xl mb-6"><a href="/" class="flex flex-col"><span>Alex Lin Wang</span>
+      <span class="text-lg font-normal text-neutral-600">王帅</span></a>
+    </h1>
+  <nav class="svelte-bgdsr9"><a href="/python" class="hover:text-black transition-colors svelte-bgdsr9">python
+      </a><a href="/writing" class="hover:text-black transition-colors svelte-bgdsr9">writing
+      </a><a href="/resume" class="hover:text-black transition-colors svelte-bgdsr9">resume
+      </a></nav>
+</header>
+
+<main>
+
+<article class="layout-md py-12 mx-auto max-w-3xl px-6 svelte-1l0sx6b"><div class="mb-8"><a href="/python" class="text-blue-600 hover:underline text-sm">← Back to Python</a></div>
+
+  <h1 class="text-3xl font-bold mb-4">__bool__ Dunder</h1>
+
+  <div class="text-sm text-neutral-500 mb-8">December 3, 2024 • 6 min read</div>
+
+  <div class="text-lg text-neutral-700 mb-8 leading-relaxed">Understanding Python&#39;s __bool__ dunder method for truthiness evaluation in
+    custom classes. Learn how to make your objects work naturally with if
+    statements and boolean operations.
+  </div>
+
+  <div class="prose prose-neutral max-w-none"><p>Let&#39;s say for example you are building a cache class and you want to
+      operate on this cache class. However, you want to fetch some user from the
+      cache, only if it&#39;s there, but you&#39;re having problems with this.
+    </p>
+
+    <pre><code class="language-python">class SimpleCache:
+    def __init__(self):
+        self._data = {}
+    def set(self, key, value):
+        self._data[key] = value
+    def get(self, key, default=None):
+        return self._data.get(key, default)
+…
+
+def fetch_user(cache, user_id):
+    if not cache:  # natural, just like a dict or list
+        print(&quot;Cache empty, querying DB...&quot;)
+        data = {\&quot;id\&quot;: user_id, \&quot;name\&quot;: \&quot;Alex\&quot;&#39;}&#39;}
+        cache.set(user_id, data)
+    else:
+        print(&quot;Using cache&quot;)
+    return cache.get(user_id)</code></pre>
+
+    <p>One core component of idiomatic python is evaluating truthfulness of
+      objects in a Boolean way when using things like <code>if</code>,
+      <code>while</code>, and <code>not</code>. For lots of existing types we
+      see existing false groups:
+    </p>
+
+    <ul><li>Constants such as <code>None</code> and <code>False</code></li>
+      <li>Zero of any type</li>
+      <li>Empty Sequence/collections</li></ul>
+
+    <p>As well as existing True objects like:</p>
+
+    <ul><li>Non-zero numbers: <code>1</code>, <code>-2</code>, <code>0.5</code>,
+        <code>1+0j</code></li>
+      <li>Non-empty strings: <code>&quot;0&quot;</code>, <code>&quot;False&quot;</code>,
+        <code>&quot; &quot;</code>, <code>&quot;hello&quot;</code></li>
+      <li>Non-empty collections: <code>[0]</code>, <code>(None,)</code>,
+        <code>{0}</code>, <code>{\&quot;k\&quot;: 1}</code>,
+        <code>{1}</code>, <code>range(1)</code></li>
+      <li>Non-empty bytes-like: <code>b&quot;\x00&quot;</code>,
+        <code>bytearray(b&quot;\x00&quot;)</code>, <code>memoryview(b&quot;x&quot;)</code></li>
+      <li>Objects &amp; callables</li></ul>
+
+    <p>For our custom object that we create, Python uses <code>__bool__</code>
+      (or <code>__len__</code> if <code>__bool__</code> doesn&#39;t exist) to determine
+      object truthfulness.
+    </p>
+
+    <p><code>__bool__</code> is a dunder (double underscore) which basically
+      means it&#39;s a special function used to define your own python operations.
+      Other examples include the widely used <code>__init__</code>,
+      <code>__len__</code>, and <code>__str__</code> or other operators.
+    </p>
+
+    <p>To use it, we want to return <code>True</code> or <code>False</code> based
+      on if the instance of that class is should be empty or not a valid instance
+      such as in the example that a cache has no data then:
+    </p>
+
+    <pre><code class="language-python">class SimpleCache:
+    def __init__(self):
+        self._data = {}
+
+    def set(self, key, value):
+        self._data[key] = value
+
+    def get(self, key, default=None):
+        return self._data.get(key, default)
+
+    def __bool__(self):
+        return len(self._data) &gt; 0
+
+# Now this function works perfectly!
+def fetch_user(cache, user_id):
+    if not cache:  # natural, just like a dict or list
+        print(&quot;Cache empty, querying DB...&quot;)
+        data = {\&quot;id\&quot;: user_id, \&quot;name\&quot;: \&quot;Alex\&quot;&#39;}&#39;}
+        cache.set(user_id, data)
+    else:
+        print(&quot;Using cache&quot;)
+
+    return cache.get(user_id)</code></pre>
+
+    <h2>Advantages of This Approach</h2>
+
+    <ul><li><strong>Readability:</strong> Conditions like <code>if not cache:</code>
+        are natural and concise when emptiness means &quot;no useful state&quot;.
+      </li>
+      <li><strong>Simplified conditionals:</strong> You avoid sprinkling
+        <code>len(cache._data) == 0</code>
+        or <code>not cache._data</code> throughout the codebase.
+      </li>
+      <li><strong>Encapsulation &amp; consistency:</strong> One canonical definition of
+        &quot;empty/invalid&quot; lives in the class, preventing ad-hoc checks that drift over
+        time.
+      </li></ul></div>
+
+  <div class="border-t pt-8 mt-12"><p class="text-sm text-neutral-500">Questions or feedback? Feel free to reach out!
+    </p></div>
+</article></main>
+
+<footer class="layout-md mt-20 text-lg flex flex-col"><div class="row svelte-1t3hv3r"><span class="svelte-1t3hv3r">Twitter</span>
+    <hr class="svelte-1t3hv3r">
+    <a class="link svelte-1t3hv3r" href="https://twitter.com/alexlinwang">@alexlinwang</a></div>
+  <div class="row svelte-1t3hv3r"><span class="svelte-1t3hv3r">GitHub</span>
+    <hr class="svelte-1t3hv3r">
+    <a class="link svelte-1t3hv3r" href="https://github.com/alexwang0317">@alexwang0317</a></div>
+  <div class="row svelte-1t3hv3r"><span class="svelte-1t3hv3r">Email</span>
+    <hr class="svelte-1t3hv3r">
+    <a class="link svelte-1t3hv3r" href="mailto:alexw17@stanford.edu">alexw17@stanford.edu</a></div>
+</footer>
+
+
+			
+			<script>
+				{
+					__sveltekit_17nyeym = {
+						env: {},
+						base: new URL("../..", location).pathname.slice(0, -1),
+						element: document.currentScript.parentElement
+					};
+
+					const data = [null,null];
+
+					Promise.all([
+						import("../../_app/immutable/entry/start.805e736c.js"),
+						import("../../_app/immutable/entry/app.bf9d409b.js")
+					]).then(([kit, app]) => {
+						kit.start(app, __sveltekit_17nyeym.element, {
+							node_ids: [0, 5],
+							data,
+							form: null,
+							error: null
+						});
+					});
+				}
+			</script>
+		</div>
+  </body>
+</html>

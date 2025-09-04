@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/svg+xml" sizes="any" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta http-equiv="content-security-policy" content="">
+		<link href="../../_app/immutable/assets/_layout.5e1bd186.css" rel="stylesheet">
+		<link href="../../_app/immutable/assets/_page.362d9e74.css" rel="stylesheet">
+		<link rel="modulepreload" href="../../_app/immutable/entry/start.805e736c.js">
+		<link rel="modulepreload" href="../../_app/immutable/chunks/index.5437a47d.js">
+		<link rel="modulepreload" href="../../_app/immutable/chunks/singletons.c5ba00a5.js">
+		<link rel="modulepreload" href="../../_app/immutable/entry/app.bf9d409b.js">
+		<link rel="modulepreload" href="../../_app/immutable/entry/_layout.svelte.595bd6b1.js">
+		<link rel="modulepreload" href="../../_app/immutable/chunks/index.8b5413c5.js">
+		<link rel="modulepreload" href="../../_app/immutable/chunks/stores.56e119d1.js">
+		<link rel="modulepreload" href="../../_app/immutable/entry/_layout.ts.b8f0fca0.js">
+		<link rel="modulepreload" href="../../_app/immutable/chunks/_layout.43150cb7.js">
+		<link rel="modulepreload" href="../../_app/immutable/entry/python-engineering-python-functools-partial-page.svelte.0d83ec0c.js">
+		<link rel="modulepreload" href="../../_app/immutable/chunks/Seo.81a06601.js"><title>functools.partial - Alex Wang</title><!-- HEAD_svelte-1xw0bo2_START --><script async src="https://www.googletagmanager.com/gtag/js?id=UA-156644599-1"></script>
+    <script>window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+      gtag("config", "UA-156644599-1");
+    </script><!-- HEAD_svelte-1xw0bo2_END --><!-- HEAD_svelte-1fbmuei_START --><meta name="description" content="functools.partial for elegant function composition and cleaner code"><meta property="og:title" content="functools.partial - Alex Wang"><meta property="og:description" content="functools.partial for elegant function composition and cleaner code"><meta property="og:image" content="https://www.ekzhang.com/assets/images/hudson-landscape.jpg"><meta name="twitter:card" content="summary_large_image"><!-- HEAD_svelte-1fbmuei_END -->
+  </head>
+  <body>
+    <div>
+
+
+
+
+<header class="layout-md flex justify-between items-start" data-sveltekit-noscroll data-sveltekit-preload-code="eager"><h1 class="font-bold text-black text-2xl mb-6"><a href="/" class="flex flex-col"><span>Alex Lin Wang</span>
+      <span class="text-lg font-normal text-neutral-600">王帅</span></a>
+    </h1>
+  <nav class="svelte-bgdsr9"><a href="/python" class="hover:text-black transition-colors svelte-bgdsr9">python
+      </a><a href="/writing" class="hover:text-black transition-colors svelte-bgdsr9">writing
+      </a><a href="/resume" class="hover:text-black transition-colors svelte-bgdsr9">resume
+      </a></nav>
+</header>
+
+<main>
+
+<article class="layout-md py-12 mx-auto max-w-3xl px-6 svelte-1l0sx6b"><div class="mb-8"><a href="/python" class="text-blue-600 hover:underline text-sm">← Back to Python</a></div>
+
+  <h1 class="text-3xl font-bold mb-4">functools.partial</h1>
+
+  <div class="text-sm text-neutral-500 mb-8">December 3, 2024 • 5 min read</div>
+
+  <div class="text-lg text-neutral-700 mb-8 leading-relaxed">Master Python&#39;s functools.partial for elegant function composition and
+    cleaner code. Learn how to eliminate repetitive function calls and create
+    more maintainable codebases.
+  </div>
+
+  <div class="prose prose-neutral max-w-none"><p>You may find yourself in a situation where you need to call the same
+      function repeatedly with mostly identical parameters. For instance,
+      imagine you&#39;re building an application that frequently sends notifications
+      through an email service. You might need to send emails with specific
+      sender information, SMTP configuration, formatting preferences, retry
+      settings, and logging options. This results in you calling the email
+      function over and over with the same fixed arguments:
+    </p>
+
+    <pre><code class="language-python"># You end up with repetitive calls like this throughout your codebase
+send_email(
+    smtp_host=&#39;smtp.company.com&#39;,
+    smtp_port=587,
+    sender_email=&#39;noreply@company.com&#39;,
+    sender_name=&#39;Company Notifications&#39;,
+    use_tls=True,
+    retry_attempts=3,
+    retry_delay=30,
+    log_level=&#39;INFO&#39;,
+    template_engine=&#39;jinja2&#39;,
+    to_email=&#39;user1@example.com&#39;,
+    subject=&#39;Welcome to our service&#39;,
+    template=&#39;welcome_email.html&#39;,
+    context={username&#39;: &#39;john_doe&#39;}
+)</code></pre>
+
+    <p>This repetition creates several problems: your code becomes <strong>verbose</strong>
+      and <strong>harder to scan</strong>, you&#39;re constantly filling in the same
+      parameter values, and if you need to change the common settings (like the
+      SMTP host or retry configuration), you&#39;d have to hunt down and update
+      every single function call. This makes your code less maintainable and
+      difficult to read/write.
+    </p>
+
+    <pre><code class="language-python">from functools import partial
+
+# Create a partial function with all the common email configuration
+company_email = partial(
+    send_email,
+    smtp_host=&#39;smtp.company.com&#39;,
+    smtp_port=587,
+    sender_email=&#39;noreply@company.com&#39;,
+    sender_name=&#39;Company Notifications&#39;,
+    use_tls=True,
+    retry_attempts=3,
+    retry_delay=30,
+    log_level=&#39;INFO&#39;,
+    template_engine=&#39;jinja2&#39;
+)
+
+# You can also create more specific partials for different use cases
+urgent_notification = partial(
+    company_email,
+    retry_attempts=5,
+    retry_delay=10,
+    template=&#39;urgent_alert.html&#39;
+)
+
+
+# Now your calls become much cleaner and focused.
+welcome_email(to_email=&#39;newuser@example.com&#39;, context={username&#39;: &#39;jane_smith&#39;})</code></pre>
+
+    <p><code>functools.partial</code> allows you to &quot;freeze&quot; arguments and keywords,
+      creating a simplified function with fewer parameters. When configuration values
+      stay constant across multiple calls, partial eliminates the repetitive boilerplate.
+    </p>
+
+    <p>This may be useful for:</p>
+    <ul><li>API clients with consistent authentication headers</li>
+      <li>Database connections with standard timeout and pool settings</li>
+      <li>File processors with common parsing configurations</li>
+      <li>Test fixtures requiring repeated setup parameters</li></ul>
+
+    <h2>Important Behavior with Mutable vs Immutable Arguments</h2>
+
+    <p>When declaring <code>functools.partial</code>, recognize that any
+      immutable argument types will use the values declared at creation time,
+      while changes to mutable argument types do affect partials.
+    </p>
+
+    <pre><code class="language-python"># 1. Immutable vs Mutable behavior
+def process_data(base_value, multiplier):
+    return base_value * multiplier
+
+# Immutable example - value frozen at creation time
+initial_base = 10
+multiply_by_base = partial(process_data, initial_base)
+
+initial_base = 20  # This won&#39;t affect the partial
+print(multiply_by_base(5))  # Output: 50 (still uses 10)
+
+# Mutable example - changes affect the partial
+config_dict = {timeout&#39;: 30}
+
+def connect_database(host, port, config):
+    return f&quot;Connecting to {host}:{port} with timeout {config[&#39;timeout&#39;]}&quot;
+
+db_connector = partial(connect_database, config=config_dict)
+
+config_dict[&#39;timeout&#39;] = 60  # This WILL affect the partial
+print(db_connector(&#39;localhost&#39;, 5432))  # Output: &quot;...timeout 60&quot;</code></pre>
+
+    <p><strong>Tip:</strong> Use keyword arguments in your partials for readability.
+    </p></div>
+
+  <div class="border-t pt-8 mt-12"><p class="text-sm text-neutral-500">Questions or feedback? Feel free to reach out!
+    </p></div>
+</article></main>
+
+<footer class="layout-md mt-20 text-lg flex flex-col"><div class="row svelte-1t3hv3r"><span class="svelte-1t3hv3r">Twitter</span>
+    <hr class="svelte-1t3hv3r">
+    <a class="link svelte-1t3hv3r" href="https://twitter.com/alexlinwang">@alexlinwang</a></div>
+  <div class="row svelte-1t3hv3r"><span class="svelte-1t3hv3r">GitHub</span>
+    <hr class="svelte-1t3hv3r">
+    <a class="link svelte-1t3hv3r" href="https://github.com/alexwang0317">@alexwang0317</a></div>
+  <div class="row svelte-1t3hv3r"><span class="svelte-1t3hv3r">Email</span>
+    <hr class="svelte-1t3hv3r">
+    <a class="link svelte-1t3hv3r" href="mailto:alexw17@stanford.edu">alexw17@stanford.edu</a></div>
+</footer>
+
+
+			
+			<script>
+				{
+					__sveltekit_17nyeym = {
+						env: {},
+						base: new URL("../..", location).pathname.slice(0, -1),
+						element: document.currentScript.parentElement
+					};
+
+					const data = [null,null];
+
+					Promise.all([
+						import("../../_app/immutable/entry/start.805e736c.js"),
+						import("../../_app/immutable/entry/app.bf9d409b.js")
+					]).then(([kit, app]) => {
+						kit.start(app, __sveltekit_17nyeym.element, {
+							node_ids: [0, 6],
+							data,
+							form: null,
+							error: null
+						});
+					});
+				}
+			</script>
+		</div>
+  </body>
+</html>
