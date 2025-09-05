@@ -16,7 +16,7 @@
   writer<span class="g">.</span>
 </p>
 
-<div class="layout-md text-lg space-y-14">
+<div class="layout-md text-lg space-y-8">
   <div class="space-y-5">
     <p>
       I'm currently a undergraduate at Stanford studying Math and CS (systems +
@@ -31,8 +31,24 @@
     </p>
   </div>
 
+  <div class="space-y-5">
+    <p>
+      Previously, I worked at <a class="link" href="https://www.meta.com/about/"
+        >Meta</a
+      >, <a class="link" href="https://stanfordasl.github.io/">Stanford ASL</a>,
+      <a class="link" href="https://biostate.ai/">Biostate AI</a>,
+      <a class="link" href="https://drorlab.stanford.edu/">Dror Lab</a>, and
+      <a class="link" href="https://www.afrl.af.mil/"
+        >Air Force Research Laboratory</a
+      >. In my freetime, I write about agency, Python, and AI research. I also
+      sing tenor with the
+      <a class="link" href="https://stanfordmendicants.com/"
+        >Stanford Mendicants</a
+      > and play guitar.
+    </p>
+  </div>
+
   <div class="leading-snug space-y-4">
-    <h2 class="pb-2">Projects</h2>
     <p>Here are some projects I've worked on in the past:</p>
 
     <ol class="list-decimal pl-6 space-y-1">
@@ -86,23 +102,6 @@
         >
       </li>
     </ol>
-  </div>
-
-  <div class="space-y-5">
-    <p>
-      Previously, I worked at <a class="link" href="https://www.meta.com/about/"
-        >Meta</a
-      >, <a class="link" href="https://stanfordasl.github.io/">Stanford ASL</a>,
-      <a class="link" href="https://biostate.ai/">Biostate AI</a>,
-      <a class="link" href="https://drorlab.stanford.edu/">Dror Lab</a>, and
-      <a class="link" href="https://www.afrl.af.mil/"
-        >Air Force Research Laboratory</a
-      >. In my freetime, I write about agency, Python, and AI research. I also
-      sing tenor with the
-      <a class="link" href="https://stanfordmendicants.com/"
-        >Stanford Mendicants</a
-      > and play guitar.
-    </p>
   </div>
 </div>
 
