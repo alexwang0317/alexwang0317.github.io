@@ -4,15 +4,15 @@
 
 <Seo
   title="Alex Wang"
-  description="Software engineer, researcher, and Writer. "
+  description="Student, software engineer, and writer. "
 />
 
 <p
   class="layout-md text-black text-xl leading-tight font-light mb-16"
   id="eric-is"
 >
-  <span class="g">is a</span> software engineer<span class="g">,</span><br />
-  researcher<span class="g">, and</span><br />
+  <span class="g">is a</span> student<span class="g">,</span><br />
+  software engineer<span class="g">, and</span><br />
   writer<span class="g">.</span>
 </p>
 

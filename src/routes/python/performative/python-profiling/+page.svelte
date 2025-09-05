@@ -54,7 +54,7 @@
   <div class="text-sm text-neutral-500 mb-8">September 5, 2025 • 15 min read</div>
 
   <div class="text-lg text-neutral-700 mb-8 leading-relaxed italic">
-    "Premature Optimization is root of all Evil" - Donald Knuth
+    "Premature optimization is the root of all evil" - Donald Knuth
   </div>
 
   <div class="prose prose-neutral max-w-none">
@@ -90,15 +90,14 @@
     </ul>
 
     <p>
-      As a heads-up the implementation that is used in here is deliberately the simplest/least-optimal one. 
-      Feel free to follow along in this jupyter notebook.
+      As a heads-up, the implementation that is used here is deliberately the simplest/least-optimal one. Feel free to follow along in this jupyter notebook.
     </p>
 
     <h2>Print & Time Statements</h2>
 
     <p>
       The simplest way to profile would most definitely be to just use time and print statements. 
-      Print statements are already super useful in debugging, so why not profiling as well.
+      Print statements are already super useful in debugging, so why not profiling as well?
     </p>
 
     <p>
@@ -111,7 +110,7 @@ t2 = time.time()
 print(f"Function took {'{'}t2-t1{'}'} seconds")</code></pre>
 
     <p>
-      A better way of doing this, is to define some type of decorator in order to automate our timing measurements.
+      A better way of doing this is to define some type of decorator in order to automate our timing measurements.
     </p>
 
     <pre><code class="language-python">from functools import wraps 
@@ -137,7 +136,7 @@ def timePrintFn(fn):
 
     <p>
       Another general method for doing this is using the <code>%timeit</code> method. The <code>%timeit</code> 
-      method is just simply using the python command, and running it in the command line. With two major 
+      method is simply using the Python command and running it in the command line. With two major 
       flags, you choose how many times to call the function consecutively where the final time is the 
       total time for all the calls divided by the number of calls. Then you specify the number of runs 
       which is the number of times the above operation is conducted.
@@ -166,7 +165,7 @@ R = 1  # of runs
     <h2>cProfile</h2>
 
     <p>
-      cProfile is the faster of the two profilers in standard python library because it's written in C.
+      cProfile is the faster of the two profilers in the standard Python library because it's written in C.
     </p>
 
     <p>
@@ -291,6 +290,8 @@ $ snakeviz matmul.stat</code></pre>
     <p>
       You can then sort by various strategies like cumtime, percall, or ncalls.
     </p>
+
+    <img src="/assets/images/Flame_graph.png" alt="SnakeViz flame graph visualization" class="w-full rounded-lg shadow-lg my-6" />
 
     <h2>Line Profiler</h2>
 
@@ -482,6 +483,9 @@ Line #      Hits         Time  Per Hit   % Time  Line Contents
   </div>
 
   <div class="border-t pt-8 mt-12">
+    <p class="text-sm text-neutral-600 mb-4">
+      Thanks to <a href="https://www.dkzhang.com/" class="text-blue-600 hover:underline">David Zhang</a> for the helpful comments.
+    </p>
     <p class="text-sm text-neutral-500">
       Questions or feedback? Feel free to reach out!
     </p>
