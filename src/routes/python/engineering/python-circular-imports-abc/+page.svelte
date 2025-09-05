@@ -45,7 +45,7 @@
 
   <h1 class="text-3xl font-bold mb-4">Interface Stubs</h1>
 
-  <div class="text-sm text-neutral-500 mb-8">January 5, 2025 • 4 min read</div>
+  <div class="text-sm text-neutral-500 mb-8">September 1, 2025 • 4 min read</div>
 
   <div class="text-lg text-neutral-700 mb-8 leading-relaxed">
     Learn how to resolve circular import dependencies using Python's Abstract Base Classes (ABC). 

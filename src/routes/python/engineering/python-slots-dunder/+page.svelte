@@ -45,7 +45,7 @@
 
   <h1 class="text-3xl font-bold mb-4">__slots__</h1>
 
-  <div class="text-sm text-neutral-500 mb-8">December 19, 2025 • 5 min read</div>
+  <div class="text-sm text-neutral-500 mb-8">August 28, 2025 • 5 min read</div>
 
   <div class="text-lg text-neutral-700 mb-8 leading-relaxed">
     Optimize memory usage and improve performance with Python's __slots__. Learn how to replace 

@@ -1,2 +1,6 @@
 posts:
-  # Placeholder for future performative Python posts
+  - title: "Python Profiling"
+    date: 2025-09-05
+    summary: >
+      Master Python profiling techniques to optimize performance and avoid premature optimization
+    link: "/python/performative/python-profiling"

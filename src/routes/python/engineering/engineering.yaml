@@ -1,51 +1,51 @@
 posts:
   - title: "Lazy Logging"
-    date: 2025-01-05
+    date: 2025-09-04
     summary: >
       Optimize Python logging performance with lazy evaluation techniques
     link: "/python/engineering/python-lazy-logging"
   - title: "Interface Stubs"
-    date: 2025-01-05
+    date: 2025-09-01
     summary: >
       Resolve circular imports using Abstract Base Classes for cleaner module dependencies
     link: "/python/engineering/python-circular-imports-abc"
   - title: "__slots__"
-    date: 2025-12-19
+    date: 2025-08-28
     summary: >
       __slots__ for compact and faster object storage
     link: "/python/engineering/python-slots-dunder"
   - title: "TypedDict"
-    date: 2025-09-06
+    date: 2025-08-24
     summary: >
       TypedDict for type-safe dictionaries with optional keys
     link: "/python/engineering/python-typeddict"
   - title: "__bool__"
-    date: 2025-08-02
+    date: 2025-08-20
     summary: >
       __bool__ dunder method for truthiness evaluation
     link: "/python/engineering/python-bool-dunder"
   - title: "__all__"
-    date: 2025-01-05
+    date: 2025-08-16
     summary: >
       Control module exports explicitly with Python's __all__
     link: "/python/engineering/python-all-dunder"
   - title: "Enum Magic"
-    date: 2025-09-03
+    date: 2025-08-12
     summary: >
       Enum, StrEnum, IntEnum, and Flags for type-safe constants
     link: "/python/engineering/python-enum-magic"
   - title: "TypeGuard"
-    date: 2025-08-27
+    date: 2025-08-08
     summary: >
       TypeGuard for type narrowing and better type safety
     link: "/python/engineering/python-typeguard"
   - title: "ABC (Abstract Base Classes)"
-    date: 2025-01-03
+    date: 2025-08-04
     summary: >
       Enforce method implementation at instantiation time with Python's ABC
     link: "/python/engineering/python-abc"
   - title: "Self"
-    date: 2025-08-15
+    date: 2025-07-28
     summary: >
       Self type hint for better type safety
     link: "/python/engineering/python-self-typing"

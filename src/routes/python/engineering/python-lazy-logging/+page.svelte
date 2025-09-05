@@ -45,7 +45,7 @@
 
   <h1 class="text-3xl font-bold mb-4">Lazy Logging</h1>
 
-  <div class="text-sm text-neutral-500 mb-8">January 5, 2025 • 5 min read</div>
+  <div class="text-sm text-neutral-500 mb-8">September 4, 2025 • 5 min read</div>
 
   <div class="text-lg text-neutral-700 mb-8 leading-relaxed">
     Learn how to optimize Python logging performance with lazy evaluation techniques. 
