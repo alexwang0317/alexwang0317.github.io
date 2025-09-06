@@ -45,15 +45,19 @@
 
   <h1 class="text-3xl font-bold mb-4">Patch Stack</h1>
 
-  <div class="text-sm text-neutral-500 mb-8">September 6, 2025 • 6 min read</div>
+  <div class="text-sm text-neutral-500 mb-8">
+    September 6, 2025 • 6 min read
+  </div>
 
   <div class="text-lg text-neutral-700 mb-8 leading-relaxed">
-    ExitStack-powered teardown for reliable tests when cramming several cases into one test method.
+    ExitStack-powered teardown for reliable tests when cramming several cases
+    into one test method.
   </div>
 
   <div class="prose prose-neutral max-w-none">
     <p>
-      When you cram several cases into one test method (e.g., via a data provider), you get multiple problems:
+      When you cram several cases into one test method (e.g., via a data
+      provider), you get multiple problems:
     </p>
 
     <ul>
@@ -63,22 +67,29 @@
     </ul>
 
     <p>
-      You should treat each method as a separate test, but to fix this cleanly you should split cases into separate methods while keeping them clean by deduplicating the mocking.
+      You should treat each method as a separate test, but to fix this cleanly
+      you should split cases into separate methods while keeping them clean by
+      deduplicating the mocking.
     </p>
 
     <h2>The Solution: Context Manager for Mocking</h2>
 
     <p>
-      To solve this, use a context manager for mocking. Create a small callable class that:
+      To solve this, use a context manager for mocking. Create a small callable
+      class that:
     </p>
 
     <ul>
-      <li>Sets up all patches in <code>__enter__</code>, stores the <code>MagicMock</code> as attributes</li>
+      <li>
+        Sets up all patches in <code>__enter__</code>, stores the
+        <code>MagicMock</code> as attributes
+      </li>
       <li>Accepts arguments to tweak behavior per test</li>
       <li>Tears everything down in <code>__exit__</code></li>
     </ul>
 
-    <pre><code class="language-python">from unittest import TestCase
+    <pre><code class="language-python"
+        >from unittest import TestCase
 from unittest.mock import patch
 
 class MyMockContext:
@@ -126,29 +137,36 @@ class MyServiceTests(TestCase):
     def test_guest_user(self):
         with MyMockContext(user_role="guest"):
             result = do_the_thing()
-            self.assertEqual(result, "guest-access")</code></pre>
+            self.assertEqual(result, "guest-access")</code
+      ></pre>
 
     <h2>Benefits of This Approach</h2>
 
     <ul>
       <li>
-        <strong>Isolation by design:</strong> One case per method → TestX can quarantine just the flaky one. No data-provider "mega test" taking others down
+        <strong>Isolation by design:</strong> One case per method → TestX can quarantine
+        just the flaky one. No data-provider "mega test" taking others down
       </li>
       <li>
-        <strong>Teardown you can't forget:</strong> The context manager guarantees patches stop, preventing state leaks and flaky tests
+        <strong>Teardown you can't forget:</strong> The context manager guarantees
+        patches stop, preventing state leaks and flaky tests
       </li>
       <li>
-        <strong>Refactor + Change friendly:</strong> When mocking strategy changes, you edit one place; all tests inherit it. Smaller diffs, fewer mistakes
+        <strong>Refactor + Change friendly:</strong> When mocking strategy changes,
+        you edit one place; all tests inherit it. Smaller diffs, fewer mistakes
       </li>
     </ul>
 
     <h2>Advanced Usage with ExitStack</h2>
 
     <p>
-      For more complex scenarios with multiple patches, you can leverage <code>ExitStack</code> to manage them all:
+      For more complex scenarios with multiple patches, you can leverage <code
+        >ExitStack</code
+      > to manage them all:
     </p>
 
-    <pre><code class="language-python">from contextlib import ExitStack
+    <pre><code class="language-python"
+        >from contextlib import ExitStack
 from unittest.mock import patch
 
 class AdvancedMockContext:
@@ -163,7 +181,7 @@ class AdvancedMockContext:
         for key, value in self.config.items():
             if key.startswith('mock_'):
                 target = key.replace('mock_', '').replace('_', '.')
-                patcher = patch(f"app.{'{'}target{'}'}", return_value=value)
+                patcher = patch(f"app.{"{"}target{"}"}", return_value=value)
                 mock = self.stack.enter_context(patcher)
                 self.mocks[key] = mock
                 
@@ -181,10 +199,13 @@ class FlexibleServiceTests(TestCase):
         ) as ctx:
             result = complex_operation()
             # Can access mocks via ctx.mocks if needed
-            ctx.mocks['mock_auth_get_user'].assert_called_once()</code></pre>
+            ctx.mocks['mock_auth_get_user'].assert_called_once()</code
+      ></pre>
 
     <p>
-      This pattern ensures your tests remain maintainable, isolated, and reliable while reducing boilerplate and preventing common mocking pitfalls.
+      This pattern ensures your tests remain maintainable, isolated, and
+      reliable while reducing boilerplate and preventing common mocking
+      pitfalls.
     </p>
   </div>
 

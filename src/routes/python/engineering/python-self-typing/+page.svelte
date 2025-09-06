@@ -48,16 +48,21 @@
   <div class="text-sm text-neutral-500 mb-8">August 15, 2025 • 6 min read</div>
 
   <div class="text-lg text-neutral-700 mb-8 leading-relaxed">
-    Understanding Python's Self type hint for better type safety and method chaining.
-    Learn how to properly annotate methods that return the current instance.
+    Understanding Python's Self type hint for better type safety and method
+    chaining. Learn how to properly annotate methods that return the current
+    instance.
   </div>
 
   <div class="prose prose-neutral max-w-none">
     <p>
-      Imagine you are writing a class that returns the current object in python such as when you want to allow for method-chaining in a sequence of calls, or using a setter-like method. For the type annotations here, two common ways other devs write this is:
+      Imagine you are writing a class that returns the current object in python
+      such as when you want to allow for method-chaining in a sequence of calls,
+      or using a setter-like method. For the type annotations here, two common
+      ways other devs write this is:
     </p>
 
-    <pre><code class="language-python"># String forward reference
+    <pre><code class="language-python"
+        ># String forward reference
 class MyBuilder:
     def __init__(self): self.name = ""
     def set_name(self, name: str) -> "MyBuilder":
@@ -68,39 +73,49 @@ class MyBuilder:
     def __init__(self): self.name = ""
     def set_name(self, name: str) -> MyBuilder:
         self.name = name
-        return self</code></pre>
+        return self</code
+      ></pre>
 
-    <p>
-      However, this causes two major problems where:
-    </p>
+    <p>However, this causes two major problems where:</p>
 
     <ul>
-      <li><strong>Refactoring:</strong> The return type of either the string 'MyBuilder' or class name MyBuilder will make refactoring difficult.</li>
-      <li><strong>Subclassing:</strong> If you subclass, the return type is incorrect.</li>
+      <li>
+        <strong>Refactoring:</strong> The return type of either the string 'MyBuilder'
+        or class name MyBuilder will make refactoring difficult.
+      </li>
+      <li>
+        <strong>Subclassing:</strong> If you subclass, the return type is incorrect.
+      </li>
     </ul>
 
     <p>
       Instead, you can import <code>Self</code> as the type annotation as such:
     </p>
 
-    <pre><code class="language-python">from typing import Self  # Python 3.11+ else 'from typing_extensions import Self'
+    <pre><code class="language-python"
+        >from typing import Self  # Python 3.11+ else 'from typing_extensions import Self'
 class MyBuilder:
     def __init__(self): self.name = ""
     def set_name(self, name: str) -> Self:
         self.name = name
-        return self</code></pre>
+        return self</code
+      ></pre>
 
     <h2>Advantages of This Approach</h2>
 
     <ul>
       <li>
-        <strong>Refactoring:</strong> No hardcoded class, which means it is resilient to class renaming.
+        <strong>Refactoring:</strong> No hardcoded class, which means it is resilient
+        to class renaming.
       </li>
       <li>
-        <strong>Easier Subclassing:</strong> <code>Self</code> is covariant and dynamically binds to self at runtime. Chain methods will now return the correct subclass type.
+        <strong>Easier Subclassing:</strong> <code>Self</code> is covariant and dynamically
+        binds to self at runtime. Chain methods will now return the correct subclass
+        type.
       </li>
       <li>
-        <strong>Readability:</strong> <code>Self</code> clearly communicates to readers that we are using the same type as the instance.
+        <strong>Readability:</strong> <code>Self</code> clearly communicates to readers
+        that we are using the same type as the instance.
       </li>
     </ul>
   </div>

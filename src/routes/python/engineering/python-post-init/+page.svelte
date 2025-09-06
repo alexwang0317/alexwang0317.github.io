@@ -32,8 +32,8 @@
 </script>
 
 <Seo
-  title="Interface Stubs - Alex Wang"
-  description="Resolve circular import issues using Python's Abstract Base Classes for cleaner module dependencies"
+  title="__post_init__ - Python Engineering Notes"
+  description="Validate dataclass fields at instantiation time using __post_init__ for better encapsulation"
 />
 
 <article class="layout-md py-12 mx-auto max-w-3xl px-6">
@@ -43,114 +43,131 @@
     >
   </div>
 
-  <h1 class="text-3xl font-bold mb-4">Interface Stubs</h1>
-
-  <div class="text-sm text-neutral-500 mb-8">
-    September 1, 2025 • 4 min read
-  </div>
+  <h1 class="text-3xl font-bold mb-4">__post_init__</h1>
 
   <div class="text-lg text-neutral-700 mb-8 leading-relaxed">
-    Learn how to resolve circular import dependencies using Python's Abstract
-    Base Classes (ABC). Create clean module boundaries with interface stubs that
-    break dependency cycles while maintaining type safety.
+    Validate dataclass fields at instantiation time using <code
+      >__post_init__</code
+    > for better encapsulation and data integrity. Learn how to enforce business
+    rules right when objects are created.
   </div>
 
   <div class="prose prose-neutral max-w-none">
     <p>
-      Imagine you are building two separate modules, but within each one you
-      declare two different dataclasses as such:
+      Let's say you're building a time-based system and you want to create an <code
+        >Event</code
+      > class. However, you want to ensure that the event is only valid if the end
+      time comes after the start time, and you want this validation to happen at
+      instantiation time for proper encapsulation.
     </p>
 
     <pre><code class="language-python"
-        >@dataclass
-class Order:
-    user: User
-    item: str
+        >from datetime import datetime
+from dataclasses import dataclass
 
 @dataclass
-class User:
+class Event:
     name: str
-    
-    def create_order(self, item: str) -> Order:
-        return Order(self, item)</code
+    start_time: datetime
+    end_time: datetime
+
+# This creates an invalid event without any validation
+event = Event(
+    name="Meeting",
+    start_time=datetime(2025, 9, 6, 14, 0),
+    end_time=datetime(2025, 9, 6, 13, 0)  # Ends before it starts!
+)
+
+print("Event duration:", event.end_time - event.start_time)  # Negative duration!</code
       ></pre>
 
     <p>
-      However, the only problem is that, if these are in different modules,
-      you'll have a circular import issue due to each class relying on
-      definitions present in the other.
+      The issue above is that we can create logically invalid objects. The event
+      ends before it starts, which doesn't make sense in our domain. We need to
+      validate our data at creation time to maintain data integrity and prevent
+      bugs downstream.
     </p>
 
     <p>
-      To resolve this, create interface stubs with abstract classes for the core
-      data structures and then use them as type hints for the actual concrete
-      class. For the above example, you may create a new file <code
-        >interface.py</code
-      > which contains this implementation:
+      The <code>__post_init__</code> method is called automatically after the
+      dataclass <code>__init__</code>
+      method completes. This is the perfect place to add validation logic that depends
+      on multiple fields.
     </p>
 
     <pre><code class="language-python"
-        >import abc
-
-class IOrder(metaclass=abc.ABCMeta):
-    user: 'IUser'
-    item: str
-
-class IUser(metaclass=abc.ABCMeta):
-    name: str
-    
-    @abc.abstractmethod
-    def create_order(self, item: str) -> IOrder:
-        ...</code
-      ></pre>
-
-    <p>
-      Then you can have the actual concrete class implementations to use said
-      interfaces to allow for modularization in separate files. First, define <code
-        >Order</code
-      > as:
-    </p>
-
-    <pre><code class="language-python"
-        >from dataclasses import dataclass
-from interface import IOrder, IUser
+        >from datetime import datetime
+from dataclasses import dataclass
 
 @dataclass
-class Order(IOrder):
-    user: IUser
-    item: str</code
+class Event:
+    name: str
+    start_time: datetime
+    end_time: datetime
+    
+    def __post_init__(self):
+        if self.end_time &lt;= self.start_time:
+            raise ValueError("End time must be after start time")
+
+# Now this will raise an error immediately
+try:
+    event = Event(
+        name="Invalid Meeting",
+        start_time=datetime(2025, 9, 6, 14, 0),
+        end_time=datetime(2025, 9, 6, 13, 0)
+    )
+except ValueError as e:
+    print("Validation error:", e)  # Caught the invalid event!</code
       ></pre>
 
     <p>
-      Then define the <code>User</code> in a separate file as such:
+      <code>__post_init__</code> is also useful for computing derived fields based
+      on the input data:
     </p>
 
     <pre><code class="language-python"
-        >from dataclasses import dataclass
-from interface import IUser, IOrder
+        >from dataclasses import dataclass, field
+from datetime import datetime, timedelta
 
 @dataclass
-class User(IUser):
+class Event:
     name: str
+    start_time: datetime
+    end_time: datetime
+    duration: timedelta = field(init=False)  # Not set during init
+    is_all_day: bool = field(init=False)
     
-    def create_order(self, item: str) -> IOrder:
-        return IOrder(self, item)</code
+    def __post_init__(self):
+        # Validation
+        if self.end_time &lt;= self.start_time:
+            raise ValueError("End time must be after start time")
+        
+        # Compute derived fields
+        self.duration = self.end_time - self.start_time
+        
+        # Check if it's an all-day event (exactly 24 hours)
+        self.is_all_day = self.duration == timedelta(days=1)
+
+event = Event(
+    name="Conference",
+    start_time=datetime(2025, 9, 6, 9, 0),
+    end_time=datetime(2025, 9, 6, 17, 0)
+)
+
+print(f"Event '{"{"}event.name{"}"}' lasts", event.duration)
+print("All-day event:", event.is_all_day)</code
       ></pre>
 
-    <p>Here are a list of benefits:</p>
-    <ul>
-      <li>Breaks circular dependencies</li>
-      <li>Improves testability with mocking interfaces</li>
-      <li>Reduces dependency bloat</li>
-      <li>More clearly documented + modularized</li>
-    </ul>
+    <p>
+      <code>__post_init__</code> provides immediate validation, clean encapsulation,
+      and automatic execution. Use it when you need to validate relationships between
+      multiple fields, perform data normalization, compute derived fields, or enforce
+      business rules at object creation time.
+    </p>
 
     <p>
-      This pattern is particularly useful in larger codebases where you have
-      complex relationships between modules. By defining abstract interfaces,
-      you create a contract that both modules can depend on without directly
-      importing each other. This makes your code more maintainable and easier to
-      test, as you can mock the interfaces during unit testing.
+      <code>__post_init__</code> ensures your objects are always in a valid state
+      from the moment they're created, leading to more robust and maintainable code.
     </p>
   </div>
 
@@ -164,12 +181,11 @@ class User(IUser):
 <style>
   article {
     width: 100%;
-    max-width: 48rem; /* 768px */
+    max-width: 48rem;
     margin-left: auto;
     margin-right: auto;
   }
 
-  /* Prose styling for article content */
   :global(.prose) {
     line-height: 1.7;
   }
@@ -196,7 +212,6 @@ class User(IUser):
     color: #374151;
   }
 
-  /* Code block styling for Python syntax highlighting */
   :global(pre) {
     background-color: #2d2d2d !important;
     padding: 1.25rem !important;
@@ -218,7 +233,6 @@ class User(IUser):
     color: #e5e7eb;
   }
 
-  /* Inline code styling */
   :global(code:not(pre code)) {
     background-color: #f3f4f6;
     padding: 0.125rem 0.375rem;
@@ -230,7 +244,6 @@ class User(IUser):
     border: 1px solid #e5e7eb;
   }
 
-  /* Python syntax highlighting enhancements */
   :global(.token.keyword) {
     color: #c792ea !important;
   }

@@ -48,29 +48,38 @@
   <div class="text-sm text-neutral-500 mb-8">January 3, 2025 • 4 min read</div>
 
   <div class="text-lg text-neutral-700 mb-8 leading-relaxed">
-    Prevent runtime errors by enforcing method implementation at instantiation time 
-    with Python's Abstract Base Classes. Learn how to build safer class hierarchies 
-    that catch missing methods before they reach production.
+    Prevent runtime errors by enforcing method implementation at instantiation
+    time with Python's Abstract Base Classes. Learn how to build safer class
+    hierarchies that catch missing methods before they reach production.
   </div>
 
   <div class="prose prose-neutral max-w-none">
     <p>
-      Imagine you are designing a set of class hierarchies where you have a parent 
-      class with an "abstract" method that needs to be implemented by subclasses to work.
+      Imagine you are designing a set of class hierarchies where you have a
+      parent class with an "abstract" method that needs to be implemented by
+      subclasses to work.
     </p>
 
     <p>
-      Generally, when you do this, you will use a <code>NotImplementedError</code> in the 
-      methods. However there are two major problems:
+      Generally, when you do this, you will use a <code
+        >NotImplementedError</code
+      > in the methods. However there are two major problems:
     </p>
     <ul>
-      <li>Declaring the class succeeds even when certain subclass required methods are not implemented.</li>
-      <li>Calling that not-yet implemented method of your subclass fails because it wasn't caught at instantiation-time.</li>
+      <li>
+        Declaring the class succeeds even when certain subclass required methods
+        are not implemented.
+      </li>
+      <li>
+        Calling that not-yet implemented method of your subclass fails because
+        it wasn't caught at instantiation-time.
+      </li>
     </ul>
 
     <p>The most common example is something like this:</p>
 
-    <pre><code class="language-python">import abc
+    <pre><code class="language-python"
+        >import abc
 
 class StorageService:
     @abc.abstractmethod
@@ -92,24 +101,30 @@ store = InMemoryStorage()
 store.save("user:1", {"{"}\"name\": \"Alex\"{"}"})
 
 # But calling the missing method fails only at runtime
-print(store.load("user:1"))  # NotImplementedError</code></pre>
+print(store.load("user:1"))  # NotImplementedError</code
+      ></pre>
 
     <p>
-      In the above example, you can still create <code>InMemoryStorage</code> even though 
-      <code>load()</code> isn't defined. Only when another engineer (or your API call) 
-      tries <code>load()</code> do you hit a <code>NotImplementedError</code> — potentially 
-      in production—do you realize this problem.
+      In the above example, you can still create <code>InMemoryStorage</code>
+      even though
+      <code>load()</code> isn't defined. Only when another engineer (or your API
+      call) tries <code>load()</code> do you hit a
+      <code>NotImplementedError</code> — potentially in production—do you realize
+      this problem.
     </p>
 
     <h2>The Solution: ABC with ABCMeta</h2>
 
     <p>
-      To resolve this, use the built-in <code>abc.ABCMeta</code> metaclass from <code>abc</code> 
-      to define abstract classes. This basically prevents you from instantiating a class at 
-      creation time with a <code>TypeError</code>, rather than failing later.
+      To resolve this, use the built-in <code>abc.ABCMeta</code> metaclass from
+      <code>abc</code>
+      to define abstract classes. This basically prevents you from instantiating
+      a class at creation time with a <code>TypeError</code>, rather than
+      failing later.
     </p>
 
-    <pre><code class="language-python">import abc
+    <pre><code class="language-python"
+        >import abc
 from abc import ABC, abstractmethod
 
 class StorageService(ABC):  # or metaclass=abc.ABCMeta
@@ -131,23 +146,35 @@ class InMemoryStorage(StorageService):
 
 # Instantiation FAILS immediately
 store = InMemoryStorage()
-# TypeError: Can't instantiate abstract class InMemoryStorage with abstract method load</code></pre>
+# TypeError: Can't instantiate abstract class InMemoryStorage with abstract method load</code
+      ></pre>
 
     <p>
-      Now your instantiations will be safe! The <code>TypeError</code> happens at the moment 
-      you try to create an instance, not later when you call the missing method. This catches 
-      errors during development rather than in production.
+      Now your instantiations will be safe! The <code>TypeError</code> happens at
+      the moment you try to create an instance, not later when you call the missing
+      method. This catches errors during development rather than in production.
     </p>
 
     <h2>Key Benefits</h2>
 
     <ul>
-      <li><strong>Early error detection:</strong> Missing implementations are caught at instantiation time, not runtime</li>
-      <li><strong>Clear contracts:</strong> Abstract methods explicitly define what subclasses must implement</li>
-      <li><strong>Better IDE support:</strong> Most IDEs will warn about missing abstract method implementations</li>
-      <li><strong>Type checker friendly:</strong> Tools like mypy understand and enforce abstract base classes</li>
+      <li>
+        <strong>Early error detection:</strong> Missing implementations are caught
+        at instantiation time, not runtime
+      </li>
+      <li>
+        <strong>Clear contracts:</strong> Abstract methods explicitly define what
+        subclasses must implement
+      </li>
+      <li>
+        <strong>Better IDE support:</strong> Most IDEs will warn about missing abstract
+        method implementations
+      </li>
+      <li>
+        <strong>Type checker friendly:</strong> Tools like mypy understand and enforce
+        abstract base classes
+      </li>
     </ul>
-
   </div>
 
   <div class="border-t pt-8 mt-12">

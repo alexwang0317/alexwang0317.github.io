@@ -48,15 +48,18 @@
   <div class="text-sm text-neutral-500 mb-8">August 28, 2025 • 5 min read</div>
 
   <div class="text-lg text-neutral-700 mb-8 leading-relaxed">
-    Optimize memory usage and improve performance with Python's __slots__. Learn how to replace 
-    the default __dict__ with a more efficient storage mechanism for class instances.
+    Optimize memory usage and improve performance with Python's __slots__. Learn
+    how to replace the default __dict__ with a more efficient storage mechanism
+    for class instances.
   </div>
 
   <div class="prose prose-neutral max-w-none">
     <p>
-      Dictionaries are the favorite workhouse of the Pythonic style. Specifically in the cases of classes, 
-      instance attributes are stored in a <code>__dict__</code> dunder, which is flexible, but uses a lot of 
-      overhead as each instance has its own dictionary. Creating millions of class instances for small objects 
+      Dictionaries are the favorite workhouse of the Pythonic style.
+      Specifically in the cases of classes, instance attributes are stored in a <code
+        >__dict__</code
+      > dunder, which is flexible, but uses a lot of overhead as each instance has
+      its own dictionary. Creating millions of class instances for small objects
       can thus result in memory/performance issues.
     </p>
 
@@ -64,53 +67,67 @@
       Imagine, if you wanted to have a class that stored a datapoint as such:
     </p>
 
-    <pre><code class="language-python">class Point3D:
+    <pre><code class="language-python"
+        >class Point3D:
     def __init__(self, x: float, y: float, z: float) -> None:
         self.x = x
         self.y = y
         self.z = z
 
 point1 = Point3D(1, 2, 3)
-point1.__dict__     # This would be {"{"}\"x\": 1, \"y\": 2, \"z\": 3{"}"}</code></pre>
+point1.__dict__     # This would be {"{"}\"x\": 1, \"y\": 2, \"z\": 3{"}"}</code
+      ></pre>
 
     <p>
-      You may think it would be better to accomplish this with the <code>@dataclass</code> decorator, but the underlying 
-      implementation of a <code>@dataclass</code> is still a <code>__dict__</code>.
+      You may think it would be better to accomplish this with the <code
+        >@dataclass</code
+      >
+      decorator, but the underlying implementation of a <code>@dataclass</code>
+      is still a <code>__dict__</code>.
     </p>
 
     <p>
-      <code>__slots__</code> is a memory-efficient alternative to <code>__dict__</code>. When you define 
-      <code>__slots__</code>, you declare what attributes an instance has, resulting in a much more efficient 
-      storage mechanism. The underlying implementation is a compact C array indexed by slot position.
+      <code>__slots__</code> is a memory-efficient alternative to
+      <code>__dict__</code>. When you define
+      <code>__slots__</code>, you declare what attributes an instance has,
+      resulting in a much more efficient storage mechanism. The underlying
+      implementation is a compact C array indexed by slot position.
     </p>
 
-    <pre><code class="language-python">class SlottedPoint3D:
+    <pre><code class="language-python"
+        >class SlottedPoint3D:
     __slots__ = ("x", "y", "z") 
     
     def __init__(self, x: float, y: float, z: float) -> None:
         self.x = x
         self.y = y
-        self.z = z</code></pre>
+        self.z = z</code
+      ></pre>
 
     <p>
-      Python now allocates a fixed amount of memory with slot descriptor objects with pre-defined methods 
-      like <code>__get__</code> and <code>__set__</code> which index into the array. This direct memory 
-      lookup is faster than a dictionary lookup. You can even use dataclasses with direct slots support 
-      (Python 3.10+).
+      Python now allocates a fixed amount of memory with slot descriptor objects
+      with pre-defined methods like <code>__get__</code> and
+      <code>__set__</code> which index into the array. This direct memory lookup
+      is faster than a dictionary lookup. You can even use dataclasses with direct
+      slots support (Python 3.10+).
     </p>
 
-    <pre><code class="language-python">from dataclasses import dataclass
+    <pre><code class="language-python"
+        >from dataclasses import dataclass
 
 @dataclass(slots=True)
 class SlottedPoint3D: 
     x: int
     y: int
-    z: int</code></pre>
+    z: int</code
+      ></pre>
 
     <p>
-      Here is a quick comparison after generating it. Check out the 
-      <a href="https://colab.research.google.com/drive/1ShrpitUnbjfoN5_DHuw295Hwmj0QVryA?usp=sharing" 
-         class="text-blue-600 hover:underline">link here</a>.
+      Here is a quick comparison after generating it. Check out the
+      <a
+        href="https://colab.research.google.com/drive/1ShrpitUnbjfoN5_DHuw295Hwmj0QVryA?usp=sharing"
+        class="text-blue-600 hover:underline">link here</a
+      >.
     </p>
 
     <h2>Memory per object (bytes)</h2>
@@ -239,14 +256,18 @@ class SlottedPoint3D:
       </table>
     </div>
 
-    <p>
-      However, there is a tradeoff, here are some differences:
-    </p>
+    <p>However, there is a tradeoff, here are some differences:</p>
     <ul>
-      <li>You cannot add more attributes after predefining slots during instantiation.</li>
+      <li>
+        You cannot add more attributes after predefining slots during
+        instantiation.
+      </li>
       <li>You cannot dynamically add attributes.</li>
       <li>You need to redeclare <code>__slots__</code> in subclasses.</li>
-      <li>You cannot set class attributes for defaults in <code>__slots__</code> (but you can add class-level constants).</li>
+      <li>
+        You cannot set class attributes for defaults in <code>__slots__</code> (but
+        you can add class-level constants).
+      </li>
     </ul>
   </div>
 
@@ -402,12 +423,12 @@ class SlottedPoint3D:
       padding-left: 1.5rem;
       padding-right: 1.5rem;
     }
-    
+
     .table-container table {
       min-width: 100%;
       font-size: 0.875rem;
     }
-    
+
     .table-container th,
     .table-container td {
       padding: 0.5rem 0.75rem;

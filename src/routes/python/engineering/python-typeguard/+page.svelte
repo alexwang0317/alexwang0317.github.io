@@ -48,15 +48,20 @@
   <div class="text-sm text-neutral-500 mb-8">August 27, 2025 • 7 min read</div>
 
   <div class="text-lg text-neutral-700 mb-8 leading-relaxed">
-    Understanding Python's TypeGuard for type narrowing and better type safety in data processing pipelines.
+    Understanding Python's TypeGuard for type narrowing and better type safety
+    in data processing pipelines.
   </div>
 
   <div class="prose prose-neutral max-w-none">
     <p>
-      Imagine you are writing a data pipeline, one function is for processing a list of objects. If the list of objects are <em>all</em> strings or integers then you have separate methods for resolving them, else you mark it as invalid and discard it. An initial reasonable solution is:
+      Imagine you are writing a data pipeline, one function is for processing a
+      list of objects. If the list of objects are <em>all</em> strings or integers
+      then you have separate methods for resolving them, else you mark it as invalid
+      and discard it. An initial reasonable solution is:
     </p>
 
-    <pre><code class="language-python">def process_str(data: list[str]) -> None:
+    <pre><code class="language-python"
+        >def process_str(data: list[str]) -> None:
     ...
 
 def process_int(data: list[int]) -> None:
@@ -69,17 +74,29 @@ def process_data(data: list[object]) -> None:
     elif all(isinstance(x, str) for x in data):
         process_str(data)
     else:
-        print("Invalid data, neither str nor int")</code></pre>
+        print("Invalid data, neither str nor int")</code
+      ></pre>
 
     <p>
-      The problem is, this solution will still cause the typechecker to be unhappy as the inputs for both <code>process_int</code> and <code>process_str</code> will still be typed as <code>list[object]</code>. For mutable generics like list, subtypes are invariant, so <code>list[int]</code> is not a subtype of <code>list[object]</code>, thus invariance exists to protect the container.
+      The problem is, this solution will still cause the typechecker to be
+      unhappy as the inputs for both <code>process_int</code> and
+      <code>process_str</code>
+      will still be typed as <code>list[object]</code>. For mutable generics
+      like list, subtypes are invariant, so <code>list[int]</code> is not a
+      subtype of <code>list[object]</code>, thus invariance exists to protect
+      the container.
     </p>
 
     <p>
-      Instead use <code>TypeGuard</code>, which is a special typing construct which can narrow the type of the object through a function. Recommended to narrow the broadest scope of what the object could be, to the narrowest scope. In essence, return False if it's not the correct type so <code>TypeGuard</code>s would look like this:
+      Instead use <code>TypeGuard</code>, which is a special typing construct
+      which can narrow the type of the object through a function. Recommended to
+      narrow the broadest scope of what the object could be, to the narrowest
+      scope. In essence, return False if it's not the correct type so
+      <code>TypeGuard</code>s would look like this:
     </p>
 
-    <pre><code class="language-python">from typing import TypeGuard, Iterable
+    <pre><code class="language-python"
+        >from typing import TypeGuard, Iterable
 
 def is_list_of_ints(obj: Iterable[object]) -> TypeGuard[list[int]]:
     if not isinstance(obj, list):
@@ -89,39 +106,48 @@ def is_list_of_ints(obj: Iterable[object]) -> TypeGuard[list[int]]:
 def is_list_of_strs(obj: Iterable[object]) -> TypeGuard[list[str]]:
     if not isinstance(obj, list):
         return False
-    return all(isinstance(x, str) for x in obj)</code></pre>
+    return all(isinstance(x, str) for x in obj)</code
+      ></pre>
 
     <p>
-      Now, given these <code>TypeGuards</code> you can rewrite the above function as such:
+      Now, given these <code>TypeGuards</code> you can rewrite the above function
+      as such:
     </p>
 
-    <pre><code class="language-python"># Process data if its either a string or a integer
+    <pre><code class="language-python"
+        ># Process data if its either a string or a integer
 def process_data(data: Iterable[object]) -> None:
     if is_list_of_ints(data):
         process_int(data)  # Type checker knows data is list[int] here!
     elif is_list_of_strs(data):
         process_str(data)  # Type checker knows data is list[str] here!
     else:
-        print("Invalid data, neither str nor int")</code></pre>
+        print("Invalid data, neither str nor int")</code
+      ></pre>
 
     <p>
-      <code>TypeGuard</code> is also useful in checking for narrowing down typing to exceptions and validating against a TypeAlias.
+      <code>TypeGuard</code> is also useful in checking for narrowing down typing
+      to exceptions and validating against a TypeAlias.
     </p>
 
     <h2>Advantages of <code>TypeGuard</code></h2>
 
     <ul>
       <li>
-        <strong>Type Safety:</strong> Provides compile-time guarantees that runtime checks match type annotations
+        <strong>Type Safety:</strong> Provides compile-time guarantees that runtime
+        checks match type annotations
       </li>
       <li>
-        <strong>Better IDE Support:</strong> IDEs can understand the narrowed types and provide accurate autocomplete
+        <strong>Better IDE Support:</strong> IDEs can understand the narrowed types
+        and provide accurate autocomplete
       </li>
       <li>
-        <strong>Cleaner Code:</strong> Separates type checking logic into reusable functions
+        <strong>Cleaner Code:</strong> Separates type checking logic into reusable
+        functions
       </li>
       <li>
-        <strong>Documentation:</strong> <code>TypeGuard</code> functions clearly document what conditions narrow types
+        <strong>Documentation:</strong> <code>TypeGuard</code> functions clearly
+        document what conditions narrow types
       </li>
     </ul>
   </div>

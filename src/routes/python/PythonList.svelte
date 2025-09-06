@@ -3,7 +3,7 @@
 
   type PythonPost = {
     title: string;
-    date: Date;
+    date?: Date;
     summary: string;
     link: string;
   };
@@ -26,9 +26,11 @@
             <span class="text-neutral-400 text-sm ml-1">↗</span>
           {/if}
         </div>
-        <div class="sm:ml-auto mb-0.5 text-neutral-500">
-          {formatTime("%B %-d, %Y", item.date)}
-        </div>
+        {#if item.date}
+          <div class="sm:ml-auto mb-0.5 text-neutral-500">
+            {formatTime("%B %-d, %Y", item.date)}
+          </div>
+        {/if}
       </div>
       <div class="text-lg leading-snug font-serif italic">
         {item.summary}

@@ -32,8 +32,8 @@
 </script>
 
 <Seo
-  title="__all__ - Alex Wang"
-  description="Control module exports explicitly with Python's __all__"
+  title="TYPE_CHECKING - Python Engineering Notes"
+  description="Import types conditionally to avoid circular imports and heavy dependencies"
 />
 
 <article class="layout-md py-12 mx-auto max-w-3xl px-6">
@@ -43,111 +43,121 @@
     >
   </div>
 
-  <h1 class="text-3xl font-bold mb-4">__all__</h1>
-
-  <div class="text-sm text-neutral-500 mb-8">January 5, 2025 • 4 min read</div>
+  <h1 class="text-3xl font-bold mb-4">TYPE_CHECKING</h1>
 
   <div class="text-lg text-neutral-700 mb-8 leading-relaxed">
-    Explicitly control what gets exported from your Python modules with __all__.
-    Learn how to create cleaner public APIs and protect against unintended
-    imports.
+    Import types conditionally to avoid circular imports and heavy dependencies
+    while maintaining clean type annotations.
   </div>
 
   <div class="prose prose-neutral max-w-none">
     <p>
-      Imagine you're building an API where you have code for both private and
-      public consumption. For example, you have a public function that has
-      private helper functions.
+      Imagine you have a case where you have a circular dependency. Usually,
+      this is a problem, and a quick post on interface stubs may be helpful, but
+      sometimes refactoring it wouldn't make sense, and the circular import may
+      not be practical to refactor.
+    </p>
+
+    <p>
+      Instead, what you may do is use <code>TYPE_CHECKING</code>:
     </p>
 
     <pre><code class="language-python"
-        >def public_function(...) -> ...:
-    ...
-    private_function(...)
-    ...
+        >from __future__ import annotations  # optional but handy for forward refs
+from typing import TYPE_CHECKING
 
-def private_function(...) -> ...:
-    ...</code
+if TYPE_CHECKING:
+    # Only imported for type checkers; not executed at runtime
+    from some_heavy_lib import BigType
+
+class Thing:
+    def __init__(self, x: BigType):  # works for type checkers
+        self.x = x</code
       ></pre>
 
     <p>
-      In general, the pythonic way of resolving this is to preface with the
-      protected prefix <code>_</code> to indicate internal consumption.
+      The <code>TYPE_CHECKING</code> constant is <code>False</code> at runtime
+      but <code>True</code>
+      when type checkers like mypy or PyCharm analyze your code. This means imports
+      inside the
+      <code>if TYPE_CHECKING:</code> block are only processed during static type
+      checking.
+    </p>
+
+    <p>This pattern is useful for several scenarios:</p>
+
+    <p>
+      <strong>Avoiding circular imports:</strong> When two modules need to reference
+      each other's types, you can break the cycle by importing one side only for
+      type checking.
     </p>
 
     <pre><code class="language-python"
-        >def _private_function(...) -> ...:
-    ...</code
+        ># user.py
+from __future__ import annotations
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from order import Order
+
+class User:
+    def __init__(self, name: str):
+        self.name = name
+        self.orders: list[Order] = []</code
+      ></pre>
+
+    <pre><code class="language-python"
+        ># order.py  
+from user import User
+
+class Order:
+    def __init__(self, user: User, amount: float):
+        self.user = user
+        self.amount = amount</code
       ></pre>
 
     <p>
-      Clear signaling of what functions are for/not for public consumption is
-      helpful for maintaining and calling public APIs. However, on the flip
-      side, everything without <code>_</code> is assumed to be public
-      implicitly. This could allow the import of non-public methods when using
-      <code>from module import *</code>. This is error prone.
-    </p>
-
-    <h2>The Solution: __all__</h2>
-
-    <p>
-      Another way to achieve this same effect is to explicitly signal with the
-      <code>__all__</code> module attribute (although it looks like a dunder method,
-      it isn't!).
+      <strong>Skipping heavy dependencies:</strong> Import expensive libraries only
+      for type hints without the runtime overhead.
     </p>
 
     <pre><code class="language-python"
-        >def public_func():
-    pass
+        >from typing import TYPE_CHECKING
 
-def _private_func_mislabeled():
-    pass
+if TYPE_CHECKING:
+    import pandas as pd
+    import numpy as np
 
-def _another_func1():
-    pass
-
-def another_func():
-    pass
-
-__all__ = ['public_func', '_private_func_mislabeled']  # explicit control
-
-# from mymodule import * will import: public_func, _private_func_mislabeled
-# another_func is excluded even though it's "public" by naming
-# _another_func1 is also excluded, as it should be.</code
+def process_data(df: pd.DataFrame) -> np.ndarray:
+    # pandas and numpy aren't imported at runtime
+    # but type checkers understand the annotations
+    pass</code
       ></pre>
 
     <p>
-      This limits the blast radius of any changes to non-public functions, as
-      they won't be imported via <code>import *</code>. For example, if you
-      wanted
-      <code>_another_func1</code> to be async, you could change it without worrying
-      about breaking external code that might have accidentally imported it.
+      <strong>Clean annotations:</strong> Keep type annotations readable without
+      string literals or complex workarounds.
     </p>
 
-    <h2>Key Benefits</h2>
+    <pre><code class="language-python"
+        ># Instead of this:
+def bad_example(data: "ComplexType") -> "list[ComplexType]":
+    pass
 
-    <ul>
-      <li>
-        <strong>Explicit API control:</strong> You decide exactly what's part of
-        your public API
-      </li>
-      <li>
-        <strong>Protection from accidental exports:</strong> Functions without underscore
-        prefixes won't be accidentally exported
-      </li>
-      <li>
-        <strong>Clear documentation:</strong> <code>__all__</code> serves as a single
-        source of truth for your module's public interface
-      </li>
-      <li>
-        <strong>Safer refactoring:</strong> Internal functions can be changed without
-        worrying about breaking external code
-      </li>
-      <li>
-        <strong>IDE support:</strong> Many IDEs use <code>__all__</code> to provide
-        better autocomplete suggestions
-      </li>
-    </ul>
+# You can write this:
+from typing import TYPE_CHECKING
+if TYPE_CHECKING:
+    from complex_module import ComplexType
+
+def good_example(data: ComplexType) -> list[ComplexType]:
+    pass</code
+      ></pre>
+
+    <p>
+      <code>TYPE_CHECKING</code> is essential when you need to reference types that
+      would cause circular imports, performance issues, or dependency problems, while
+      still maintaining excellent static type checking support.
+    </p>
   </div>
 
   <div class="border-t pt-8 mt-12">
@@ -160,12 +170,11 @@ __all__ = ['public_func', '_private_func_mislabeled']  # explicit control
 <style>
   article {
     width: 100%;
-    max-width: 48rem; /* 768px */
+    max-width: 48rem;
     margin-left: auto;
     margin-right: auto;
   }
 
-  /* Prose styling for article content */
   :global(.prose) {
     line-height: 1.7;
   }
@@ -173,13 +182,6 @@ __all__ = ['public_func', '_private_func_mislabeled']  # explicit control
   :global(.prose p) {
     margin: 1.25rem 0;
     color: #374151;
-  }
-
-  :global(.prose h2) {
-    font-size: 1.5rem;
-    font-weight: 600;
-    margin: 2rem 0 1rem 0;
-    color: #1f2937;
   }
 
   :global(.prose ul) {
@@ -192,7 +194,6 @@ __all__ = ['public_func', '_private_func_mislabeled']  # explicit control
     color: #374151;
   }
 
-  /* Code block styling for Python syntax highlighting */
   :global(pre) {
     background-color: #2d2d2d !important;
     padding: 1.25rem !important;
@@ -214,7 +215,6 @@ __all__ = ['public_func', '_private_func_mislabeled']  # explicit control
     color: #e5e7eb;
   }
 
-  /* Inline code styling */
   :global(code:not(pre code)) {
     background-color: #f3f4f6;
     padding: 0.125rem 0.375rem;
@@ -226,7 +226,6 @@ __all__ = ['public_func', '_private_func_mislabeled']  # explicit control
     border: 1px solid #e5e7eb;
   }
 
-  /* Python syntax highlighting enhancements */
   :global(.token.keyword) {
     color: #c792ea !important;
   }

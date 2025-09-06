@@ -45,60 +45,81 @@
 
   <h1 class="text-3xl font-bold mb-4">TypedDict</h1>
 
-  <div class="text-sm text-neutral-500 mb-8">September 6, 2025 • 5 min read</div>
+  <div class="text-sm text-neutral-500 mb-8">
+    September 6, 2025 • 5 min read
+  </div>
 
   <div class="text-lg text-neutral-700 mb-8 leading-relaxed">
-    TypedDict for type-safe dictionaries with optional keys when working with API responses and external data.
+    TypedDict for type-safe dictionaries with optional keys when working with
+    API responses and external data.
   </div>
 
   <div class="prose prose-neutral max-w-none">
     <p>
-      When you return a JSON from a REST API call, sometimes, modeling that API response is difficult. A normal python dictionary is structured as <code>dict[str, Any]</code> which may be too many degrees of freedom for some people. However, a dataclass is only suitable for internal data representations with fixed structures, but if you're using external, raw/untrusted data, you need less explicit structures.
+      When you return a JSON from a REST API call, sometimes, modeling that API
+      response is difficult. A normal python dictionary is structured as <code
+        >dict[str, Any]</code
+      > which may be too many degrees of freedom for some people. However, a dataclass
+      is only suitable for internal data representations with fixed structures, but
+      if you're using external, raw/untrusted data, you need less explicit structures.
     </p>
 
-    <pre><code class="language-python"># Example function
+    <pre><code class="language-python"
+        ># Example function
 def process_user(data: dict) -> None:
-    # we expect: {'{'}\"id\": int, \"email\": str (optional){'}'} 
-    print(f"User id = {'{'}data['id']{'}'}")
+    # we expect: {"{"}\"id\": int, \"email\": str (optional){"}"} 
+    print(f"User id = {"{"}data['id']{"}"}")
     if "email" in data:
-        print(f"Email = {'{'}data['email']{'}'}")</code></pre>
+        print(f"Email = {"{"}data['email']{"}"}")</code
+      ></pre>
 
     <p>
-      For this case, instead of a dictionary or dataclass, the <code>TypedDict</code> would allow you to define a dictionary with specific keys and value types which allow you to specify both required and optional keys, which allow for stronger type checking during development.
+      For this case, instead of a dictionary or dataclass, the <code
+        >TypedDict</code
+      > would allow you to define a dictionary with specific keys and value types
+      which allow you to specify both required and optional keys, which allow for
+      stronger type checking during development.
     </p>
 
-    <pre><code class="language-python">from typing import TypedDict, NotRequired
+    <pre><code class="language-python"
+        >from typing import TypedDict, NotRequired
 
 class UserDict(TypedDict):
     id: int
     email: NotRequired[str]    # now optional
 
 def process_user(data: UserDict) -> None:
-    print(f"User id = {'{'}data['id']{'}'}")
+    print(f"User id = {"{"}data['id']{"}"}")
     if "email" in data:
-        print(f"Email = {'{'}data['email']{'}'}")
+        print(f"Email = {"{"}data['email']{"}"}")
 
-process_user({'{'}\"id\": 42{'}'})  # ✅ ok, email optional
-process_user({'{'}\"id\": 42, \"email\": \"alex@example.com\"{'}'})  # ✅ ok
-process_user({'{'}\"email\": \"oops\"{'}'})  # ❌ type checker error: missing "id"</code></pre>
+process_user({"{"}\"id\": 42{"}"})  # ✅ ok, email optional
+process_user({"{"}\"id\": 42, \"email\": \"alex@example.com\"{"}"})  # ✅ ok
+process_user({"{"}\"email\": \"oops\"{"}"})  # ❌ type checker error: missing "id"</code
+      ></pre>
 
     <h2>Advantages of TypedDict</h2>
 
     <ul>
       <li>
-        <strong>Flexible Structure:</strong> Better than <code>dict[str, Any]</code> but more flexible than dataclasses
+        <strong>Flexible Structure:</strong> Better than
+        <code>dict[str, Any]</code> but more flexible than dataclasses
       </li>
       <li>
-        <strong>API Modeling:</strong> Perfect for modeling JSON responses from REST APIs
+        <strong>API Modeling:</strong> Perfect for modeling JSON responses from REST
+        APIs
       </li>
       <li>
-        <strong>Optional Keys:</strong> Support for both required and optional fields with <code>NotRequired</code>
+        <strong>Optional Keys:</strong> Support for both required and optional
+        fields with <code>NotRequired</code>
       </li>
       <li>
-        <strong>Static Type Safety:</strong> Get compile-time type checking for dictionary access
+        <strong>Static Type Safety:</strong> Get compile-time type checking for dictionary
+        access
       </li>
       <li>
-        <strong>External Data:</strong> Ideal for working with external, raw, or untrusted data sources
+        <strong>External Data:</strong> Ideal for working with external, raw, or
+        untrusted data sources
       </li>
     </ul>
   </div>

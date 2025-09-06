@@ -1,7 +1,8 @@
 posts:
   - title: "TypeVar Contravariance"
     summary: >
-      TypeVar contravariance for type-safe class hierarchies and proper subtyping
+      TypeVar contravariance for type-safe class hierarchies and proper
+      subtyping
     link: "/python/engineering/python-typevar-contravariance"
   - title: "Lazy Logging"
     summary: >
@@ -9,7 +10,8 @@ posts:
     link: "/python/engineering/python-lazy-logging"
   - title: "Interface Stubs"
     summary: >
-      Resolve circular imports using Abstract Base Classes for cleaner module dependencies
+      Resolve circular imports using Abstract Base Classes for cleaner module
+      dependencies
     link: "/python/engineering/python-circular-imports-abc"
   - title: "__slots__"
     summary: >
@@ -41,11 +43,13 @@ posts:
     link: "/python/engineering/python-abc"
   - title: "__post_init__"
     summary: >
-      Validate dataclass fields at instantiation time using __post_init__ for better encapsulation
+      Validate dataclass fields at instantiation time using __post_init__ for
+      better encapsulation
     link: "/python/engineering/python-post-init"
   - title: "TYPE_CHECKING"
     summary: >
-      Import types conditionally to avoid circular imports and heavy dependencies
+      Import types conditionally to avoid circular imports and heavy
+      dependencies
     link: "/python/engineering/python-type-checking"
   - title: "NotImplemented"
     summary: >

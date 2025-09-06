@@ -45,36 +45,53 @@
 
   <h1 class="text-3xl font-bold mb-4">Enum Magic</h1>
 
-  <div class="text-sm text-neutral-500 mb-8">September 3, 2025 • 8 min read</div>
+  <div class="text-sm text-neutral-500 mb-8">
+    September 3, 2025 • 8 min read
+  </div>
 
   <div class="text-lg text-neutral-700 mb-8 leading-relaxed">
-    Mastering Python's Enum, StrEnum, IntEnum, and Flags for type-safe constants and better code organization.
+    Mastering Python's Enum, StrEnum, IntEnum, and Flags for type-safe constants
+    and better code organization.
   </div>
 
   <div class="prose prose-neutral max-w-none">
     <p>
-      Imagine you are writing a function that takes in levels of log levels and wants to do something such as printing or notifying specific individuals based on the level. For the sake of simplicity, the levels are info, warning, error:
+      Imagine you are writing a function that takes in levels of log levels and
+      wants to do something such as printing or notifying specific individuals
+      based on the level. For the sake of simplicity, the levels are info,
+      warning, error:
     </p>
 
-    <pre><code class="language-python">def log(level: str, message: str) -> None:
-    ...</code></pre>
+    <pre><code class="language-python"
+        >def log(level: str, message: str) -> None:
+    ...</code
+      ></pre>
 
     <p>
-      If you use <code>str</code> as arguments, you are susceptible to misspellings and potential unreal levels as someone might pass "errror" or "critical". To resolve this, you should use Enum, but preferably use <code>StrEnum</code> (Python 3.11+) with something like this:
+      If you use <code>str</code> as arguments, you are susceptible to
+      misspellings and potential unreal levels as someone might pass "errror" or
+      "critical". To resolve this, you should use Enum, but preferably use
+      <code>StrEnum</code> (Python 3.11+) with something like this:
     </p>
 
-    <pre><code class="language-python">from enum import StrEnum
+    <pre><code class="language-python"
+        >from enum import StrEnum
 
 class LogLevel(StrEnum):
     INFO = "info"
     WARNING = "warning"
-    ERROR = "error"</code></pre>
+    ERROR = "error"</code
+      ></pre>
 
     <p>
-      If, instead, you wanted to use integers to log different levels of warnings you could use <code>IntEnum</code>. This is especially useful if you wanted to do mathematical operations on these values, such as if you wanted to sum the values of total ExitCode's generated.
+      If, instead, you wanted to use integers to log different levels of
+      warnings you could use <code>IntEnum</code>. This is especially useful if
+      you wanted to do mathematical operations on these values, such as if you
+      wanted to sum the values of total ExitCode's generated.
     </p>
 
-    <pre><code class="language-python">from enum import IntEnum
+    <pre><code class="language-python"
+        >from enum import IntEnum
 
 class LogLevel(IntEnum):
     INFO = 0
@@ -83,37 +100,51 @@ class LogLevel(IntEnum):
     BIGERROR = 3
 
 def log(level: LogLevel, message: str) -> None:
-    ...</code></pre>
+    ...</code
+      ></pre>
 
     <p>
-      Or even better, you could use <code>auto()</code> for both <code>StrEnum</code> and <code>IntEnum</code>, this way you can guarantee uniqueness and adding new values is easier. For <code>StrEnum</code>, it represents the value as a lowercase of the real member name.
+      Or even better, you could use <code>auto()</code> for both
+      <code>StrEnum</code>
+      and <code>IntEnum</code>, this way you can guarantee uniqueness and adding
+      new values is easier. For <code>StrEnum</code>, it represents the value as
+      a lowercase of the real member name.
     </p>
 
-    <pre><code class="language-python">from enum import StrEnum, auto
+    <pre><code class="language-python"
+        >from enum import StrEnum, auto
 
 class LogLevel(StrEnum):
     INFO = auto()     # "info"
     WARNING = auto()  # "warning"
     ERROR = auto()    # "error"
-    SUCCESS = auto()  # "success"</code></pre>
+    SUCCESS = auto()  # "success"</code
+      ></pre>
 
     <p>
-      For <code>IntEnum</code>, it automatically creates order and generates uniqueness so no need to hardcode, and also makes adding new items easier.
+      For <code>IntEnum</code>, it automatically creates order and generates
+      uniqueness so no need to hardcode, and also makes adding new items easier.
     </p>
 
-    <pre><code class="language-python">from enum import IntEnum, auto
+    <pre><code class="language-python"
+        >from enum import IntEnum, auto
 
 class LogLevel(IntEnum):
     INFO = auto()     # 1
     WARNING = auto()  # 2
     ERROR = auto()    # 3
-    SUCCESS = auto()  # 4</code></pre>
+    SUCCESS = auto()  # 4</code
+      ></pre>
 
     <p>
-      Finally, you can also use <code>Flags</code> which are assigned bitwise combinations of values (1, 2, 4, 8, 16). They are useful when you want to represent multiple boolean options at once, and together. To combine these use OR (<code>|</code>) and AND (<code>&</code>) operators.
+      Finally, you can also use <code>Flags</code> which are assigned bitwise
+      combinations of values (1, 2, 4, 8, 16). They are useful when you want to
+      represent multiple boolean options at once, and together. To combine these
+      use OR (<code>|</code>) and AND (<code>&</code>) operators.
     </p>
 
-    <pre><code class="language-python">from enum import Flag, auto
+    <pre><code class="language-python"
+        >from enum import Flag, auto
 
 class Permission(Flag):
     READ = auto()     # 1
@@ -121,33 +152,39 @@ class Permission(Flag):
     EXECUTE = auto()  # 4
 
 # Give read and write perms to the user
-user_perms = Permission.READ | Permission.WRITE</code></pre>
+user_perms = Permission.READ | Permission.WRITE</code
+      ></pre>
 
     <h2>Useful Decorators</h2>
 
     <p>
-      A useful decorator would be the <code>@unique</code>, which guarantees that you don't have duplicate values.
+      A useful decorator would be the <code>@unique</code>, which guarantees
+      that you don't have duplicate values.
     </p>
 
-    <pre><code class="language-python">from enum import Enum, unique
+    <pre><code class="language-python"
+        >from enum import Enum, unique
 
 @unique
 class Status(Enum):
     OK = 1
-    SUCCESS = 1   # ❌ ValueError: duplicate value 1</code></pre>
+    SUCCESS = 1   # ❌ ValueError: duplicate value 1</code
+      ></pre>
 
     <p>
-      Another potentially useful decorator for ENUMs is <code>@verify</code> which helps you confirm that your values satisfy a certain set of conditions.
+      Another potentially useful decorator for ENUMs is <code>@verify</code> which
+      helps you confirm that your values satisfy a certain set of conditions.
     </p>
 
-    <pre><code class="language-python">from enum import Enum, verify, UNIQUE, CONTINUOUS
+    <pre><code class="language-python"
+        >from enum import Enum, verify, UNIQUE, CONTINUOUS
 
 @verify(UNIQUE, CONTINUOUS)
 class ErrorCode(Enum):
     NOT_FOUND = 1
     TIMEOUT = 2
-    UNKNOWN = 3   # ✅ values are unique + continuous (1, 2, 3)</code></pre>
-
+    UNKNOWN = 3   # ✅ values are unique + continuous (1, 2, 3)</code
+      ></pre>
   </div>
 
   <div class="border-t pt-8 mt-12">

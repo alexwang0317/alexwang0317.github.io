@@ -2,10 +2,7 @@
   import Seo from "$lib/components/Seo.svelte";
 </script>
 
-<Seo
-  title="Alex Wang"
-  description="Student, software engineer, and writer. "
-/>
+<Seo title="Alex Wang" description="Student, software engineer, and writer. " />
 
 <p
   class="layout-md text-black text-xl leading-tight font-light mb-16"

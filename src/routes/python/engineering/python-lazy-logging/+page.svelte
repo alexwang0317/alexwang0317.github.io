@@ -45,68 +45,89 @@
 
   <h1 class="text-3xl font-bold mb-4">Lazy Logging</h1>
 
-  <div class="text-sm text-neutral-500 mb-8">September 4, 2025 • 5 min read</div>
+  <div class="text-sm text-neutral-500 mb-8">
+    September 4, 2025 • 5 min read
+  </div>
 
   <div class="text-lg text-neutral-700 mb-8 leading-relaxed">
-    Learn how to optimize Python logging performance with lazy evaluation techniques. 
-    Avoid expensive operations and unnecessary string formatting when logs aren't actually output.
+    Learn how to optimize Python logging performance with lazy evaluation
+    techniques. Avoid expensive operations and unnecessary string formatting
+    when logs aren't actually output.
   </div>
 
   <div class="prose prose-neutral max-w-none">
     <p>
-      When writing programs, oftentimes during development/production there are lots of logging. 
-      We may see a common debug log such as the following. Expensive function may be some form 
-      of large information retrieval or I/O process.
+      When writing programs, oftentimes during development/production there are
+      lots of logging. We may see a common debug log such as the following.
+      Expensive function may be some form of large information retrieval or I/O
+      process.
     </p>
 
-    <pre><code class="language-python">import logging
+    <pre><code class="language-python"
+        >import logging
 ...
-logging.debug(f"using {'{'}expensive_func(){'}'}  currently")
-...</code></pre>
+logging.debug(f"using {"{"}expensive_func(){"}"}  currently")
+...</code
+      ></pre>
 
     <p>
-      However, in the case we are using the default log level of INFO in which the log message 
-      is not actually output, we are wastefully doing two things:
+      However, in the case we are using the default log level of INFO in which
+      the log message is not actually output, we are wastefully doing two
+      things:
     </p>
     <ul>
-      <li>Rendering a log message, and for some objects calling their <code>__str__</code>/<code>__repr__</code> is expensive.</li>
+      <li>
+        Rendering a log message, and for some objects calling their <code
+          >__str__</code
+        >/<code>__repr__</code> is expensive.
+      </li>
       <li><code>expensive_func</code> is called when not needed.</li>
     </ul>
 
     <p>
-      To address problem 1, we can call logging methods with a string literal instead of an f-string, 
-      with the first argument and the pattern-parameters as argument. This prevents f-string rendering 
-      and prevents formatting until needed.
+      To address problem 1, we can call logging methods with a string literal
+      instead of an f-string, with the first argument and the pattern-parameters
+      as argument. This prevents f-string rendering and prevents formatting
+      until needed.
     </p>
 
-    <pre><code class="language-python">import logging
+    <pre><code class="language-python"
+        >import logging
 ...
 logging.debug("using %d currently", expensive_func())
-...</code></pre>
+...</code
+      ></pre>
 
     <p>
-      To address problem 2, we can use the <code>isEnabledFor()</code> method which takes the level 
-      argument and only returns True if the event would be created by the Logger for that specific 
-      level of call. This prevents the calling of the expensive function unless absolutely needed.
+      To address problem 2, we can use the <code>isEnabledFor()</code> method which
+      takes the level argument and only returns True if the event would be created
+      by the Logger for that specific level of call. This prevents the calling of
+      the expensive function unless absolutely needed.
     </p>
 
-    <pre><code class="language-python">import logging
+    <pre><code class="language-python"
+        >import logging
 ...
 if logger.isEnabledFor(logging.DEBUG):
     logging.debug("using %d currently", expensive_func())
-...</code></pre>
+...</code
+      ></pre>
 
     <p>
-      This means that unless the threshold is set above DEBUG level, the call to <code>expensive_func()</code> 
+      This means that unless the threshold is set above DEBUG level, the call to <code
+        >expensive_func()</code
+      >
       is never made.
     </p>
 
     <p>
-      If this is consistently called, you can use <code>LoggerAdapter</code> instead. This allows you to 
-      avoid clutter by removing the consistent need for <code>isEnabledFor()</code>.
+      If this is consistently called, you can use <code>LoggerAdapter</code>
+      instead. This allows you to avoid clutter by removing the consistent need for
+      <code>isEnabledFor()</code>.
     </p>
 
-    <pre><code class="language-python">from logging import LoggerAdapter
+    <pre><code class="language-python"
+        >from logging import LoggerAdapter
 
 class LazyLoggerAdapter(LoggerAdapter):
     def lazy_log(self, level, msg_or_func, *args, **kwargs):
@@ -121,11 +142,10 @@ class LazyLoggerAdapter(LoggerAdapter):
 ...
 
 lazy_logger.lazy_log(logging.DEBUG, expensive_operation)  # Function not called!
-lazy_logger.lazy_log(logging.INFO, expensive_operation)   # Function IS called!</code></pre>
+lazy_logger.lazy_log(logging.INFO, expensive_operation)   # Function IS called!</code
+      ></pre>
 
-    <p>
-      Now this will only operate if the DEBUG logging is enabled.
-    </p>
+    <p>Now this will only operate if the DEBUG logging is enabled.</p>
   </div>
 
   <div class="border-t pt-8 mt-12">
