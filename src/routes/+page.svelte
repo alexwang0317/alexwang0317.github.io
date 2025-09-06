@@ -2,15 +2,15 @@
   import Seo from "$lib/components/Seo.svelte";
 </script>
 
-<Seo title="Alex Wang" description="Student, software engineer, and writer. " />
+<Seo title="Alex Wang" description="Student, engineer, and researcher. " />
 
 <p
   class="layout-md text-black text-xl leading-tight font-light mb-16"
   id="eric-is"
 >
   <span class="g">is a</span> student<span class="g">,</span><br />
-  software engineer<span class="g">, and</span><br />
-  writer<span class="g">.</span>
+  engineer<span class="g">, and</span><br />
+  researcher<span class="g">.</span>
 </p>
 
 <div class="layout-md text-lg space-y-8">
