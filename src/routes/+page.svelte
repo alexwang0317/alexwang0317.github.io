@@ -52,6 +52,20 @@
       <li>
         <a
           class="link"
+          href="https://drive.google.com/file/d/1utSmntqLGzfB4NOa7wnyRgerC7xNOC5n/view?usp=sharing"
+          >PatternZero: Leveraging RL for Mathematical Pattern Recognition</a
+        >
+      </li>
+      <li>
+        <a
+          class="link"
+          href="https://docs.google.com/presentation/d/1fWx16Rxse3uIA6i-dEPrnzZLe0VM0q3ralMCkbrRMbQ/edit?usp=sharing"
+          >Quantum-Inspired Diffusion (QUID) for Polyphonic Music</a
+        >
+      </li>
+      <li>
+        <a
+          class="link"
           href="https://x.com/alexwan10574446/status/1854261579258200550"
           >Fencing a Drone</a
         >
