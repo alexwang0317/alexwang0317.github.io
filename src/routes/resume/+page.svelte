@@ -16,11 +16,12 @@
       <h3 class="text-black text-lg">Stanford University</h3>
       <div class="text-neutral-500 mb-0.5">Expected June 2027</div>
     </div>
-    <p class="byline">B.S. in Mathematics & M.S. in Computer Science</p>
+    <p class="byline">B.S. in CS + Mathematics</p>
   </div>
 
   <h4 class="font-medium mt-4 mb-1">Graduate Technical Coursework:</h4>
   <ul class="mb-4">
+    <li>Programming Languages (CS 242)</li>
     <li>Deep Learning for NLP (CS 224n)</li>
     <li>Machine Learning (CS 229)</li>
     <li>Reinforcement Learning (CS 234)</li>
@@ -31,6 +32,9 @@
 
   <h4 class="font-medium mt-4 mb-1">Undergraduate Technical Coursework:</h4>
   <ul class="mb-4">
+    <li>Parallel Computing (CS 149)</li>
+    <li>Groups and Rings (MATH 120)</li>
+    <li>Fundamental Concepts of Analysis (MATH 171)</li>
     <li>Linear Algebra and Matrix Theory (MATH 113)</li>
     <li>Operating Systems (CS 111)</li>
     <li>Algorithms (CS 161)</li>
@@ -98,7 +102,7 @@
       and other workflows.
     </li>
     <li>
-      Wrote a <strong>Haskell-based, type-safe trading DSL</strong> and backtesting
+      Helped create a <strong>Haskell-based, type-safe trading DSL</strong> and backtesting
       framework—integrating Mobula market metrics, Google Trends, and sentiment analysis—to
       validate and optimize high-frequency trading strategies against historical
       data with guaranteed runtime safety.
