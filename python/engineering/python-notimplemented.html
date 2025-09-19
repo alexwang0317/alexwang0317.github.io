@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/svg+xml" sizes="any" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta http-equiv="content-security-policy" content="">
+		<link href="../../_app/immutable/assets/_layout.8eeeba0e.css" rel="stylesheet">
+		<link href="../../_app/immutable/assets/_page.542e6a6d.css" rel="stylesheet">
+		<link rel="modulepreload" href="../../_app/immutable/entry/start.3a7d9661.js">
+		<link rel="modulepreload" href="../../_app/immutable/chunks/index.5437a47d.js">
+		<link rel="modulepreload" href="../../_app/immutable/chunks/singletons.b777fbeb.js">
+		<link rel="modulepreload" href="../../_app/immutable/entry/app.6ab31e92.js">
+		<link rel="modulepreload" href="../../_app/immutable/entry/_layout.svelte.19bf2f45.js">
+		<link rel="modulepreload" href="../../_app/immutable/chunks/index.8b5413c5.js">
+		<link rel="modulepreload" href="../../_app/immutable/chunks/stores.7eca525c.js">
+		<link rel="modulepreload" href="../../_app/immutable/entry/_layout.ts.b8f0fca0.js">
+		<link rel="modulepreload" href="../../_app/immutable/chunks/_layout.43150cb7.js">
+		<link rel="modulepreload" href="../../_app/immutable/entry/python-engineering-python-notimplemented-page.svelte.76f8cc32.js">
+		<link rel="modulepreload" href="../../_app/immutable/chunks/Seo.81a06601.js"><title>NotImplemented - Python Engineering Notes</title><!-- HEAD_svelte-1xw0bo2_START --><script async src="https://www.googletagmanager.com/gtag/js?id=UA-156644599-1"></script>
+    <script>window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+      gtag("config", "UA-156644599-1");
+    </script><!-- HEAD_svelte-1xw0bo2_END --><!-- HEAD_svelte-1fbmuei_START --><meta name="description" content="Use NotImplemented constant for binary operations and method delegation"><meta property="og:title" content="NotImplemented - Python Engineering Notes"><meta property="og:description" content="Use NotImplemented constant for binary operations and method delegation"><meta property="og:image" content="https://www.ekzhang.com/assets/images/hudson-landscape.jpg"><meta name="twitter:card" content="summary_large_image"><!-- HEAD_svelte-1fbmuei_END -->
+  </head>
+  <body>
+    <div>
+
+
+
+
+<header class="layout-md flex justify-between items-start" data-sveltekit-noscroll data-sveltekit-preload-code="eager"><h1 class="font-bold text-black text-2xl mb-6"><a href="/" class="flex flex-col"><span>Alex Lin Wang</span>
+      <span class="text-lg font-normal text-neutral-600">王帅</span></a>
+    </h1>
+  <nav class="svelte-bgdsr9"><a href="/python" class="hover:text-black transition-colors svelte-bgdsr9">python
+      </a><a href="/writing" class="hover:text-black transition-colors svelte-bgdsr9">writing
+      </a><a href="/resume" class="hover:text-black transition-colors svelte-bgdsr9">resume
+      </a></nav>
+</header>
+
+<main>
+
+<article class="layout-md py-12 mx-auto max-w-3xl px-6 svelte-gmo5k4"><div class="mb-8"><a href="/python" class="text-blue-600 hover:underline text-sm">← Back to Python</a></div>
+
+  <h1 class="text-3xl font-bold mb-4">NotImplemented</h1>
+
+  <div class="text-lg text-neutral-700 mb-8 leading-relaxed">Use the <code>NotImplemented</code> constant for binary operations and method
+    delegation to enable proper operator fallback behavior.
+  </div>
+
+  <div class="prose prose-neutral max-w-none"><p><code>NotImplemented</code> is a built-in constant used for binary special
+      methods to show that a specific type does not have an implementation. The purpose
+      is to tell Python that &quot;I&#39;m not sure what to do with this other type—try the
+      other operand&#39;s reflected method or fall back&quot;.
+    </p>
+
+    <p><strong>Important:</strong> <code>NotImplementedError</code> is an exception
+      you raise to say that a method exists but has yet to be implemented. Don&#39;t
+      confuse the two!
+    </p>
+
+    <p><strong>Do not raise <code>NotImplemented</code> as an error:</strong></p>
+
+    <pre><code class="language-python">class Storage:
+    def get(self, key):
+        raise NotImplemented    # This is wrong!</code></pre>
+
+    <p><strong>Do not call <code>NotImplemented</code>—it&#39;s not callable:</strong></p>
+
+    <pre><code class="language-python">&gt;&gt; NotImplemented()
+TypeError: &quot;NotImplementedType&quot; object is not callable</code></pre>
+
+    <p>Binary operators take two operands, with Python defining three different
+      hooks:
+    </p>
+
+    <ul><li><strong>Left:</strong> <code>__add__</code>, <code>__sub__</code>,
+        <code>__mul__</code>, <code>__truediv__</code></li>
+      <li><strong>Right/reflected:</strong> <code>__radd__</code>,
+        <code>__rsub__</code>, <code>__rmul__</code>, <code>__rtruediv__</code></li>
+      <li><strong>In-place/augmented assignment:</strong> <code>__iadd__</code>,
+        <code>__isub__</code>, <code>__imul__</code>, <code>__itruediv__</code></li></ul>
+
+    <p>Python understands that <code>NotImplemented</code> is a special sentinel
+      and follows this strategy for <code>a + b</code>:
+    </p>
+
+    <ol><li><strong>Subclass check:</strong> If <code>type(b)</code> is a strict
+        subclass of <code>type(a)</code> and defines <code>__radd__</code>, call
+        <code>b.__radd__(a)</code> first
+      </li>
+      <li><strong>Left side:</strong> Call <code>a.__add__(b)</code> first (if not
+        handled above)
+      </li>
+      <li><strong>Check result:</strong> If it returns anything except
+        <code>NotImplemented</code>, we stop
+      </li>
+      <li><strong>Right side fallback:</strong> If it returns
+        <code>NotImplemented</code>, try <code>b.__radd__(a)</code></li>
+      <li><strong>TypeError:</strong> If both sides return
+        <code>NotImplemented</code>, raise <code>TypeError</code></li></ol>
+
+    <p>Here&#39;s an example of <code>NotImplemented</code> being used for binary operators:
+    </p>
+
+    <pre><code class="language-python">class Left:
+    def __add__(self, other):  # left side can&#39;t handle it
+        return NotImplemented
+
+class Right:
+    def __radd__(self, other):  # right side handles the reversed op
+        return &quot;Right handled it&quot;
+
+print(Left() + Right())  # works because NotImplemented allowed the call for __radd__</code></pre>
+
+    <p>For a more complex example showing the full fallback chain:</p>
+
+    <pre><code class="language-python">class L:
+    def __iadd__(self, other): 
+        print(&quot;iadd&quot;)
+        return NotImplemented
+    def __add__(self, other):  
+        print(&quot;add&quot;)
+        return NotImplemented
+
+class R:
+    def __radd__(self, other): 
+        print(&quot;radd&quot;)
+        return &quot;handled&quot;
+
+x = L()
+x += R()   # prints: iadd -&gt; add -&gt; radd</code></pre>
+
+    <p><code>NotImplemented</code> also works with rich comparisons. These are
+      &quot;rich&quot; compared to the old single <code>__cmp__</code> from Python 2:
+    </p>
+
+    <pre><code class="language-python">class L:
+    def __lt__(self, other):  # can&#39;t compare
+        return NotImplemented
+
+class R:
+    def __gt__(self, other):  # handles reversed &quot;&lt;&quot;
+        return True
+
+print(L() &lt; R())  # True (via R.__gt__)</code></pre>
+
+    <p>When both sides can handle the operation, the first successful one wins:
+    </p>
+
+    <pre><code class="language-python">class A:
+    def __eq__(self, other):
+        return NotImplemented
+
+class B:
+    def __eq__(self, other):
+        return True
+
+print(A() == B())  # True (via B.__eq__)</code></pre>
+
+    <p>Use <code>NotImplemented</code> when your class doesn&#39;t know how to handle
+      a specific operation with another type. This allows Python to try alternative
+      approaches rather than immediately failing, enabling more flexible and extensible
+      operator behavior.
+    </p></div>
+
+  <div class="border-t pt-8 mt-12"><p class="text-sm text-neutral-500">Questions or feedback? Feel free to reach out!
+    </p></div>
+</article></main>
+
+<footer class="layout-md mt-20 text-lg flex flex-col"><div class="row svelte-1t3hv3r"><span class="svelte-1t3hv3r">Twitter</span>
+    <hr class="svelte-1t3hv3r">
+    <a class="link svelte-1t3hv3r" href="https://twitter.com/alexlinwang">@alexlinwang</a></div>
+  <div class="row svelte-1t3hv3r"><span class="svelte-1t3hv3r">GitHub</span>
+    <hr class="svelte-1t3hv3r">
+    <a class="link svelte-1t3hv3r" href="https://github.com/alexwang0317">@alexwang0317</a></div>
+  <div class="row svelte-1t3hv3r"><span class="svelte-1t3hv3r">Email</span>
+    <hr class="svelte-1t3hv3r">
+    <a class="link svelte-1t3hv3r" href="mailto:alexw17@stanford.edu">alexw17@stanford.edu</a></div>
+</footer>
+
+
+			
+			<script>
+				{
+					__sveltekit_1rpzxps = {
+						env: {},
+						base: new URL("../..", location).pathname.slice(0, -1),
+						element: document.currentScript.parentElement
+					};
+
+					const data = [null,null];
+
+					Promise.all([
+						import("../../_app/immutable/entry/start.3a7d9661.js"),
+						import("../../_app/immutable/entry/app.6ab31e92.js")
+					]).then(([kit, app]) => {
+						kit.start(app, __sveltekit_1rpzxps.element, {
+							node_ids: [0, 12],
+							data,
+							form: null,
+							error: null
+						});
+					});
+				}
+			</script>
+		</div>
+  </body>
+</html>
