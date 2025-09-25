@@ -46,6 +46,22 @@
 
   <Workplace
     title="Software Engineering Intern"
+    company="Stealth"
+    url="#"
+    dates="Sep 2025 - Present"
+    location="Palo Alto, CA / Kyiv, Ukraine"
+  >
+    <li>
+      <a
+        class="link"
+        href="https://kyivindependent.com/ukraine-us-company-to-co-produce-hundreds-of-thousands-of-drones-in-2025-zelensky-announces-06-2025/"
+        >Largest drone supplier to Ukraine</a
+      >. Founded by Eric Schmidt. Scaling distributed systems. Drone simulations & CI/CD.
+    </li>
+  </Workplace>
+
+  <Workplace
+    title="Software Engineering Intern"
     company="Meta"
     url="https://www.meta.com/about/"
     dates="June 2025 - Sep. 2025"
@@ -78,7 +94,7 @@
 
   <Workplace
     title="Founding Engineer"
-    company="Stealth Startup"
+    company="Stealth"
     url="#"
     dates="Mar. 2025 - Aug. 2025"
     location="Palo Alto, CA"
