@@ -34,7 +34,7 @@
   <ul class="mb-4">
     <li>Parallel Computing (CS 149)</li>
     <li>Groups and Rings (MATH 120)</li>
-    <li>Fundamental Concepts of Analysis (MATH 171)</li>
+    <li>Real Analysis (MATH 171)</li>
     <li>Linear Algebra and Matrix Theory (MATH 113)</li>
     <li>Operating Systems (CS 111)</li>
     <li>Algorithms (CS 161)</li>
