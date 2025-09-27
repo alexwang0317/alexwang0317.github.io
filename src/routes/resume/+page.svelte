@@ -61,6 +61,21 @@
   </Workplace>
 
   <Workplace
+    title="Researcher"
+    company="Stanford NLP"
+    url="https://nlp.stanford.edu/"
+    dates="Sep 2025 - Present"
+    location="Palo Alto, CA"
+  >
+    <li>
+      Advised by Chris Potts & Zhengxuan Wu. Developed <a class="link" href="https://docs.google.com/presentation/d/1wkIOn2mpStnb5rJKQ5vth29V6C3bCFghzAJfED4W_fU/edit?usp=sharing"><strong>BoundBench</strong></a> and formalized the PRBO objective to measure & lower-bound steering techniques LLM behavior; combined concept-incorporation + distributional-shift metrics with IWAE-style, logit-based estimators for fast probability estimates without LLM judges.
+    </li>
+    <li>
+      Designed a benchmarking plan across common steering methods (Rank-1 ReFT, activation patching, steering vectors, DiffMean, probes, SAEs, LoRA/FT), with criteria that elicit target behavior while preserving base-model propensities and linking scores to downstream tasks.
+    </li>
+  </Workplace>
+
+  <Workplace
     title="Software Engineering Intern"
     company="Meta"
     url="https://www.meta.com/about/"
