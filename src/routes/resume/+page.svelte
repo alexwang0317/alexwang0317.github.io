@@ -56,7 +56,8 @@
         class="link"
         href="https://kyivindependent.com/ukraine-us-company-to-co-produce-hundreds-of-thousands-of-drones-in-2025-zelensky-announces-06-2025/"
         >Largest drone supplier to Ukraine</a
-      >. Founded by Eric Schmidt. Scaling distributed systems. Drone simulations & CI/CD.
+      >. Founded by Eric Schmidt. Scaling distributed systems. Drone simulations
+      & CI/CD.
     </li>
   </Workplace>
 
@@ -68,10 +69,20 @@
     location="Palo Alto, CA"
   >
     <li>
-      Advised by Chris Potts & Zhengxuan Wu. Developed <a class="link" href="https://docs.google.com/presentation/d/1wkIOn2mpStnb5rJKQ5vth29V6C3bCFghzAJfED4W_fU/edit?usp=sharing"><strong>BoundBench</strong></a> and formalized the PRBO objective to measure & lower-bound steering techniques LLM behavior; combined concept-incorporation + distributional-shift metrics with IWAE-style, logit-based estimators for fast probability estimates without LLM judges.
+      Advised by Chris Potts & Zhengxuan Wu. Developed <a
+        class="link"
+        href="https://docs.google.com/presentation/d/1wkIOn2mpStnb5rJKQ5vth29V6C3bCFghzAJfED4W_fU/edit?usp=sharing"
+        ><strong>BoundBench</strong></a
+      > and formalized the PRBO objective to measure & lower-bound steering techniques
+      LLM behavior; combined concept-incorporation + distributional-shift metrics
+      with IWAE-style, logit-based estimators for fast probability estimates without
+      LLM judges.
     </li>
     <li>
-      Designed a benchmarking plan across common steering methods (Rank-1 ReFT, activation patching, steering vectors, DiffMean, probes, SAEs, LoRA/FT), with criteria that elicit target behavior while preserving base-model propensities and linking scores to downstream tasks.
+      Designed a benchmarking plan across common steering methods (Rank-1 ReFT,
+      activation patching, steering vectors, DiffMean, probes, SAEs, LoRA/FT),
+      with criteria that elicit target behavior while preserving base-model
+      propensities and linking scores to downstream tasks.
     </li>
     <li>
       Reference: <a

@@ -31,8 +31,8 @@
         class="link"
         href="https://docs.google.com/presentation/d/1wkIOn2mpStnb5rJKQ5vth29V6C3bCFghzAJfED4W_fU/edit?usp=sharing"
         >BoundBench</a
-      > to benchmark steering and post-training techniques at Stanford NLP with
-      Chris Potts.
+      > to benchmark steering and post-training techniques at Stanford NLP with Chris
+      Potts.
     </p>
   </div>
 
