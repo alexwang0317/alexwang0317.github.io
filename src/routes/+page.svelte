@@ -26,6 +26,14 @@
       the <em>why</em>
       behind things.
     </p>
+    <p>
+      Right now, I'm working on drones for Ukraine (slava ukraini!) and <a
+        class="link"
+        href="https://docs.google.com/presentation/d/1wkIOn2mpStnb5rJKQ5vth29V6C3bCFghzAJfED4W_fU/edit?usp=sharing"
+        >BoundBench</a
+      > to benchmark steering and post-training techniques at Stanford NLP with
+      Chris Potts.
+    </p>
   </div>
 
   <div class="space-y-5">

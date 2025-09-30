@@ -73,6 +73,13 @@
     <li>
       Designed a benchmarking plan across common steering methods (Rank-1 ReFT, activation patching, steering vectors, DiffMean, probes, SAEs, LoRA/FT), with criteria that elicit target behavior while preserving base-model propensities and linking scores to downstream tasks.
     </li>
+    <li>
+      Reference: <a
+        class="link"
+        href="https://docs.google.com/presentation/d/1wkIOn2mpStnb5rJKQ5vth29V6C3bCFghzAJfED4W_fU/edit?usp=sharing"
+        >BoundBench Presentation</a
+      >
+    </li>
   </Workplace>
 
   <Workplace
