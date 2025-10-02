@@ -125,6 +125,7 @@
     </li>
   </Workplace>
 
+<!--
   <Workplace
     title="Founding Engineer"
     company="Stealth"
@@ -157,6 +158,7 @@
       data with guaranteed runtime safety.
     </li>
   </Workplace>
+-->
 
   <Workplace
     title="AI/ML Engineer Intern"
