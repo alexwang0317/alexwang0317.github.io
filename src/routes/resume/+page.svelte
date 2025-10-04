@@ -56,8 +56,7 @@
         class="link"
         href="https://kyivindependent.com/ukraine-us-company-to-co-produce-hundreds-of-thousands-of-drones-in-2025-zelensky-announces-06-2025/"
         >Largest drone supplier to Ukraine</a
-      >. Founded by Eric Schmidt. Scaling distributed systems. Drone simulations
-      & CI/CD.
+      >. Founded by Eric Schmidt. Building RL drone swarms.
     </li>
   </Workplace>
 
