@@ -59,7 +59,7 @@
     company="Stanford NLP"
     url="https://nlp.stanford.edu/"
     dates="Sep 2025 - Present"
-    location="Palo Alto, CA"
+    location="Stanford, CA"
   >
     <li>
       Advised by Chris Potts & Zhengxuan Wu. Developed <a
