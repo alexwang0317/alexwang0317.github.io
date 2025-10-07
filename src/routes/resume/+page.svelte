@@ -48,7 +48,7 @@
     title="Software Engineering Intern"
     company="Stealth"
     url="#"
-    dates="Sep 2025 - Present"
+    dates="Oct 2025 - Present"
     location="Mountain View, CA / Kyiv, Ukraine"
   >
     <li>Building RL drone swarms.</li>
