@@ -44,15 +44,6 @@
 <section class="layout-md py-6">
   <h2 class="heading2">Work Experience</h2>
 
-  <Workplace
-    title="Software Engineering Intern"
-    company="Stealth"
-    url="#"
-    dates="Oct 2025 - Present"
-    location="Mountain View, CA"
-  >
-    <li>Working on stealth projects.</li>
-  </Workplace>
 
   <Workplace
     title="Researcher"

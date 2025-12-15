@@ -68,22 +68,6 @@ const Page = create_ssr_component(($$result, $$props, $$bindings, slots) => {
 
 <section class="layout-md py-6"><h2 class="heading2">Work Experience</h2>
 
-  ${validate_component(Workplace, "Workplace").$$render(
-    $$result,
-    {
-      title: "Software Engineering Intern",
-      company: "Stealth",
-      url: "#",
-      dates: "Oct 2025 - Present",
-      location: "Mountain View, CA"
-    },
-    {},
-    {
-      default: () => {
-        return `<li>Working on stealth projects.</li>`;
-      }
-    }
-  )}
 
   ${validate_component(Workplace, "Workplace").$$render(
     $$result,
