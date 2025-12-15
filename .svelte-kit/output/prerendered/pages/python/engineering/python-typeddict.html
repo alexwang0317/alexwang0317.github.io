@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/svg+xml" sizes="any" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta http-equiv="content-security-policy" content="">
+		<link href="../../_app/immutable/assets/_layout.8eeeba0e.css" rel="stylesheet">
+		<link href="../../_app/immutable/assets/_page.362d9e74.css" rel="stylesheet">
+		<link rel="modulepreload" href="../../_app/immutable/entry/start.9630768a.js">
+		<link rel="modulepreload" href="../../_app/immutable/chunks/index.dd6ea1d3.js">
+		<link rel="modulepreload" href="../../_app/immutable/chunks/singletons.299dd69a.js">
+		<link rel="modulepreload" href="../../_app/immutable/entry/app.9057c32a.js">
+		<link rel="modulepreload" href="../../_app/immutable/entry/_layout.svelte.57a0bf03.js">
+		<link rel="modulepreload" href="../../_app/immutable/chunks/index.e8561fff.js">
+		<link rel="modulepreload" href="../../_app/immutable/chunks/stores.1bbefd84.js">
+		<link rel="modulepreload" href="../../_app/immutable/entry/_layout.ts.b8f0fca0.js">
+		<link rel="modulepreload" href="../../_app/immutable/chunks/_layout.43150cb7.js">
+		<link rel="modulepreload" href="../../_app/immutable/entry/python-engineering-python-typeddict-page.svelte.2f0daab0.js">
+		<link rel="modulepreload" href="../../_app/immutable/chunks/Seo.4277da45.js"><title>TypedDict - Alex Wang</title><!-- HEAD_svelte-1xw0bo2_START --><script async src="https://www.googletagmanager.com/gtag/js?id=UA-156644599-1"></script>
+    <script>window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+      gtag("config", "UA-156644599-1");
+    </script><!-- HEAD_svelte-1xw0bo2_END --><!-- HEAD_svelte-1fbmuei_START --><meta name="description" content="TypedDict for type-safe dictionaries with optional keys in Python"><meta property="og:title" content="TypedDict - Alex Wang"><meta property="og:description" content="TypedDict for type-safe dictionaries with optional keys in Python"><meta property="og:image" content="https://www.ekzhang.com/assets/images/hudson-landscape.jpg"><meta name="twitter:card" content="summary_large_image"><!-- HEAD_svelte-1fbmuei_END -->
+  </head>
+  <body>
+    <div>
+
+
+
+
+<header class="layout-md flex justify-between items-start" data-sveltekit-noscroll data-sveltekit-preload-code="eager"><h1 class="font-bold text-black text-2xl mb-6"><a href="/" class="flex flex-col"><span>Alex Lin Wang</span>
+      <span class="text-lg font-normal text-neutral-600">王帅</span></a>
+    </h1>
+  <nav class="svelte-bgdsr9"><a href="/python" class="hover:text-black transition-colors svelte-bgdsr9">python
+      </a><a href="/research" class="hover:text-black transition-colors svelte-bgdsr9">research
+      </a><a href="/writing" class="hover:text-black transition-colors svelte-bgdsr9">writing
+      </a><a href="/resume" class="hover:text-black transition-colors svelte-bgdsr9">resume
+      </a></nav>
+</header>
+
+<main>
+
+<article class="layout-md py-12 mx-auto max-w-3xl px-6 svelte-1l0sx6b"><div class="mb-8"><a href="/python" class="text-blue-600 hover:underline text-sm">← Back to Python</a></div>
+
+  <h1 class="text-3xl font-bold mb-4">TypedDict</h1>
+
+  <div class="text-sm text-neutral-500 mb-8">September 6, 2025 • 5 min read
+  </div>
+
+  <div class="text-lg text-neutral-700 mb-8 leading-relaxed">TypedDict for type-safe dictionaries with optional keys when working with
+    API responses and external data.
+  </div>
+
+  <div class="prose prose-neutral max-w-none"><p>When you return a JSON from a REST API call, sometimes, modeling that API
+      response is difficult. A normal python dictionary is structured as <code>dict[str, Any]</code> which may be too many degrees of freedom for some people. However, a dataclass
+      is only suitable for internal data representations with fixed structures, but
+      if you&#39;re using external, raw/untrusted data, you need less explicit structures.
+    </p>
+
+    <pre><code class="language-python"># Example function
+def process_user(data: dict) -&gt; None:
+    # we expect: {\&quot;id\&quot;: int, \&quot;email\&quot;: str (optional)} 
+    print(f&quot;User id = {data[&#39;id&#39;]}&quot;)
+    if &quot;email&quot; in data:
+        print(f&quot;Email = {data[&#39;email&#39;]}&quot;)</code></pre>
+
+    <p>For this case, instead of a dictionary or dataclass, the <code>TypedDict</code> would allow you to define a dictionary with specific keys and value types
+      which allow you to specify both required and optional keys, which allow for
+      stronger type checking during development.
+    </p>
+
+    <pre><code class="language-python">from typing import TypedDict, NotRequired
+
+class UserDict(TypedDict):
+    id: int
+    email: NotRequired[str]    # now optional
+
+def process_user(data: UserDict) -&gt; None:
+    print(f&quot;User id = {data[&#39;id&#39;]}&quot;)
+    if &quot;email&quot; in data:
+        print(f&quot;Email = {data[&#39;email&#39;]}&quot;)
+
+process_user({\&quot;id\&quot;: 42})  # ✅ ok, email optional
+process_user({\&quot;id\&quot;: 42, \&quot;email\&quot;: \&quot;alex@example.com\&quot;})  # ✅ ok
+process_user({\&quot;email\&quot;: \&quot;oops\&quot;})  # ❌ type checker error: missing &quot;id&quot;</code></pre>
+
+    <h2>Advantages of TypedDict</h2>
+
+    <ul><li><strong>Flexible Structure:</strong> Better than
+        <code>dict[str, Any]</code> but more flexible than dataclasses
+      </li>
+      <li><strong>API Modeling:</strong> Perfect for modeling JSON responses from REST
+        APIs
+      </li>
+      <li><strong>Optional Keys:</strong> Support for both required and optional
+        fields with <code>NotRequired</code></li>
+      <li><strong>Static Type Safety:</strong> Get compile-time type checking for dictionary
+        access
+      </li>
+      <li><strong>External Data:</strong> Ideal for working with external, raw, or
+        untrusted data sources
+      </li></ul></div>
+
+  <div class="border-t pt-8 mt-12"><p class="text-sm text-neutral-500">Questions or feedback? Feel free to reach out!
+    </p></div>
+</article></main>
+
+<footer class="layout-md mt-20 text-lg flex flex-col"><div class="row svelte-1t3hv3r"><span class="svelte-1t3hv3r">Twitter</span>
+    <hr class="svelte-1t3hv3r">
+    <a class="link svelte-1t3hv3r" href="https://twitter.com/alexlinwang">@alexlinwang</a></div>
+  <div class="row svelte-1t3hv3r"><span class="svelte-1t3hv3r">GitHub</span>
+    <hr class="svelte-1t3hv3r">
+    <a class="link svelte-1t3hv3r" href="https://github.com/alexwang0317">@alexwang0317</a></div>
+  <div class="row svelte-1t3hv3r"><span class="svelte-1t3hv3r">Email</span>
+    <hr class="svelte-1t3hv3r">
+    <a class="link svelte-1t3hv3r" href="mailto:alexw17@stanford.edu">alexw17@stanford.edu</a></div>
+</footer>
+
+
+			
+			<script>
+				{
+					__sveltekit_hvj0fu = {
+						env: {},
+						base: new URL("../..", location).pathname.slice(0, -1),
+						element: document.currentScript.parentElement
+					};
+
+					const data = [null,null];
+
+					Promise.all([
+						import("../../_app/immutable/entry/start.9630768a.js"),
+						import("../../_app/immutable/entry/app.9057c32a.js")
+					]).then(([kit, app]) => {
+						kit.start(app, __sveltekit_hvj0fu.element, {
+							node_ids: [0, 19],
+							data,
+							form: null,
+							error: null
+						});
+					});
+				}
+			</script>
+		</div>
+  </body>
+</html>

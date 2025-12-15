@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/svg+xml" sizes="any" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta http-equiv="content-security-policy" content="">
+		<link href="../../_app/immutable/assets/_layout.8eeeba0e.css" rel="stylesheet">
+		<link href="../../_app/immutable/assets/_page.6539109c.css" rel="stylesheet">
+		<link rel="modulepreload" href="../../_app/immutable/entry/start.9630768a.js">
+		<link rel="modulepreload" href="../../_app/immutable/chunks/index.dd6ea1d3.js">
+		<link rel="modulepreload" href="../../_app/immutable/chunks/singletons.299dd69a.js">
+		<link rel="modulepreload" href="../../_app/immutable/entry/app.9057c32a.js">
+		<link rel="modulepreload" href="../../_app/immutable/entry/_layout.svelte.57a0bf03.js">
+		<link rel="modulepreload" href="../../_app/immutable/chunks/index.e8561fff.js">
+		<link rel="modulepreload" href="../../_app/immutable/chunks/stores.1bbefd84.js">
+		<link rel="modulepreload" href="../../_app/immutable/entry/_layout.ts.b8f0fca0.js">
+		<link rel="modulepreload" href="../../_app/immutable/chunks/_layout.43150cb7.js">
+		<link rel="modulepreload" href="../../_app/immutable/entry/python-engineering-python-type-checking-page.svelte.301d867d.js">
+		<link rel="modulepreload" href="../../_app/immutable/chunks/Seo.4277da45.js"><title>TYPE_CHECKING - Python Engineering Notes</title><!-- HEAD_svelte-1xw0bo2_START --><script async src="https://www.googletagmanager.com/gtag/js?id=UA-156644599-1"></script>
+    <script>window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+      gtag("config", "UA-156644599-1");
+    </script><!-- HEAD_svelte-1xw0bo2_END --><!-- HEAD_svelte-1fbmuei_START --><meta name="description" content="Import types conditionally to avoid circular imports and heavy dependencies"><meta property="og:title" content="TYPE_CHECKING - Python Engineering Notes"><meta property="og:description" content="Import types conditionally to avoid circular imports and heavy dependencies"><meta property="og:image" content="https://www.ekzhang.com/assets/images/hudson-landscape.jpg"><meta name="twitter:card" content="summary_large_image"><!-- HEAD_svelte-1fbmuei_END -->
+  </head>
+  <body>
+    <div>
+
+
+
+
+<header class="layout-md flex justify-between items-start" data-sveltekit-noscroll data-sveltekit-preload-code="eager"><h1 class="font-bold text-black text-2xl mb-6"><a href="/" class="flex flex-col"><span>Alex Lin Wang</span>
+      <span class="text-lg font-normal text-neutral-600">王帅</span></a>
+    </h1>
+  <nav class="svelte-bgdsr9"><a href="/python" class="hover:text-black transition-colors svelte-bgdsr9">python
+      </a><a href="/research" class="hover:text-black transition-colors svelte-bgdsr9">research
+      </a><a href="/writing" class="hover:text-black transition-colors svelte-bgdsr9">writing
+      </a><a href="/resume" class="hover:text-black transition-colors svelte-bgdsr9">resume
+      </a></nav>
+</header>
+
+<main>
+
+<article class="layout-md py-12 mx-auto max-w-3xl px-6 svelte-ufiiy0"><div class="mb-8"><a href="/python" class="text-blue-600 hover:underline text-sm">← Back to Python</a></div>
+
+  <h1 class="text-3xl font-bold mb-4">TYPE_CHECKING</h1>
+
+  <div class="text-lg text-neutral-700 mb-8 leading-relaxed">Import types conditionally to avoid circular imports and heavy dependencies
+    while maintaining clean type annotations.
+  </div>
+
+  <div class="prose prose-neutral max-w-none"><p>Imagine you have a case where you have a circular dependency. Usually,
+      this is a problem, and a quick post on interface stubs may be helpful, but
+      sometimes refactoring it wouldn&#39;t make sense, and the circular import may
+      not be practical to refactor.
+    </p>
+
+    <p>Instead, what you may do is use <code>TYPE_CHECKING</code>:
+    </p>
+
+    <pre><code class="language-python">from __future__ import annotations  # optional but handy for forward refs
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    # Only imported for type checkers; not executed at runtime
+    from some_heavy_lib import BigType
+
+class Thing:
+    def __init__(self, x: BigType):  # works for type checkers
+        self.x = x</code></pre>
+
+    <p>The <code>TYPE_CHECKING</code> constant is <code>False</code> at runtime
+      but <code>True</code>
+      when type checkers like mypy or PyCharm analyze your code. This means imports
+      inside the
+      <code>if TYPE_CHECKING:</code> block are only processed during static type
+      checking.
+    </p>
+
+    <p>This pattern is useful for several scenarios:</p>
+
+    <p><strong>Avoiding circular imports:</strong> When two modules need to reference
+      each other&#39;s types, you can break the cycle by importing one side only for
+      type checking.
+    </p>
+
+    <pre><code class="language-python"># user.py
+from __future__ import annotations
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from order import Order
+
+class User:
+    def __init__(self, name: str):
+        self.name = name
+        self.orders: list[Order] = []</code></pre>
+
+    <pre><code class="language-python"># order.py  
+from user import User
+
+class Order:
+    def __init__(self, user: User, amount: float):
+        self.user = user
+        self.amount = amount</code></pre>
+
+    <p><strong>Skipping heavy dependencies:</strong> Import expensive libraries only
+      for type hints without the runtime overhead.
+    </p>
+
+    <pre><code class="language-python">from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    import pandas as pd
+    import numpy as np
+
+def process_data(df: pd.DataFrame) -&gt; np.ndarray:
+    # pandas and numpy aren&#39;t imported at runtime
+    # but type checkers understand the annotations
+    pass</code></pre>
+
+    <p><strong>Clean annotations:</strong> Keep type annotations readable without
+      string literals or complex workarounds.
+    </p>
+
+    <pre><code class="language-python"># Instead of this:
+def bad_example(data: &quot;ComplexType&quot;) -&gt; &quot;list[ComplexType]&quot;:
+    pass
+
+# You can write this:
+from typing import TYPE_CHECKING
+if TYPE_CHECKING:
+    from complex_module import ComplexType
+
+def good_example(data: ComplexType) -&gt; list[ComplexType]:
+    pass</code></pre>
+
+    <p><code>TYPE_CHECKING</code> is essential when you need to reference types that
+      would cause circular imports, performance issues, or dependency problems, while
+      still maintaining excellent static type checking support.
+    </p></div>
+
+  <div class="border-t pt-8 mt-12"><p class="text-sm text-neutral-500">Questions or feedback? Feel free to reach out!
+    </p></div>
+</article></main>
+
+<footer class="layout-md mt-20 text-lg flex flex-col"><div class="row svelte-1t3hv3r"><span class="svelte-1t3hv3r">Twitter</span>
+    <hr class="svelte-1t3hv3r">
+    <a class="link svelte-1t3hv3r" href="https://twitter.com/alexlinwang">@alexlinwang</a></div>
+  <div class="row svelte-1t3hv3r"><span class="svelte-1t3hv3r">GitHub</span>
+    <hr class="svelte-1t3hv3r">
+    <a class="link svelte-1t3hv3r" href="https://github.com/alexwang0317">@alexwang0317</a></div>
+  <div class="row svelte-1t3hv3r"><span class="svelte-1t3hv3r">Email</span>
+    <hr class="svelte-1t3hv3r">
+    <a class="link svelte-1t3hv3r" href="mailto:alexw17@stanford.edu">alexw17@stanford.edu</a></div>
+</footer>
+
+
+			
+			<script>
+				{
+					__sveltekit_hvj0fu = {
+						env: {},
+						base: new URL("../..", location).pathname.slice(0, -1),
+						element: document.currentScript.parentElement
+					};
+
+					const data = [null,null];
+
+					Promise.all([
+						import("../../_app/immutable/entry/start.9630768a.js"),
+						import("../../_app/immutable/entry/app.9057c32a.js")
+					]).then(([kit, app]) => {
+						kit.start(app, __sveltekit_hvj0fu.element, {
+							node_ids: [0, 18],
+							data,
+							form: null,
+							error: null
+						});
+					});
+				}
+			</script>
+		</div>
+  </body>
+</html>

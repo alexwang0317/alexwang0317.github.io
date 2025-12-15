@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/svg+xml" sizes="any" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta http-equiv="content-security-policy" content="">
+		<link href="../../_app/immutable/assets/_layout.8eeeba0e.css" rel="stylesheet">
+		<link href="../../_app/immutable/assets/_page.362d9e74.css" rel="stylesheet">
+		<link rel="modulepreload" href="../../_app/immutable/entry/start.9630768a.js">
+		<link rel="modulepreload" href="../../_app/immutable/chunks/index.dd6ea1d3.js">
+		<link rel="modulepreload" href="../../_app/immutable/chunks/singletons.299dd69a.js">
+		<link rel="modulepreload" href="../../_app/immutable/entry/app.9057c32a.js">
+		<link rel="modulepreload" href="../../_app/immutable/entry/_layout.svelte.57a0bf03.js">
+		<link rel="modulepreload" href="../../_app/immutable/chunks/index.e8561fff.js">
+		<link rel="modulepreload" href="../../_app/immutable/chunks/stores.1bbefd84.js">
+		<link rel="modulepreload" href="../../_app/immutable/entry/_layout.ts.b8f0fca0.js">
+		<link rel="modulepreload" href="../../_app/immutable/chunks/_layout.43150cb7.js">
+		<link rel="modulepreload" href="../../_app/immutable/entry/python-engineering-python-enum-magic-page.svelte.c57d30ec.js">
+		<link rel="modulepreload" href="../../_app/immutable/chunks/Seo.4277da45.js"><title>Enum Magic - Alex Wang</title><!-- HEAD_svelte-1xw0bo2_START --><script async src="https://www.googletagmanager.com/gtag/js?id=UA-156644599-1"></script>
+    <script>window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+      gtag("config", "UA-156644599-1");
+    </script><!-- HEAD_svelte-1xw0bo2_END --><!-- HEAD_svelte-1fbmuei_START --><meta name="description" content="Mastering Python's Enum, StrEnum, IntEnum, and Flags for type-safe constants"><meta property="og:title" content="Enum Magic - Alex Wang"><meta property="og:description" content="Mastering Python's Enum, StrEnum, IntEnum, and Flags for type-safe constants"><meta property="og:image" content="https://www.ekzhang.com/assets/images/hudson-landscape.jpg"><meta name="twitter:card" content="summary_large_image"><!-- HEAD_svelte-1fbmuei_END -->
+  </head>
+  <body>
+    <div>
+
+
+
+
+<header class="layout-md flex justify-between items-start" data-sveltekit-noscroll data-sveltekit-preload-code="eager"><h1 class="font-bold text-black text-2xl mb-6"><a href="/" class="flex flex-col"><span>Alex Lin Wang</span>
+      <span class="text-lg font-normal text-neutral-600">王帅</span></a>
+    </h1>
+  <nav class="svelte-bgdsr9"><a href="/python" class="hover:text-black transition-colors svelte-bgdsr9">python
+      </a><a href="/research" class="hover:text-black transition-colors svelte-bgdsr9">research
+      </a><a href="/writing" class="hover:text-black transition-colors svelte-bgdsr9">writing
+      </a><a href="/resume" class="hover:text-black transition-colors svelte-bgdsr9">resume
+      </a></nav>
+</header>
+
+<main>
+
+<article class="layout-md py-12 mx-auto max-w-3xl px-6 svelte-1l0sx6b"><div class="mb-8"><a href="/python" class="text-blue-600 hover:underline text-sm">← Back to Python</a></div>
+
+  <h1 class="text-3xl font-bold mb-4">Enum Magic</h1>
+
+  <div class="text-sm text-neutral-500 mb-8">September 3, 2025 • 8 min read
+  </div>
+
+  <div class="text-lg text-neutral-700 mb-8 leading-relaxed">Mastering Python&#39;s Enum, StrEnum, IntEnum, and Flags for type-safe constants
+    and better code organization.
+  </div>
+
+  <div class="prose prose-neutral max-w-none"><p>Imagine you are writing a function that takes in levels of log levels and
+      wants to do something such as printing or notifying specific individuals
+      based on the level. For the sake of simplicity, the levels are info,
+      warning, error:
+    </p>
+
+    <pre><code class="language-python">def log(level: str, message: str) -&gt; None:
+    ...</code></pre>
+
+    <p>If you use <code>str</code> as arguments, you are susceptible to
+      misspellings and potential unreal levels as someone might pass &quot;errror&quot; or
+      &quot;critical&quot;. To resolve this, you should use Enum, but preferably use
+      <code>StrEnum</code> (Python 3.11+) with something like this:
+    </p>
+
+    <pre><code class="language-python">from enum import StrEnum
+
+class LogLevel(StrEnum):
+    INFO = &quot;info&quot;
+    WARNING = &quot;warning&quot;
+    ERROR = &quot;error&quot;</code></pre>
+
+    <p>If, instead, you wanted to use integers to log different levels of
+      warnings you could use <code>IntEnum</code>. This is especially useful if
+      you wanted to do mathematical operations on these values, such as if you
+      wanted to sum the values of total ExitCode&#39;s generated.
+    </p>
+
+    <pre><code class="language-python">from enum import IntEnum
+
+class LogLevel(IntEnum):
+    INFO = 0
+    WARNING = 1
+    ERROR = 2
+    BIGERROR = 3
+
+def log(level: LogLevel, message: str) -&gt; None:
+    ...</code></pre>
+
+    <p>Or even better, you could use <code>auto()</code> for both
+      <code>StrEnum</code>
+      and <code>IntEnum</code>, this way you can guarantee uniqueness and adding
+      new values is easier. For <code>StrEnum</code>, it represents the value as
+      a lowercase of the real member name.
+    </p>
+
+    <pre><code class="language-python">from enum import StrEnum, auto
+
+class LogLevel(StrEnum):
+    INFO = auto()     # &quot;info&quot;
+    WARNING = auto()  # &quot;warning&quot;
+    ERROR = auto()    # &quot;error&quot;
+    SUCCESS = auto()  # &quot;success&quot;</code></pre>
+
+    <p>For <code>IntEnum</code>, it automatically creates order and generates
+      uniqueness so no need to hardcode, and also makes adding new items easier.
+    </p>
+
+    <pre><code class="language-python">from enum import IntEnum, auto
+
+class LogLevel(IntEnum):
+    INFO = auto()     # 1
+    WARNING = auto()  # 2
+    ERROR = auto()    # 3
+    SUCCESS = auto()  # 4</code></pre>
+
+    <p>Finally, you can also use <code>Flags</code> which are assigned bitwise
+      combinations of values (1, 2, 4, 8, 16). They are useful when you want to
+      represent multiple boolean options at once, and together. To combine these
+      use OR (<code>|</code>) and AND (<code>&amp;</code>) operators.
+    </p>
+
+    <pre><code class="language-python">from enum import Flag, auto
+
+class Permission(Flag):
+    READ = auto()     # 1
+    WRITE = auto()    # 2
+    EXECUTE = auto()  # 4
+
+# Give read and write perms to the user
+user_perms = Permission.READ | Permission.WRITE</code></pre>
+
+    <h2>Useful Decorators</h2>
+
+    <p>A useful decorator would be the <code>@unique</code>, which guarantees
+      that you don&#39;t have duplicate values.
+    </p>
+
+    <pre><code class="language-python">from enum import Enum, unique
+
+@unique
+class Status(Enum):
+    OK = 1
+    SUCCESS = 1   # ❌ ValueError: duplicate value 1</code></pre>
+
+    <p>Another potentially useful decorator for ENUMs is <code>@verify</code> which
+      helps you confirm that your values satisfy a certain set of conditions.
+    </p>
+
+    <pre><code class="language-python">from enum import Enum, verify, UNIQUE, CONTINUOUS
+
+@verify(UNIQUE, CONTINUOUS)
+class ErrorCode(Enum):
+    NOT_FOUND = 1
+    TIMEOUT = 2
+    UNKNOWN = 3   # ✅ values are unique + continuous (1, 2, 3)</code></pre></div>
+
+  <div class="border-t pt-8 mt-12"><p class="text-sm text-neutral-500">Questions or feedback? Feel free to reach out!
+    </p></div>
+</article></main>
+
+<footer class="layout-md mt-20 text-lg flex flex-col"><div class="row svelte-1t3hv3r"><span class="svelte-1t3hv3r">Twitter</span>
+    <hr class="svelte-1t3hv3r">
+    <a class="link svelte-1t3hv3r" href="https://twitter.com/alexlinwang">@alexlinwang</a></div>
+  <div class="row svelte-1t3hv3r"><span class="svelte-1t3hv3r">GitHub</span>
+    <hr class="svelte-1t3hv3r">
+    <a class="link svelte-1t3hv3r" href="https://github.com/alexwang0317">@alexwang0317</a></div>
+  <div class="row svelte-1t3hv3r"><span class="svelte-1t3hv3r">Email</span>
+    <hr class="svelte-1t3hv3r">
+    <a class="link svelte-1t3hv3r" href="mailto:alexw17@stanford.edu">alexw17@stanford.edu</a></div>
+</footer>
+
+
+			
+			<script>
+				{
+					__sveltekit_hvj0fu = {
+						env: {},
+						base: new URL("../..", location).pathname.slice(0, -1),
+						element: document.currentScript.parentElement
+					};
+
+					const data = [null,null];
+
+					Promise.all([
+						import("../../_app/immutable/entry/start.9630768a.js"),
+						import("../../_app/immutable/entry/app.9057c32a.js")
+					]).then(([kit, app]) => {
+						kit.start(app, __sveltekit_hvj0fu.element, {
+							node_ids: [0, 9],
+							data,
+							form: null,
+							error: null
+						});
+					});
+				}
+			</script>
+		</div>
+  </body>
+</html>

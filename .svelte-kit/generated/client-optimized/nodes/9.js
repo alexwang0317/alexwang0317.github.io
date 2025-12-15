@@ -1,0 +1,1 @@
+export { default as component } from "../../../../src/routes/python/engineering/python-enum-magic/+page.svelte";

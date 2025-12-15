@@ -49,7 +49,7 @@
     company="Stealth"
     url="#"
     dates="Oct 2025 - Present"
-    location="Mountain View, CA / Kyiv, Ukraine"
+    location="Mountain View, CA"
   >
     <li>Building RL drone swarms.</li>
   </Workplace>

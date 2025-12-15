@@ -1,0 +1,75 @@
+{
+	"/": [
+		"src/routes/+layout.ts",
+		"src/routes/+layout.ts"
+	],
+	"/projects": [
+		"src/routes/+layout.ts"
+	],
+	"/python": [
+		"src/routes/+layout.ts"
+	],
+	"/python/engineering/python-abc": [
+		"src/routes/+layout.ts"
+	],
+	"/python/engineering/python-all-dunder": [
+		"src/routes/+layout.ts"
+	],
+	"/python/engineering/python-bool-dunder": [
+		"src/routes/+layout.ts"
+	],
+	"/python/engineering/python-circular-imports-abc": [
+		"src/routes/+layout.ts"
+	],
+	"/python/engineering/python-enum-magic": [
+		"src/routes/+layout.ts"
+	],
+	"/python/engineering/python-functools-partial": [
+		"src/routes/+layout.ts"
+	],
+	"/python/engineering/python-lazy-logging": [
+		"src/routes/+layout.ts"
+	],
+	"/python/engineering/python-notimplemented": [
+		"src/routes/+layout.ts"
+	],
+	"/python/engineering/python-override-decorator": [
+		"src/routes/+layout.ts"
+	],
+	"/python/engineering/python-patch-stack": [
+		"src/routes/+layout.ts"
+	],
+	"/python/engineering/python-post-init": [
+		"src/routes/+layout.ts"
+	],
+	"/python/engineering/python-self-typing": [
+		"src/routes/+layout.ts"
+	],
+	"/python/engineering/python-slots-dunder": [
+		"src/routes/+layout.ts"
+	],
+	"/python/engineering/python-type-checking": [
+		"src/routes/+layout.ts"
+	],
+	"/python/engineering/python-typeddict": [
+		"src/routes/+layout.ts"
+	],
+	"/python/engineering/python-typeguard": [
+		"src/routes/+layout.ts"
+	],
+	"/python/engineering/python-typevar-contravariance": [
+		"src/routes/+layout.ts"
+	],
+	"/python/performative/python-profiling": [
+		"src/routes/+layout.ts"
+	],
+	"/research": [
+		"src/routes/+layout.ts"
+	],
+	"/resume": [
+		"src/routes/+layout.ts"
+	],
+	"/writing": [
+		"src/routes/+layout.ts"
+	]
+}
