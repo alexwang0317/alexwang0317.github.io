@@ -5,10 +5,7 @@
   import performativeData from "./performative/performative.yaml";
 </script>
 
-<Seo
-  title="Alex Wang – Research"
-  description="Research and other projects"
-/>
+<Seo title="Alex Wang – Research" description="Research and other projects" />
 
 <section class="layout-md py-12">
   <h2 class="heading2">Blog</h2>

@@ -30,7 +30,8 @@
       Right now, I'm working on multi-agent RL for drone tactics and <a
         class="link"
         href="https://docs.google.com/presentation/d/1wkIOn2mpStnb5rJKQ5vth29V6C3bCFghzAJfED4W_fU/edit?usp=sharing"
-        >BoundBench</a>, advised by Chris Potts and Zhengxuan Wu.
+        >BoundBench</a
+      >, advised by Chris Potts and Zhengxuan Wu.
     </p>
   </div>
 
