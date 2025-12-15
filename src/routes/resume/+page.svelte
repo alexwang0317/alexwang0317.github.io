@@ -51,7 +51,7 @@
     dates="Oct 2025 - Present"
     location="Mountain View, CA"
   >
-    <li>Building RL drone swarms.</li>
+    <li>Working on stealth projects.</li>
   </Workplace>
 
   <Workplace

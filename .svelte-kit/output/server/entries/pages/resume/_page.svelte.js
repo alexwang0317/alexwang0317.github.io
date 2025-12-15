@@ -80,7 +80,7 @@ const Page = create_ssr_component(($$result, $$props, $$bindings, slots) => {
     {},
     {
       default: () => {
-        return `<li>Building RL drone swarms.</li>`;
+        return `<li>Working on stealth projects.</li>`;
       }
     }
   )}
