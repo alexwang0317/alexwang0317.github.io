@@ -1,4 +1,12 @@
-import { c as create_ssr_component, i as compute_rest_props, j as spread, k as escape_object, l as escape_attribute_value, d as each, o as is_void } from "./index.js";
+import {
+  c as create_ssr_component,
+  i as compute_rest_props,
+  j as spread,
+  k as escape_object,
+  l as escape_attribute_value,
+  d as each,
+  o as is_void,
+} from "./index.js";
 const defaultAttributes = {
   xmlns: "http://www.w3.org/2000/svg",
   width: 24,
@@ -8,10 +16,16 @@ const defaultAttributes = {
   stroke: "currentColor",
   "stroke-width": 2,
   "stroke-linecap": "round",
-  "stroke-linejoin": "round"
+  "stroke-linejoin": "round",
 };
 const Icon = create_ssr_component(($$result, $$props, $$bindings, slots) => {
-  let $$restProps = compute_rest_props($$props, ["name", "color", "size", "strokeWidth", "iconNode"]);
+  let $$restProps = compute_rest_props($$props, [
+    "name",
+    "color",
+    "size",
+    "strokeWidth",
+    "iconNode",
+  ]);
   let { name } = $$props;
   let { color = "currentColor" } = $$props;
   let { size = 24 } = $$props;
@@ -23,7 +37,11 @@ const Icon = create_ssr_component(($$result, $$props, $$bindings, slots) => {
     $$bindings.color(color);
   if ($$props.size === void 0 && $$bindings.size && size !== void 0)
     $$bindings.size(size);
-  if ($$props.strokeWidth === void 0 && $$bindings.strokeWidth && strokeWidth !== void 0)
+  if (
+    $$props.strokeWidth === void 0 &&
+    $$bindings.strokeWidth &&
+    strokeWidth !== void 0
+  )
     $$bindings.strokeWidth(strokeWidth);
   if ($$props.iconNode === void 0 && $$bindings.iconNode && iconNode !== void 0)
     $$bindings.iconNode(iconNode);
@@ -35,19 +53,23 @@ const Icon = create_ssr_component(($$result, $$props, $$bindings, slots) => {
       { height: escape_attribute_value(size) },
       { stroke: escape_attribute_value(color) },
       {
-        "stroke-width": escape_attribute_value(strokeWidth)
+        "stroke-width": escape_attribute_value(strokeWidth),
       },
       {
-        class: escape_attribute_value(`lucide-icon lucide lucide-${name} ${$$props.class ?? ""}`)
-      }
+        class: escape_attribute_value(
+          `lucide-icon lucide lucide-${name} ${$$props.class ?? ""}`
+        ),
+      },
     ],
     {}
   )}>${each(iconNode, ([tag, attrs]) => {
     return `${((tag$1) => {
-      return tag$1 ? `<${tag}${spread([escape_object(attrs)], {})}>${is_void(tag$1) ? "" : ``}${is_void(tag$1) ? "" : `</${tag$1}>`}` : "";
+      return tag$1
+        ? `<${tag}${spread([escape_object(attrs)], {})}>${
+            is_void(tag$1) ? "" : ``
+          }${is_void(tag$1) ? "" : `</${tag$1}>`}`
+        : "";
     })(tag)}`;
   })}${slots.default ? slots.default({}) : ``}</svg>`;
 });
-export {
-  Icon as I
-};
+export { Icon as I };

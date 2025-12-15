@@ -1,9 +1,12 @@
-import { c as create_ssr_component, v as validate_component } from "../../chunks/index.js";
+import {
+  c as create_ssr_component,
+  v as validate_component,
+} from "../../chunks/index.js";
 import { S as Seo } from "../../chunks/Seo.js";
 const _page_svelte_svelte_type_style_lang = "";
 const css = {
   code: ".g.svelte-1n9hxmc{--tw-text-opacity:1;color:rgb(163 163 163 / var(--tw-text-opacity))\n}@media(max-width: 420px){#eric-is.svelte-1n9hxmc{margin-top:-2.5rem\n    }}",
-  map: null
+  map: null,
 };
 const Page = create_ssr_component(($$result, $$props, $$bindings, slots) => {
   $$result.css.add(css);
@@ -11,7 +14,7 @@ const Page = create_ssr_component(($$result, $$props, $$bindings, slots) => {
     $$result,
     {
       title: "Alex Wang",
-      description: "Student, engineer, and researcher. "
+      description: "Student, engineer, and researcher. ",
     },
     {},
     {}
@@ -57,6 +60,4 @@ const Page = create_ssr_component(($$result, $$props, $$bindings, slots) => {
   </div>
 </div>`;
 });
-export {
-  Page as default
-};
+export { Page as default };

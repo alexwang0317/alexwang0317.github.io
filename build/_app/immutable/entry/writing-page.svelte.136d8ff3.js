@@ -1,6 +1,417 @@
-import{S as O,i as P,s as U,R as L,y as V,z as B,A as W,T as Q,U as X,g as k,d as y,B as F,V as G,K as Z,L as ee,M as te,N as ae,k as _,l as $,m as v,h,n as d,b as R,v as se,f as ne,$ as re,q as N,a as x,r as T,c as E,C as m,u as H,F as le}from"../chunks/index.dd6ea1d3.js";import{S as ie}from"../chunks/Seo.4277da45.js";import{I as oe}from"../chunks/Icon.cf70abba.js";import{f as K}from"../chunks/utils.7d7f714d.js";function ce(c){let e;const r=c[2].default,a=Z(r,c,c[3],null);return{c(){a&&a.c()},l(t){a&&a.l(t)},m(t,n){a&&a.m(t,n),e=!0},p(t,n){a&&a.p&&(!e||n&8)&&ee(a,r,t,t[3],e?ae(r,t[3],n,null):te(t[3]),null)},i(t){e||(k(a,t),e=!0)},o(t){y(a,t),e=!1},d(t){a&&a.d(t)}}}function ue(c){let e,r;const a=[{name:"arrow-up-right"},c[1],{iconNode:c[0]}];let t={$$slots:{default:[ce]},$$scope:{ctx:c}};for(let n=0;n<a.length;n+=1)t=L(t,a[n]);return e=new oe({props:t}),{c(){V(e.$$.fragment)},l(n){B(e.$$.fragment,n)},m(n,s){W(e,n,s),r=!0},p(n,[s]){const l=s&3?Q(a,[a[0],s&2&&X(n[1]),s&1&&{iconNode:n[0]}]):{};s&8&&(l.$$scope={dirty:s,ctx:n}),e.$set(l)},i(n){r||(k(e.$$.fragment,n),r=!0)},o(n){y(e.$$.fragment,n),r=!1},d(n){F(e,n)}}}function fe(c,e,r){let{$$slots:a={},$$scope:t}=e;const n=[["line",{x1:"7",y1:"17",x2:"17",y2:"7"}],["polyline",{points:"7 7 17 7 17 17"}]];return c.$$set=s=>{r(1,e=L(L({},e),G(s))),"$$scope"in s&&r(3,t=s.$$scope)},e=G(e),[n,e,a,t]}class me extends O{constructor(e){super(),P(this,e,fe,ue,U,{})}}const ge=me;function M(c,e,r){const a=c.slice();return a[1]=e[r],a}function J(c){let e,r,a,t=c[1].title+"",n,s,l,i,o,u=K("%B %-d, %Y",c[1].date)+"",w,q,b,D=c[1].summary+"",A,z,I,p;return l=new ge({props:{size:18,class:"inline text-neutral-400"}}),{c(){e=_("a"),r=_("div"),a=_("div"),n=N(t),s=x(),V(l.$$.fragment),i=x(),o=_("div"),w=N(u),q=x(),b=_("div"),A=N(D),z=x(),this.h()},l(f){e=$(f,"A",{href:!0,class:!0,target:!0,rel:!0});var g=v(e);r=$(g,"DIV",{class:!0});var C=v(r);a=$(C,"DIV",{class:!0});var S=v(a);n=T(S,t),s=E(S),B(l.$$.fragment,S),S.forEach(h),i=E(C),o=$(C,"DIV",{class:!0});var Y=v(o);w=T(Y,u),Y.forEach(h),C.forEach(h),q=E(g),b=$(g,"DIV",{class:!0});var j=v(b);A=T(j,D),j.forEach(h),z=E(g),g.forEach(h),this.h()},h(){d(a,"class","text-lg text-black"),d(o,"class","sm:ml-auto mb-0.5 text-neutral-500"),d(r,"class","flex flex-col sm:flex-row sm:items-end mb-1.5"),d(b,"class","text-lg leading-snug font-serif italic"),d(e,"href",I=c[1].link),d(e,"class","block -mx-3 px-3 py-2 hover:bg-neutral-100 transition-colors"),d(e,"target","_blank"),d(e,"rel","noreferrer")},m(f,g){R(f,e,g),m(e,r),m(r,a),m(a,n),m(a,s),W(l,a,null),m(r,i),m(r,o),m(o,w),m(e,q),m(e,b),m(b,A),m(e,z),p=!0},p(f,g){(!p||g&1)&&t!==(t=f[1].title+"")&&H(n,t),(!p||g&1)&&u!==(u=K("%B %-d, %Y",f[1].date)+"")&&H(w,u),(!p||g&1)&&D!==(D=f[1].summary+"")&&H(A,D),(!p||g&1&&I!==(I=f[1].link))&&d(e,"href",I)},i(f){p||(k(l.$$.fragment,f),p=!0)},o(f){y(l.$$.fragment,f),p=!1},d(f){f&&h(e),F(l)}}}function de(c){let e,r,a=c[0],t=[];for(let s=0;s<a.length;s+=1)t[s]=J(M(c,a,s));const n=s=>y(t[s],1,1,()=>{t[s]=null});return{c(){e=_("div");for(let s=0;s<t.length;s+=1)t[s].c();this.h()},l(s){e=$(s,"DIV",{class:!0});var l=v(e);for(let i=0;i<t.length;i+=1)t[i].l(l);l.forEach(h),this.h()},h(){d(e,"class","grid gap-y-4")},m(s,l){R(s,e,l);for(let i=0;i<t.length;i+=1)t[i]&&t[i].m(e,null);r=!0},p(s,[l]){if(l&1){a=s[0];let i;for(i=0;i<a.length;i+=1){const o=M(s,a,i);t[i]?(t[i].p(o,l),k(t[i],1)):(t[i]=J(o),t[i].c(),k(t[i],1),t[i].m(e,null))}for(se(),i=a.length;i<t.length;i+=1)n(i);ne()}},i(s){if(!r){for(let l=0;l<a.length;l+=1)k(t[l]);r=!0}},o(s){t=t.filter(Boolean);for(let l=0;l<t.length;l+=1)y(t[l]);r=!1},d(s){s&&h(e),re(t,s)}}}function he(c,e,r){let{data:a}=e;return c.$$set=t=>{"data"in t&&r(0,a=t.data)},[a]}class pe extends O{constructor(e){super(),P(this,e,he,de,U,{data:0})}}var _e={essays:[{title:"Stop Asking, Be Courageous",date:new Date(17579808e5),summary:`Growing into the person you want to be.
-`,link:"https://open.substack.com/pub/alexwang0317/p/stop-asking-be-courageous?r=2httt3&utm_campaign=post&utm_medium=web&showWelcomeOnShare=false"},{title:"Treatise on Complaining",date:new Date(17559072e5),summary:`How complaining is a sign of unresolved issues and prevents us from seeing progress.
-`,link:"https://alexwang0317.substack.com/p/treatise-on-complaining?r=2httt3"},{title:"Clarity & Committing",date:new Date(1755648e6),summary:`A guide on decision-making and the importance of clarity and commitment.
-`,link:"https://alexwang0317.substack.com/p/clarity-and-committing?r=2httt3"},{title:"Fantastic Risks and Where to Find Them",date:new Date(17540928e5),summary:`Exploring risk-taking, agency, and navigating uncertainty in life and career.
-`,link:"https://alexwang0317.substack.com/p/fantastic-risks-and-where-to-find?r=2httt3"},{title:"Pick Curiosity, Not Acceptance",date:new Date(17534016e5),summary:`The importance of curiosity over acceptance in learning and growth.
-`,link:"https://alexwang0317.substack.com/p/pick-curiosity-not-acceptance?r=2httt3"}]};function $e(c){let e,r,a,t,n,s,l,i;return e=new ie({props:{title:"Alex Wang – Writing",description:"Essays on life, software engineering, and AI "}}),l=new pe({props:{data:_e.essays}}),{c(){V(e.$$.fragment),r=x(),a=_("section"),t=_("h2"),n=N("Essays"),s=x(),V(l.$$.fragment),this.h()},l(o){B(e.$$.fragment,o),r=E(o),a=$(o,"SECTION",{class:!0});var u=v(a);t=$(u,"H2",{class:!0});var w=v(t);n=T(w,"Essays"),w.forEach(h),s=E(u),B(l.$$.fragment,u),u.forEach(h),this.h()},h(){d(t,"class","heading2"),d(a,"class","layout-md py-12")},m(o,u){W(e,o,u),R(o,r,u),R(o,a,u),m(a,t),m(t,n),m(a,s),W(l,a,null),i=!0},p:le,i(o){i||(k(e.$$.fragment,o),k(l.$$.fragment,o),i=!0)},o(o){y(e.$$.fragment,o),y(l.$$.fragment,o),i=!1},d(o){F(e,o),o&&h(r),o&&h(a),F(l)}}}class be extends O{constructor(e){super(),P(this,e,null,$e,U,{})}}export{be as default};
+import {
+  S as O,
+  i as P,
+  s as U,
+  R as L,
+  y as V,
+  z as B,
+  A as W,
+  T as Q,
+  U as X,
+  g as k,
+  d as y,
+  B as F,
+  V as G,
+  K as Z,
+  L as ee,
+  M as te,
+  N as ae,
+  k as _,
+  l as $,
+  m as v,
+  h,
+  n as d,
+  b as R,
+  v as se,
+  f as ne,
+  $ as re,
+  q as N,
+  a as x,
+  r as T,
+  c as E,
+  C as m,
+  u as H,
+  F as le,
+} from "../chunks/index.dd6ea1d3.js";
+import { S as ie } from "../chunks/Seo.4277da45.js";
+import { I as oe } from "../chunks/Icon.cf70abba.js";
+import { f as K } from "../chunks/utils.7d7f714d.js";
+function ce(c) {
+  let e;
+  const r = c[2].default,
+    a = Z(r, c, c[3], null);
+  return {
+    c() {
+      a && a.c();
+    },
+    l(t) {
+      a && a.l(t);
+    },
+    m(t, n) {
+      a && a.m(t, n), (e = !0);
+    },
+    p(t, n) {
+      a &&
+        a.p &&
+        (!e || n & 8) &&
+        ee(a, r, t, t[3], e ? ae(r, t[3], n, null) : te(t[3]), null);
+    },
+    i(t) {
+      e || (k(a, t), (e = !0));
+    },
+    o(t) {
+      y(a, t), (e = !1);
+    },
+    d(t) {
+      a && a.d(t);
+    },
+  };
+}
+function ue(c) {
+  let e, r;
+  const a = [{ name: "arrow-up-right" }, c[1], { iconNode: c[0] }];
+  let t = { $$slots: { default: [ce] }, $$scope: { ctx: c } };
+  for (let n = 0; n < a.length; n += 1) t = L(t, a[n]);
+  return (
+    (e = new oe({ props: t })),
+    {
+      c() {
+        V(e.$$.fragment);
+      },
+      l(n) {
+        B(e.$$.fragment, n);
+      },
+      m(n, s) {
+        W(e, n, s), (r = !0);
+      },
+      p(n, [s]) {
+        const l =
+          s & 3
+            ? Q(a, [a[0], s & 2 && X(n[1]), s & 1 && { iconNode: n[0] }])
+            : {};
+        s & 8 && (l.$$scope = { dirty: s, ctx: n }), e.$set(l);
+      },
+      i(n) {
+        r || (k(e.$$.fragment, n), (r = !0));
+      },
+      o(n) {
+        y(e.$$.fragment, n), (r = !1);
+      },
+      d(n) {
+        F(e, n);
+      },
+    }
+  );
+}
+function fe(c, e, r) {
+  let { $$slots: a = {}, $$scope: t } = e;
+  const n = [
+    ["line", { x1: "7", y1: "17", x2: "17", y2: "7" }],
+    ["polyline", { points: "7 7 17 7 17 17" }],
+  ];
+  return (
+    (c.$$set = (s) => {
+      r(1, (e = L(L({}, e), G(s)))), "$$scope" in s && r(3, (t = s.$$scope));
+    }),
+    (e = G(e)),
+    [n, e, a, t]
+  );
+}
+class me extends O {
+  constructor(e) {
+    super(), P(this, e, fe, ue, U, {});
+  }
+}
+const ge = me;
+function M(c, e, r) {
+  const a = c.slice();
+  return (a[1] = e[r]), a;
+}
+function J(c) {
+  let e,
+    r,
+    a,
+    t = c[1].title + "",
+    n,
+    s,
+    l,
+    i,
+    o,
+    u = K("%B %-d, %Y", c[1].date) + "",
+    w,
+    q,
+    b,
+    D = c[1].summary + "",
+    A,
+    z,
+    I,
+    p;
+  return (
+    (l = new ge({ props: { size: 18, class: "inline text-neutral-400" } })),
+    {
+      c() {
+        (e = _("a")),
+          (r = _("div")),
+          (a = _("div")),
+          (n = N(t)),
+          (s = x()),
+          V(l.$$.fragment),
+          (i = x()),
+          (o = _("div")),
+          (w = N(u)),
+          (q = x()),
+          (b = _("div")),
+          (A = N(D)),
+          (z = x()),
+          this.h();
+      },
+      l(f) {
+        e = $(f, "A", { href: !0, class: !0, target: !0, rel: !0 });
+        var g = v(e);
+        r = $(g, "DIV", { class: !0 });
+        var C = v(r);
+        a = $(C, "DIV", { class: !0 });
+        var S = v(a);
+        (n = T(S, t)),
+          (s = E(S)),
+          B(l.$$.fragment, S),
+          S.forEach(h),
+          (i = E(C)),
+          (o = $(C, "DIV", { class: !0 }));
+        var Y = v(o);
+        (w = T(Y, u)),
+          Y.forEach(h),
+          C.forEach(h),
+          (q = E(g)),
+          (b = $(g, "DIV", { class: !0 }));
+        var j = v(b);
+        (A = T(j, D)), j.forEach(h), (z = E(g)), g.forEach(h), this.h();
+      },
+      h() {
+        d(a, "class", "text-lg text-black"),
+          d(o, "class", "sm:ml-auto mb-0.5 text-neutral-500"),
+          d(r, "class", "flex flex-col sm:flex-row sm:items-end mb-1.5"),
+          d(b, "class", "text-lg leading-snug font-serif italic"),
+          d(e, "href", (I = c[1].link)),
+          d(
+            e,
+            "class",
+            "block -mx-3 px-3 py-2 hover:bg-neutral-100 transition-colors"
+          ),
+          d(e, "target", "_blank"),
+          d(e, "rel", "noreferrer");
+      },
+      m(f, g) {
+        R(f, e, g),
+          m(e, r),
+          m(r, a),
+          m(a, n),
+          m(a, s),
+          W(l, a, null),
+          m(r, i),
+          m(r, o),
+          m(o, w),
+          m(e, q),
+          m(e, b),
+          m(b, A),
+          m(e, z),
+          (p = !0);
+      },
+      p(f, g) {
+        (!p || g & 1) && t !== (t = f[1].title + "") && H(n, t),
+          (!p || g & 1) &&
+            u !== (u = K("%B %-d, %Y", f[1].date) + "") &&
+            H(w, u),
+          (!p || g & 1) && D !== (D = f[1].summary + "") && H(A, D),
+          (!p || (g & 1 && I !== (I = f[1].link))) && d(e, "href", I);
+      },
+      i(f) {
+        p || (k(l.$$.fragment, f), (p = !0));
+      },
+      o(f) {
+        y(l.$$.fragment, f), (p = !1);
+      },
+      d(f) {
+        f && h(e), F(l);
+      },
+    }
+  );
+}
+function de(c) {
+  let e,
+    r,
+    a = c[0],
+    t = [];
+  for (let s = 0; s < a.length; s += 1) t[s] = J(M(c, a, s));
+  const n = (s) =>
+    y(t[s], 1, 1, () => {
+      t[s] = null;
+    });
+  return {
+    c() {
+      e = _("div");
+      for (let s = 0; s < t.length; s += 1) t[s].c();
+      this.h();
+    },
+    l(s) {
+      e = $(s, "DIV", { class: !0 });
+      var l = v(e);
+      for (let i = 0; i < t.length; i += 1) t[i].l(l);
+      l.forEach(h), this.h();
+    },
+    h() {
+      d(e, "class", "grid gap-y-4");
+    },
+    m(s, l) {
+      R(s, e, l);
+      for (let i = 0; i < t.length; i += 1) t[i] && t[i].m(e, null);
+      r = !0;
+    },
+    p(s, [l]) {
+      if (l & 1) {
+        a = s[0];
+        let i;
+        for (i = 0; i < a.length; i += 1) {
+          const o = M(s, a, i);
+          t[i]
+            ? (t[i].p(o, l), k(t[i], 1))
+            : ((t[i] = J(o)), t[i].c(), k(t[i], 1), t[i].m(e, null));
+        }
+        for (se(), i = a.length; i < t.length; i += 1) n(i);
+        ne();
+      }
+    },
+    i(s) {
+      if (!r) {
+        for (let l = 0; l < a.length; l += 1) k(t[l]);
+        r = !0;
+      }
+    },
+    o(s) {
+      t = t.filter(Boolean);
+      for (let l = 0; l < t.length; l += 1) y(t[l]);
+      r = !1;
+    },
+    d(s) {
+      s && h(e), re(t, s);
+    },
+  };
+}
+function he(c, e, r) {
+  let { data: a } = e;
+  return (
+    (c.$$set = (t) => {
+      "data" in t && r(0, (a = t.data));
+    }),
+    [a]
+  );
+}
+class pe extends O {
+  constructor(e) {
+    super(), P(this, e, he, de, U, { data: 0 });
+  }
+}
+var _e = {
+  essays: [
+    {
+      title: "Stop Asking, Be Courageous",
+      date: new Date(17579808e5),
+      summary: `Growing into the person you want to be.
+`,
+      link: "https://open.substack.com/pub/alexwang0317/p/stop-asking-be-courageous?r=2httt3&utm_campaign=post&utm_medium=web&showWelcomeOnShare=false",
+    },
+    {
+      title: "Treatise on Complaining",
+      date: new Date(17559072e5),
+      summary: `How complaining is a sign of unresolved issues and prevents us from seeing progress.
+`,
+      link: "https://alexwang0317.substack.com/p/treatise-on-complaining?r=2httt3",
+    },
+    {
+      title: "Clarity & Committing",
+      date: new Date(1755648e6),
+      summary: `A guide on decision-making and the importance of clarity and commitment.
+`,
+      link: "https://alexwang0317.substack.com/p/clarity-and-committing?r=2httt3",
+    },
+    {
+      title: "Fantastic Risks and Where to Find Them",
+      date: new Date(17540928e5),
+      summary: `Exploring risk-taking, agency, and navigating uncertainty in life and career.
+`,
+      link: "https://alexwang0317.substack.com/p/fantastic-risks-and-where-to-find?r=2httt3",
+    },
+    {
+      title: "Pick Curiosity, Not Acceptance",
+      date: new Date(17534016e5),
+      summary: `The importance of curiosity over acceptance in learning and growth.
+`,
+      link: "https://alexwang0317.substack.com/p/pick-curiosity-not-acceptance?r=2httt3",
+    },
+  ],
+};
+function $e(c) {
+  let e, r, a, t, n, s, l, i;
+  return (
+    (e = new ie({
+      props: {
+        title: "Alex Wang – Writing",
+        description: "Essays on life, software engineering, and AI ",
+      },
+    })),
+    (l = new pe({ props: { data: _e.essays } })),
+    {
+      c() {
+        V(e.$$.fragment),
+          (r = x()),
+          (a = _("section")),
+          (t = _("h2")),
+          (n = N("Essays")),
+          (s = x()),
+          V(l.$$.fragment),
+          this.h();
+      },
+      l(o) {
+        B(e.$$.fragment, o), (r = E(o)), (a = $(o, "SECTION", { class: !0 }));
+        var u = v(a);
+        t = $(u, "H2", { class: !0 });
+        var w = v(t);
+        (n = T(w, "Essays")),
+          w.forEach(h),
+          (s = E(u)),
+          B(l.$$.fragment, u),
+          u.forEach(h),
+          this.h();
+      },
+      h() {
+        d(t, "class", "heading2"), d(a, "class", "layout-md py-12");
+      },
+      m(o, u) {
+        W(e, o, u),
+          R(o, r, u),
+          R(o, a, u),
+          m(a, t),
+          m(t, n),
+          m(a, s),
+          W(l, a, null),
+          (i = !0);
+      },
+      p: le,
+      i(o) {
+        i || (k(e.$$.fragment, o), k(l.$$.fragment, o), (i = !0));
+      },
+      o(o) {
+        y(e.$$.fragment, o), y(l.$$.fragment, o), (i = !1);
+      },
+      d(o) {
+        F(e, o), o && h(r), o && h(a), F(l);
+      },
+    }
+  );
+}
+class be extends O {
+  constructor(e) {
+    super(), P(this, e, null, $e, U, {});
+  }
+}
+export { be as default };

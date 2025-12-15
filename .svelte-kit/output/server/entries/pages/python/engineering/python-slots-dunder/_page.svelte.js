@@ -1,9 +1,13 @@
-import { c as create_ssr_component, v as validate_component, e as escape } from "../../../../../chunks/index.js";
+import {
+  c as create_ssr_component,
+  v as validate_component,
+  e as escape,
+} from "../../../../../chunks/index.js";
 import { S as Seo } from "../../../../../chunks/Seo.js";
 const _page_svelte_svelte_type_style_lang = "";
 const css = {
   code: 'article.svelte-sqxh6e.svelte-sqxh6e{width:100%;max-width:48rem;margin-left:auto;margin-right:auto}.prose{line-height:1.7}.prose p{margin:1.25rem 0;color:#374151}.prose h2{font-size:1.5rem;font-weight:600;margin:2rem 0 1rem 0;color:#1f2937}.prose ul{margin:1rem 0;padding-left:1.5rem}.prose li{margin:0.5rem 0;color:#374151}pre{background-color:#2d2d2d !important;padding:1.25rem !important;border-radius:0.5rem !important;overflow-x:auto !important;margin:1.5rem 0 !important;max-width:100%;border:1px solid #374151;box-shadow:0 4px 6px -1px rgba(0, 0, 0, 0.1)}pre code{background:none !important;padding:0 !important;font-size:0.875rem !important;line-height:1.6 !important;font-family:"SF Mono", "Monaco", "Inconsolata", "Roboto Mono", "Consolas",\n      monospace;color:#e5e7eb}code:not(pre code){background-color:#f3f4f6;padding:0.125rem 0.375rem;border-radius:0.25rem;font-size:0.875em;color:#1f2937;font-family:"SF Mono", "Monaco", "Inconsolata", "Roboto Mono", "Consolas",\n      monospace;border:1px solid #e5e7eb}.token.keyword{color:#c792ea !important}.token.string{color:#c3e88d !important}.token.function{color:#82aaff !important}.token.class-name{color:#ffcb6b !important}.token.comment{color:#546e7a !important;font-style:italic}.token.decorator{color:#f78c6c !important}.token.number{color:#f78c6c !important}.table-container.svelte-sqxh6e.svelte-sqxh6e{margin:1.5rem 0;overflow-x:auto;display:flex;justify-content:center}.table-container.svelte-sqxh6e table.svelte-sqxh6e{border-collapse:collapse;background-color:white;box-shadow:0 1px 3px 0 rgba(0, 0, 0, 0.1);border-radius:0.5rem;overflow:hidden;min-width:400px}.table-container.svelte-sqxh6e th.svelte-sqxh6e{background-color:#f3f4f6;padding:0.75rem 1.25rem;text-align:center;font-weight:600;color:#1f2937;border-bottom:1px solid #e5e7eb}.table-container.svelte-sqxh6e td.svelte-sqxh6e{padding:0.75rem 1.25rem;text-align:center;color:#374151;border-bottom:1px solid #f3f4f6}.table-container.svelte-sqxh6e tr:last-child td.svelte-sqxh6e{border-bottom:none}.table-container.svelte-sqxh6e tr:hover td.svelte-sqxh6e{background-color:#f9fafb}@media(max-width: 768px){article.svelte-sqxh6e.svelte-sqxh6e{padding-left:1.5rem;padding-right:1.5rem}.table-container.svelte-sqxh6e table.svelte-sqxh6e{min-width:100%;font-size:0.875rem}.table-container.svelte-sqxh6e th.svelte-sqxh6e,.table-container.svelte-sqxh6e td.svelte-sqxh6e{padding:0.5rem 0.75rem}}',
-  map: null
+  map: null,
 };
 const Page = create_ssr_component(($$result, $$props, $$bindings, slots) => {
   $$result.css.add(css);
@@ -11,7 +15,7 @@ const Page = create_ssr_component(($$result, $$props, $$bindings, slots) => {
     $$result,
     {
       title: "__slots__ - Alex Wang",
-      description: "__slots__ for compact and faster object storage"
+      description: "__slots__ for compact and faster object storage",
     },
     {},
     {}
@@ -44,7 +48,11 @@ const Page = create_ssr_component(($$result, $$props, $$bindings, slots) => {
         self.z = z
 
 point1 = Point3D(1, 2, 3)
-point1.__dict__     # This would be ${escape("{")}\\&quot;x\\&quot;: 1, \\&quot;y\\&quot;: 2, \\&quot;z\\&quot;: 3${escape("}")}</code></pre>
+point1.__dict__     # This would be ${escape(
+    "{"
+  )}\\&quot;x\\&quot;: 1, \\&quot;y\\&quot;: 2, \\&quot;z\\&quot;: 3${escape(
+    "}"
+  )}</code></pre>
 
     <p>You may think it would be better to accomplish this with the <code>@dataclass</code>
       decorator, but the underlying implementation of a <code>@dataclass</code>
@@ -169,6 +177,4 @@ class SlottedPoint3D:
     </p></div>
 </article>`;
 });
-export {
-  Page as default
-};
+export { Page as default };

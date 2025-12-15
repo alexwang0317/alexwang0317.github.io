@@ -1,35 +1,64 @@
-import { c as create_ssr_component, e as escape, f as add_attribute, v as validate_component } from "../../../chunks/index.js";
+import {
+  c as create_ssr_component,
+  e as escape,
+  f as add_attribute,
+  v as validate_component,
+} from "../../../chunks/index.js";
 import { S as Seo } from "../../../chunks/Seo.js";
-const Workplace = create_ssr_component(($$result, $$props, $$bindings, slots) => {
-  let { title } = $$props;
-  let { company } = $$props;
-  let { url } = $$props;
-  let { dates } = $$props;
-  let { location } = $$props;
-  let { defaultHidden = false } = $$props;
-  let hidden = defaultHidden;
-  if ($$props.title === void 0 && $$bindings.title && title !== void 0)
-    $$bindings.title(title);
-  if ($$props.company === void 0 && $$bindings.company && company !== void 0)
-    $$bindings.company(company);
-  if ($$props.url === void 0 && $$bindings.url && url !== void 0)
-    $$bindings.url(url);
-  if ($$props.dates === void 0 && $$bindings.dates && dates !== void 0)
-    $$bindings.dates(dates);
-  if ($$props.location === void 0 && $$bindings.location && location !== void 0)
-    $$bindings.location(location);
-  if ($$props.defaultHidden === void 0 && $$bindings.defaultHidden && defaultHidden !== void 0)
-    $$bindings.defaultHidden(defaultHidden);
-  return `<div class="${["mb-8", hidden ? "cursor-pointer" : ""].join(" ").trim()}"><h3 class="text-black text-lg leading-tight mb-1">${escape(title)} at <a class="link"${add_attribute("href", url, 0)}>${escape(company)}</a></h3>
-  <p class="font-light mb-2"><span class="whitespace-nowrap">${escape(dates)}</span>
+const Workplace = create_ssr_component(
+  ($$result, $$props, $$bindings, slots) => {
+    let { title } = $$props;
+    let { company } = $$props;
+    let { url } = $$props;
+    let { dates } = $$props;
+    let { location } = $$props;
+    let { defaultHidden = false } = $$props;
+    let hidden = defaultHidden;
+    if ($$props.title === void 0 && $$bindings.title && title !== void 0)
+      $$bindings.title(title);
+    if ($$props.company === void 0 && $$bindings.company && company !== void 0)
+      $$bindings.company(company);
+    if ($$props.url === void 0 && $$bindings.url && url !== void 0)
+      $$bindings.url(url);
+    if ($$props.dates === void 0 && $$bindings.dates && dates !== void 0)
+      $$bindings.dates(dates);
+    if (
+      $$props.location === void 0 &&
+      $$bindings.location &&
+      location !== void 0
+    )
+      $$bindings.location(location);
+    if (
+      $$props.defaultHidden === void 0 &&
+      $$bindings.defaultHidden &&
+      defaultHidden !== void 0
+    )
+      $$bindings.defaultHidden(defaultHidden);
+    return `<div class="${["mb-8", hidden ? "cursor-pointer" : ""]
+      .join(" ")
+      .trim()}"><h3 class="text-black text-lg leading-tight mb-1">${escape(
+      title
+    )} at <a class="link"${add_attribute("href", url, 0)}>${escape(
+      company
+    )}</a></h3>
+  <p class="font-light mb-2"><span class="whitespace-nowrap">${escape(
+    dates
+  )}</span>
     <span class="px-0.5 text-neutral-500">•</span>
     <span class="whitespace-nowrap">${escape(location)}</span></p>
-  ${!hidden ? `<ul class="list-disc pl-7 marker:text-neutral-400">${slots.default ? slots.default({}) : ``}</ul>` : ``}</div>`;
-});
+  ${
+    !hidden
+      ? `<ul class="list-disc pl-7 marker:text-neutral-400">${
+          slots.default ? slots.default({}) : ``
+        }</ul>`
+      : ``
+  }</div>`;
+  }
+);
 const _page_svelte_svelte_type_style_lang = "";
 const css = {
   code: 'ul.svelte-pyfzm9.svelte-pyfzm9{list-style-type:disc;padding-left:1.75rem\n}ul.svelte-pyfzm9 .svelte-pyfzm9::marker{color:rgb(163 163 163 )\n}ul.svelte-pyfzm9.svelte-pyfzm9::marker{color:rgb(163 163 163 )\n}.byline.svelte-pyfzm9.svelte-pyfzm9{font-family:Newsreader, ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;font-style:italic\n}',
-  map: null
+  map: null,
 };
 const Page = create_ssr_component(($$result, $$props, $$bindings, slots) => {
   $$result.css.add(css);
@@ -37,7 +66,8 @@ const Page = create_ssr_component(($$result, $$props, $$bindings, slots) => {
     $$result,
     {
       title: "Alex Wang – Resume",
-      description: "Software engineer, researcher, and writer. Building meaningful systems and interfaces for people."
+      description:
+        "Software engineer, researcher, and writer. Building meaningful systems and interfaces for people.",
     },
     {},
     {}
@@ -75,13 +105,13 @@ const Page = create_ssr_component(($$result, $$props, $$bindings, slots) => {
       company: "Stealth",
       url: "#",
       dates: "Oct 2025 - Present",
-      location: "Mountain View, CA"
+      location: "Mountain View, CA",
     },
     {},
     {
       default: () => {
         return `<li>Working on stealth projects.</li>`;
-      }
+      },
     }
   )}
 
@@ -92,7 +122,7 @@ const Page = create_ssr_component(($$result, $$props, $$bindings, slots) => {
       company: "Stanford NLP",
       url: "https://nlp.stanford.edu/",
       dates: "Sep 2025 - Present",
-      location: "Stanford, CA"
+      location: "Stanford, CA",
     },
     {},
     {
@@ -108,7 +138,7 @@ const Page = create_ssr_component(($$result, $$props, $$bindings, slots) => {
       propensities and linking scores to downstream tasks.
     </li>
     <li>Reference: <a class="link" href="https://docs.google.com/presentation/d/1wkIOn2mpStnb5rJKQ5vth29V6C3bCFghzAJfED4W_fU/edit?usp=sharing">BoundBench Presentation</a></li>`;
-      }
+      },
     }
   )}
 
@@ -119,7 +149,7 @@ const Page = create_ssr_component(($$result, $$props, $$bindings, slots) => {
       company: "Meta",
       url: "https://www.meta.com/about/",
       dates: "June 2025 - Sep. 2025",
-      location: "Menlo Park, CA"
+      location: "Menlo Park, CA",
     },
     {},
     {
@@ -144,7 +174,7 @@ const Page = create_ssr_component(($$result, $$props, $$bindings, slots) => {
       risk insights to downstream systems—demonstrating experience with systematic,
       data-driven approaches to complex problem-solving.
     </li>`;
-      }
+      },
     }
   )}
 
@@ -157,7 +187,7 @@ const Page = create_ssr_component(($$result, $$props, $$bindings, slots) => {
       company: "Biostate AI",
       url: "https://biostate.ai/",
       dates: "Nov. 2024 - Mar. 2025",
-      location: "Palo Alto, CA"
+      location: "Palo Alto, CA",
     },
     {},
     {
@@ -177,7 +207,7 @@ const Page = create_ssr_component(($$result, $$props, $$bindings, slots) => {
       streamlining research workflows while maintaining
       <strong>95% expert-rated accuracy</strong>.
     </li>`;
-      }
+      },
     }
   )}
 
@@ -188,7 +218,7 @@ const Page = create_ssr_component(($$result, $$props, $$bindings, slots) => {
       company: "Stanford Autonomous Systems Laboratory (ASL)",
       url: "https://stanfordasl.github.io/",
       dates: "Aug. 2024 - Mar. 2025",
-      location: "Stanford, CA"
+      location: "Stanford, CA",
     },
     {},
     {
@@ -208,7 +238,7 @@ const Page = create_ssr_component(($$result, $$props, $$bindings, slots) => {
       in an indoor environment as part of a 3-person team. Project demo can be found
       <a class="link" href="https://drive.google.com/file/d/1m0dRVO0GV9PgKm-927A8Gy3j7V91pHiY/view?usp=drive_link">here</a>.
     </li>`;
-      }
+      },
     }
   )}
 
@@ -219,7 +249,7 @@ const Page = create_ssr_component(($$result, $$props, $$bindings, slots) => {
       company: "Air Force Research Laboratory (AFRL)",
       url: "https://www.afrl.af.mil/",
       dates: "June 2023 - Sep. 2023",
-      location: "Dayton, Ohio"
+      location: "Dayton, Ohio",
     },
     {},
     {
@@ -236,11 +266,9 @@ const Page = create_ssr_component(($$result, $$props, $$bindings, slots) => {
       detection accuracy by 15%. Read more
       <a class="link" href="https://drive.google.com/file/d/1AZjvm8SI971qRs-mBoepW8WOB5WXQsqy/view?usp=sharing">here</a>.
     </li>`;
-      }
+      },
     }
   )}
 </section>`;
 });
-export {
-  Page as default
-};
+export { Page as default };

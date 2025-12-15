@@ -1,4 +1,7 @@
-import { c as create_ssr_component, v as validate_component } from "../../../chunks/index.js";
+import {
+  c as create_ssr_component,
+  v as validate_component,
+} from "../../../chunks/index.js";
 import { S as Seo } from "../../../chunks/Seo.js";
 import "../../../chunks/utils.js";
 const Page = create_ssr_component(($$result, $$props, $$bindings, slots) => {
@@ -6,7 +9,7 @@ const Page = create_ssr_component(($$result, $$props, $$bindings, slots) => {
     $$result,
     {
       title: "Alex Wang – Research",
-      description: "Research and other projects"
+      description: "Research and other projects",
     },
     {},
     {}
@@ -20,6 +23,4 @@ const Page = create_ssr_component(($$result, $$props, $$bindings, slots) => {
   <div class="border-b border-neutral-300 mb-6"></div>
   <p class="text-neutral-600">Coming soon</p></section>`;
 });
-export {
-  Page as default
-};
+export { Page as default };
