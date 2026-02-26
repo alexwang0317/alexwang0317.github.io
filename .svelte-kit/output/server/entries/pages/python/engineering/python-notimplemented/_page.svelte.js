@@ -1,12 +1,9 @@
-import {
-  c as create_ssr_component,
-  v as validate_component,
-} from "../../../../../chunks/index.js";
+import { c as create_ssr_component, v as validate_component } from "../../../../../chunks/index.js";
 import { S as Seo } from "../../../../../chunks/Seo.js";
 const _page_svelte_svelte_type_style_lang = "";
 const css = {
   code: 'article.svelte-gmo5k4{width:100%;max-width:48rem;margin-left:auto;margin-right:auto}.prose{line-height:1.7}.prose p{margin:1.25rem 0;color:#374151}.prose ul{margin:1rem 0;padding-left:1.5rem}.prose li{margin:0.5rem 0;color:#374151}.prose ol{margin:1rem 0;padding-left:1.5rem}pre{background-color:#2d2d2d !important;padding:1.25rem !important;border-radius:0.5rem !important;overflow-x:auto !important;margin:1.5rem 0 !important;max-width:100%;border:1px solid #374151;box-shadow:0 4px 6px -1px rgba(0, 0, 0, 0.1)}pre code{background:none !important;padding:0 !important;font-size:0.875rem !important;line-height:1.6 !important;font-family:"SF Mono", "Monaco", "Inconsolata", "Roboto Mono", "Consolas",\n      monospace;color:#e5e7eb}code:not(pre code){background-color:#f3f4f6;padding:0.125rem 0.375rem;border-radius:0.25rem;font-size:0.875em;color:#1f2937;font-family:"SF Mono", "Monaco", "Inconsolata", "Roboto Mono", "Consolas",\n      monospace;border:1px solid #e5e7eb}.token.keyword{color:#c792ea !important}.token.string{color:#c3e88d !important}.token.function{color:#82aaff !important}.token.class-name{color:#ffcb6b !important}.token.comment{color:#546e7a !important;font-style:italic}.token.decorator{color:#f78c6c !important}.token.number{color:#f78c6c !important}@media(max-width: 768px){article.svelte-gmo5k4{padding-left:1.5rem;padding-right:1.5rem}}',
-  map: null,
+  map: null
 };
 const Page = create_ssr_component(($$result, $$props, $$bindings, slots) => {
   $$result.css.add(css);
@@ -14,8 +11,7 @@ const Page = create_ssr_component(($$result, $$props, $$bindings, slots) => {
     $$result,
     {
       title: "NotImplemented - Python Engineering Notes",
-      description:
-        "Use NotImplemented constant for binary operations and method delegation",
+      description: "Use NotImplemented constant for binary operations and method delegation"
     },
     {},
     {}
@@ -149,4 +145,6 @@ print(A() == B())  # True (via B.__eq__)</code></pre>
     </p></div>
 </article>`;
 });
-export { Page as default };
+export {
+  Page as default
+};

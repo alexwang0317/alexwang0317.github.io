@@ -4,155 +4,60 @@
     <meta charset="utf-8" />
     <link rel="icon" type="image/svg+xml" sizes="any" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta http-equiv="content-security-policy" content="" />
-    <link
-      href="../../_app/immutable/assets/_layout.8eeeba0e.css"
-      rel="stylesheet"
-    />
-    <link
-      href="../../_app/immutable/assets/_page.387bae70.css"
-      rel="stylesheet"
-    />
-    <link
-      rel="modulepreload"
-      href="../../_app/immutable/entry/start.70ee5a34.js"
-    />
-    <link
-      rel="modulepreload"
-      href="../../_app/immutable/chunks/index.dd6ea1d3.js"
-    />
-    <link
-      rel="modulepreload"
-      href="../../_app/immutable/chunks/singletons.68df1df8.js"
-    />
-    <link
-      rel="modulepreload"
-      href="../../_app/immutable/entry/app.d5fc43c0.js"
-    />
-    <link
-      rel="modulepreload"
-      href="../../_app/immutable/entry/_layout.svelte.c520da97.js"
-    />
-    <link
-      rel="modulepreload"
-      href="../../_app/immutable/chunks/index.e8561fff.js"
-    />
-    <link
-      rel="modulepreload"
-      href="../../_app/immutable/chunks/stores.b61a428f.js"
-    />
-    <link
-      rel="modulepreload"
-      href="../../_app/immutable/entry/_layout.ts.b8f0fca0.js"
-    />
-    <link
-      rel="modulepreload"
-      href="../../_app/immutable/chunks/_layout.43150cb7.js"
-    />
-    <link
-      rel="modulepreload"
-      href="../../_app/immutable/entry/python-engineering-python-post-init-page.svelte.7bf15c76.js"
-    />
-    <link
-      rel="modulepreload"
-      href="../../_app/immutable/chunks/Seo.4277da45.js"
-    />
-    <title>__post_init__ - Python Engineering Notes</title>
-    <!-- HEAD_svelte-1xw0bo2_START -->
-    <script
-      async
-      src="https://www.googletagmanager.com/gtag/js?id=UA-156644599-1"
-    ></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
+    <meta http-equiv="content-security-policy" content="">
+		<link href="../../_app/immutable/assets/_layout.69d4a302.css" rel="stylesheet">
+		<link href="../../_app/immutable/assets/_page.387bae70.css" rel="stylesheet">
+		<link rel="modulepreload" href="../../_app/immutable/entry/start.3c1b3742.js">
+		<link rel="modulepreload" href="../../_app/immutable/chunks/index.dd6ea1d3.js">
+		<link rel="modulepreload" href="../../_app/immutable/chunks/singletons.1039955b.js">
+		<link rel="modulepreload" href="../../_app/immutable/entry/app.adef0d4e.js">
+		<link rel="modulepreload" href="../../_app/immutable/entry/_layout.svelte.caea62a2.js">
+		<link rel="modulepreload" href="../../_app/immutable/chunks/index.e8561fff.js">
+		<link rel="modulepreload" href="../../_app/immutable/chunks/stores.d2b85e5e.js">
+		<link rel="modulepreload" href="../../_app/immutable/entry/_layout.ts.b8f0fca0.js">
+		<link rel="modulepreload" href="../../_app/immutable/chunks/_layout.43150cb7.js">
+		<link rel="modulepreload" href="../../_app/immutable/entry/python-engineering-python-post-init-page.svelte.7bf15c76.js">
+		<link rel="modulepreload" href="../../_app/immutable/chunks/Seo.4277da45.js"><title>__post_init__ - Python Engineering Notes</title><!-- HEAD_svelte-1xw0bo2_START --><script async src="https://www.googletagmanager.com/gtag/js?id=UA-156644599-1"></script>
+    <script>window.dataLayer = window.dataLayer || [];
       function gtag() {
         dataLayer.push(arguments);
       }
       gtag("js", new Date());
       gtag("config", "UA-156644599-1");
-    </script>
-    <!-- HEAD_svelte-1xw0bo2_END -->
-    <!-- HEAD_svelte-1fbmuei_START -->
-    <meta
-      name="description"
-      content="Validate dataclass fields at instantiation time using __post_init__ for better encapsulation"
-    />
-    <meta
-      property="og:title"
-      content="__post_init__ - Python Engineering Notes"
-    />
-    <meta
-      property="og:description"
-      content="Validate dataclass fields at instantiation time using __post_init__ for better encapsulation"
-    />
-    <meta
-      property="og:image"
-      content="https://www.ekzhang.com/assets/images/hudson-landscape.jpg"
-    />
-    <meta name="twitter:card" content="summary_large_image" />
-    <!-- HEAD_svelte-1fbmuei_END -->
+    </script><!-- HEAD_svelte-1xw0bo2_END --><!-- HEAD_svelte-1fbmuei_START --><meta name="description" content="Validate dataclass fields at instantiation time using __post_init__ for better encapsulation"><meta property="og:title" content="__post_init__ - Python Engineering Notes"><meta property="og:description" content="Validate dataclass fields at instantiation time using __post_init__ for better encapsulation"><meta property="og:image" content="https://www.ekzhang.com/assets/images/hudson-landscape.jpg"><meta name="twitter:card" content="summary_large_image"><!-- HEAD_svelte-1fbmuei_END -->
   </head>
   <body>
     <div>
-      <header
-        class="layout-md flex justify-between items-start"
-        data-sveltekit-noscroll
-        data-sveltekit-preload-code="eager"
-      >
-        <h1 class="font-bold text-black text-2xl mb-6">
-          <a href="/" class="flex flex-col"
-            ><span>Alex Lin Wang</span>
-            <span class="text-lg font-normal text-neutral-600">王帅</span></a
-          >
-        </h1>
-        <nav class="svelte-bgdsr9">
-          <a
-            href="/python"
-            class="hover:text-black transition-colors svelte-bgdsr9"
-            >python </a
-          ><a
-            href="/research"
-            class="hover:text-black transition-colors svelte-bgdsr9"
-            >research </a
-          ><a
-            href="/writing"
-            class="hover:text-black transition-colors svelte-bgdsr9"
-            >writing </a
-          ><a
-            href="/resume"
-            class="hover:text-black transition-colors svelte-bgdsr9"
-            >resume
-          </a>
-        </nav>
-      </header>
 
-      <main>
-        <article class="layout-md py-12 mx-auto max-w-3xl px-6 svelte-8bcc0v">
-          <div class="mb-8">
-            <a href="/python" class="text-blue-600 hover:underline text-sm"
-              >← Back to Python</a
-            >
-          </div>
 
-          <h1 class="text-3xl font-bold mb-4">__post_init__</h1>
 
-          <div class="text-lg text-neutral-700 mb-8 leading-relaxed">
-            Validate dataclass fields at instantiation time using
-            <code>__post_init__</code> for better encapsulation and data
-            integrity. Learn how to enforce business rules right when objects
-            are created.
-          </div>
 
-          <div class="prose prose-neutral max-w-none">
-            <p>
-              Let&#39;s say you&#39;re building a time-based system and you want
-              to create an <code>Event</code> class. However, you want to ensure
-              that the event is only valid if the end time comes after the start
-              time, and you want this validation to happen at instantiation time
-              for proper encapsulation.
-            </p>
+<header class="layout-md flex justify-between items-start" data-sveltekit-noscroll data-sveltekit-preload-code="eager"><h1 class="font-bold text-black text-2xl mb-6"><a href="/" class="flex flex-col"><span>Alex Lin Wang</span>
+      <span class="text-lg font-normal text-neutral-600">王帅</span></a>
+    </h1>
+  <nav class="svelte-bgdsr9"><a href="/python" class="hover:text-black transition-colors svelte-bgdsr9">python
+      </a><a href="/research" class="hover:text-black transition-colors svelte-bgdsr9">research
+      </a><a href="/writing" class="hover:text-black transition-colors svelte-bgdsr9">writing
+      </a><a href="/resume" class="hover:text-black transition-colors svelte-bgdsr9">resume
+      </a></nav>
+</header>
 
-            <pre><code class="language-python">from datetime import datetime
+<main>
+
+<article class="layout-md py-12 mx-auto max-w-3xl px-6 svelte-8bcc0v"><div class="mb-8"><a href="/python" class="text-blue-600 hover:underline text-sm">← Back to Python</a></div>
+
+  <h1 class="text-3xl font-bold mb-4">__post_init__</h1>
+
+  <div class="text-lg text-neutral-700 mb-8 leading-relaxed">Validate dataclass fields at instantiation time using <code>__post_init__</code> for better encapsulation and data integrity. Learn how to enforce business
+    rules right when objects are created.
+  </div>
+
+  <div class="prose prose-neutral max-w-none"><p>Let&#39;s say you&#39;re building a time-based system and you want to create an <code>Event</code> class. However, you want to ensure that the event is only valid if the end
+      time comes after the start time, and you want this validation to happen at
+      instantiation time for proper encapsulation.
+    </p>
+
+    <pre><code class="language-python">from datetime import datetime
 from dataclasses import dataclass
 
 @dataclass
@@ -170,21 +75,19 @@ event = Event(
 
 print(&quot;Event duration:&quot;, event.end_time - event.start_time)  # Negative duration!</code></pre>
 
-            <p>
-              The issue above is that we can create logically invalid objects.
-              The event ends before it starts, which doesn&#39;t make sense in
-              our domain. We need to validate our data at creation time to
-              maintain data integrity and prevent bugs downstream.
-            </p>
+    <p>The issue above is that we can create logically invalid objects. The event
+      ends before it starts, which doesn&#39;t make sense in our domain. We need to
+      validate our data at creation time to maintain data integrity and prevent
+      bugs downstream.
+    </p>
 
-            <p>
-              The <code>__post_init__</code> method is called automatically
-              after the dataclass <code>__init__</code>
-              method completes. This is the perfect place to add validation
-              logic that depends on multiple fields.
-            </p>
+    <p>The <code>__post_init__</code> method is called automatically after the
+      dataclass <code>__init__</code>
+      method completes. This is the perfect place to add validation logic that depends
+      on multiple fields.
+    </p>
 
-            <pre><code class="language-python">from datetime import datetime
+    <pre><code class="language-python">from datetime import datetime
 from dataclasses import dataclass
 
 @dataclass
@@ -207,12 +110,11 @@ try:
 except ValueError as e:
     print(&quot;Validation error:&quot;, e)  # Caught the invalid event!</code></pre>
 
-            <p>
-              <code>__post_init__</code> is also useful for computing derived
-              fields based on the input data:
-            </p>
+    <p><code>__post_init__</code> is also useful for computing derived fields based
+      on the input data:
+    </p>
 
-            <pre><code class="language-python">from dataclasses import dataclass, field
+    <pre><code class="language-python">from dataclasses import dataclass, field
 from datetime import datetime, timedelta
 
 @dataclass
@@ -243,76 +145,56 @@ event = Event(
 print(f&quot;Event &#39;{event.name}&#39; lasts&quot;, event.duration)
 print(&quot;All-day event:&quot;, event.is_all_day)</code></pre>
 
-            <p>
-              <code>__post_init__</code> provides immediate validation, clean
-              encapsulation, and automatic execution. Use it when you need to
-              validate relationships between multiple fields, perform data
-              normalization, compute derived fields, or enforce business rules
-              at object creation time.
-            </p>
+    <p><code>__post_init__</code> provides immediate validation, clean encapsulation,
+      and automatic execution. Use it when you need to validate relationships between
+      multiple fields, perform data normalization, compute derived fields, or enforce
+      business rules at object creation time.
+    </p>
 
-            <p>
-              <code>__post_init__</code> ensures your objects are always in a
-              valid state from the moment they&#39;re created, leading to more
-              robust and maintainable code.
-            </p>
-          </div>
+    <p><code>__post_init__</code> ensures your objects are always in a valid state
+      from the moment they&#39;re created, leading to more robust and maintainable code.
+    </p></div>
 
-          <div class="border-t pt-8 mt-12">
-            <p class="text-sm text-neutral-500">
-              Questions or feedback? Feel free to reach out!
-            </p>
-          </div>
-        </article>
-      </main>
+  <div class="border-t pt-8 mt-12"><p class="text-sm text-neutral-500">Questions or feedback? Feel free to reach out!
+    </p></div>
+</article></main>
 
-      <footer class="layout-md mt-20 text-lg flex flex-col">
-        <div class="row svelte-1t3hv3r">
-          <span class="svelte-1t3hv3r">Twitter</span>
-          <hr class="svelte-1t3hv3r" />
-          <a class="link svelte-1t3hv3r" href="https://twitter.com/alexlinwang"
-            >@alexlinwang</a
-          >
-        </div>
-        <div class="row svelte-1t3hv3r">
-          <span class="svelte-1t3hv3r">GitHub</span>
-          <hr class="svelte-1t3hv3r" />
-          <a class="link svelte-1t3hv3r" href="https://github.com/alexwang0317"
-            >@alexwang0317</a
-          >
-        </div>
-        <div class="row svelte-1t3hv3r">
-          <span class="svelte-1t3hv3r">Email</span>
-          <hr class="svelte-1t3hv3r" />
-          <a class="link svelte-1t3hv3r" href="mailto:alexw17@stanford.edu"
-            >alexw17@stanford.edu</a
-          >
-        </div>
-      </footer>
+<footer class="layout-md mt-20 text-lg flex flex-col"><div class="row svelte-1t3hv3r"><span class="svelte-1t3hv3r">Twitter</span>
+    <hr class="svelte-1t3hv3r">
+    <a class="link svelte-1t3hv3r" href="https://twitter.com/alexlinwang">@alexlinwang</a></div>
+  <div class="row svelte-1t3hv3r"><span class="svelte-1t3hv3r">GitHub</span>
+    <hr class="svelte-1t3hv3r">
+    <a class="link svelte-1t3hv3r" href="https://github.com/alexwang0317">@alexwang0317</a></div>
+  <div class="row svelte-1t3hv3r"><span class="svelte-1t3hv3r">Email</span>
+    <hr class="svelte-1t3hv3r">
+    <a class="link svelte-1t3hv3r" href="mailto:alexw17@stanford.edu">alexw17@stanford.edu</a></div>
+</footer>
 
-      <script>
-        {
-          __sveltekit_1vfr3u8 = {
-            env: {},
-            base: new URL("../..", location).pathname.slice(0, -1),
-            element: document.currentScript.parentElement,
-          };
 
-          const data = [null, null];
+			
+			<script>
+				{
+					__sveltekit_18nw9dd = {
+						env: {},
+						base: new URL("../..", location).pathname.slice(0, -1),
+						element: document.currentScript.parentElement
+					};
 
-          Promise.all([
-            import("../../_app/immutable/entry/start.70ee5a34.js"),
-            import("../../_app/immutable/entry/app.d5fc43c0.js"),
-          ]).then(([kit, app]) => {
-            kit.start(app, __sveltekit_1vfr3u8.element, {
-              node_ids: [0, 15],
-              data,
-              form: null,
-              error: null,
-            });
-          });
-        }
-      </script>
-    </div>
+					const data = [null,null];
+
+					Promise.all([
+						import("../../_app/immutable/entry/start.3c1b3742.js"),
+						import("../../_app/immutable/entry/app.adef0d4e.js")
+					]).then(([kit, app]) => {
+						kit.start(app, __sveltekit_18nw9dd.element, {
+							node_ids: [0, 15],
+							data,
+							form: null,
+							error: null
+						});
+					});
+				}
+			</script>
+		</div>
   </body>
 </html>

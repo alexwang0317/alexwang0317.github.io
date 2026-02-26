@@ -1,13 +1,9 @@
-import {
-  c as create_ssr_component,
-  v as validate_component,
-  e as escape,
-} from "../../../../../chunks/index.js";
+import { c as create_ssr_component, v as validate_component, e as escape } from "../../../../../chunks/index.js";
 import { S as Seo } from "../../../../../chunks/Seo.js";
 const _page_svelte_svelte_type_style_lang = "";
 const css = {
   code: 'article.svelte-1tg8pcv{width:100%;max-width:48rem;margin-left:auto;margin-right:auto}.prose{line-height:1.7}.prose p{margin:1.25rem 0;color:#374151}.prose h2{font-size:1.5rem;font-weight:600;margin:2rem 0 1rem 0;color:#1f2937}.prose ul{margin:1rem 0;padding-left:1.5rem}.prose li{margin:0.5rem 0;color:#374151}pre:not(.terminal){background-color:#2d2d2d !important;padding:1.25rem !important;border-radius:0.5rem !important;overflow-x:auto !important;margin:1.5rem 0 !important;max-width:100%;border:1px solid #374151;box-shadow:0 4px 6px -1px rgba(0, 0, 0, 0.1)}pre:not(.terminal) code{background:none !important;padding:0 !important;font-size:0.875rem !important;line-height:1.6 !important;font-family:"SF Mono", "Monaco", "Inconsolata", "Roboto Mono", "Consolas",\n      monospace;color:#e5e7eb}pre.terminal{background-color:#1a1a1a !important;padding:1.25rem !important;border-radius:0.5rem !important;overflow-x:auto !important;margin:1.5rem 0 !important;max-width:100%;border:1px solid #4a5568;box-shadow:0 4px 6px -1px rgba(0, 0, 0, 0.2)}pre.terminal code{background:none !important;padding:0 !important;font-size:0.8rem !important;line-height:1.4 !important;font-family:"SF Mono", "Monaco", "Inconsolata", "Roboto Mono", "Consolas",\n      monospace;color:#10b981;white-space:pre}code:not(pre code){background-color:#f3f4f6;padding:0.125rem 0.375rem;border-radius:0.25rem;font-size:0.875em;color:#1f2937;font-family:"SF Mono", "Monaco", "Inconsolata", "Roboto Mono", "Consolas",\n      monospace;border:1px solid #e5e7eb}.token.keyword{color:#c792ea !important}.token.string{color:#c3e88d !important}.token.function{color:#82aaff !important}.token.class-name{color:#ffcb6b !important}.token.comment{color:#546e7a !important;font-style:italic}.token.decorator{color:#f78c6c !important}.token.number{color:#f78c6c !important}@media(max-width: 768px){article.svelte-1tg8pcv{padding-left:1.5rem;padding-right:1.5rem}pre.terminal code{font-size:0.7rem !important}}',
-  map: null,
+  map: null
 };
 const Page = create_ssr_component(($$result, $$props, $$bindings, slots) => {
   $$result.css.add(css);
@@ -15,8 +11,7 @@ const Page = create_ssr_component(($$result, $$props, $$bindings, slots) => {
     $$result,
     {
       title: "Python Profiling - Alex Wang",
-      description:
-        "Master Python profiling techniques to optimize performance and avoid premature optimization",
+      description: "Master Python profiling techniques to optimize performance and avoid premature optimization"
     },
     {},
     {}
@@ -81,9 +76,7 @@ const Page = create_ssr_component(($$result, $$props, $$bindings, slots) => {
     <pre><code class="language-python">t1 = time.time()
 result = fn(*args, **kwargs)
 t2 = time.time()
-print(f&quot;Function took ${escape("{")}t2-t1${escape(
-    "}"
-  )} seconds&quot;)</code></pre>
+print(f&quot;Function took ${escape("{")}t2-t1${escape("}")} seconds&quot;)</code></pre>
 
     <p>A better way of doing this is to define some type of decorator in order to
       automate our timing measurements.
@@ -97,9 +90,7 @@ def timePrintFn(fn):
         start = time.time()
         result = fn(*args, **kwargs)
         end = time.time()
-        print(f&quot;${escape("{")}fn.__name__${escape("}")} took ${escape(
-    "{"
-  )}end-start:.4f${escape("}")} seconds&quot;)
+        print(f&quot;${escape("{")}fn.__name__${escape("}")} took ${escape("{")}end-start:.4f${escape("}")} seconds&quot;)
         return result
     return wrapper</code></pre>
 
@@ -193,9 +184,7 @@ Sample from result matrix (top-left 3x3):
    Ordered by: cumulative time
 
    ncalls  tottime  percall  cumtime  percall filename:lineno(function)
-      3/1    0.000    0.000  123.457  123.457 ${escape(
-        "{"
-      )}built-in method builtins.exec${escape("}")}
+      3/1    0.000    0.000  123.457  123.457 ${escape("{")}built-in method builtins.exec${escape("}")}
         1    0.007    0.007  123.457  123.457 matmul.py:1(<module>)
         1    0.000    0.000  123.444  123.444 matmul.py:55(main)
         1  121.197  121.197  121.224  121.224 matmul.py:26(multiply_matrices_pure_python)
@@ -204,17 +193,9 @@ Sample from result matrix (top-left 3x3):
   2000000    0.302    0.000    1.961    0.000 random.py:358(randint)
   2000000    0.806    0.000    1.659    0.000 random.py:284(randrange)
   2000000    0.513    0.000    0.673    0.000 random.py:235(_randbelow_with_getrandbits)
-  6000000    0.180    0.000    0.180    0.000 ${escape(
-    "{"
-  )}built-in method _operator.index${escape("}")}
-  2534239    0.094    0.000    0.094    0.000 ${escape(
-    "{"
-  )}method &#39;getrandbits&#39; of &#39;_random.Random&#39; objects${escape(
-    "}"
-  )}
-  2000000    0.066    0.000    0.066    0.000 ${escape(
-    "{"
-  )}method &#39;bit_length&#39; of &#39;int&#39; objects${escape("}")}
+  6000000    0.180    0.000    0.180    0.000 ${escape("{")}built-in method _operator.index${escape("}")}
+  2534239    0.094    0.000    0.094    0.000 ${escape("{")}method &#39;getrandbits&#39; of &#39;_random.Random&#39; objects${escape("}")}
+  2000000    0.066    0.000    0.066    0.000 ${escape("{")}method &#39;bit_length&#39; of &#39;int&#39; objects${escape("}")}
         1    0.001    0.001    0.027    0.027 matmul.py:41(<listcomp>)
       6/1    0.000    0.000    0.005    0.005 <frozen importlib._bootstrap>:1167(_find_and_load)
       6/1    0.000    0.000    0.005    0.005 <frozen importlib._bootstrap>:1122(_find_and_load_unlocked)</frozen></frozen></listcomp></listcomp></module></code></pre>
@@ -479,4 +460,6 @@ Line #      Hits         Time  Per Hit   % Time  Line Contents
     </p></div>
 </article>`;
 });
-export { Page as default };
+export {
+  Page as default
+};
