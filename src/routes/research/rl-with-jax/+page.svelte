@@ -3,8 +3,8 @@
 </script>
 
 <Seo
-  title="RL with Jax - Alex Wang"
-  description="Resources and advice for reinforcement learning written in Jax"
+  title="RL with JAX - Alex Wang"
+  description="Resources and advice for reinforcement learning written in JAX"
 />
 
 <article class="layout-md py-12 mx-auto max-w-3xl px-6">
@@ -14,13 +14,13 @@
     >
   </div>
 
-  <h1 class="text-3xl font-bold mb-4">RL with Jax</h1>
+  <h1 class="text-3xl font-bold mb-4">RL with JAX</h1>
 
   <div class="text-sm text-neutral-500 mb-8">February 26, 2026</div>
 
   <div class="prose prose-neutral max-w-none">
     <p>
-      Recently I've been working on RL written in Jax and
+      Recently I've been working on RL written in JAX and
       <code>jax.lax.scan</code> for speedups in different policy gradient
       architectures. Thought it may be useful to share this list of super useful
       resources.
@@ -135,14 +135,14 @@
         <a
           href="https://github.com/luchris429/purejaxrl"
           target="_blank"
-          rel="noreferrer">RL implementations in Jax (PureJaxRL)</a
+          rel="noreferrer">RL implementations in JAX (PureJaxRL)</a
         >
       </li>
       <li>
         <a
           href="https://github.com/FLAIROx/JaxMARL"
           target="_blank"
-          rel="noreferrer">MARL implementations in Jax (JaxMARL)</a
+          rel="noreferrer">MARL implementations in JAX (JaxMARL)</a
         >
       </li>
       <li>

@@ -1,7 +1,7 @@
 posts:
-  - title: "RL with Jax"
+  - title: "RL with JAX"
     date: 2026-02-26
     summary: >
-      Resources and advice for reinforcement learning written in Jax, including
-      policy gradient architectures and Jax.lax.scan speedups.
+      Resources and advice for reinforcement learning written in JAX, including
+      policy gradient architectures and jax.lax.scan speedups.
     link: "/research/rl-with-jax"
